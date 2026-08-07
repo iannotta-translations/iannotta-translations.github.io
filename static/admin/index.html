@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Editor Visuale In-Live — Alessia Iannotta Portfolio</title>
+  <title>Editor Grafico Visuale Full-Live — Alessia Iannotta Portfolio</title>
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -12,8 +12,7 @@
       theme: {
         extend: {
           colors: {
-            primary: '#1e3a8a',
-            primaryHover: '#1d4ed8',
+            primary: 'var(--color-primary, #1e3a8a)',
             darkmodeBg: '#0f172a',
             darkmodeCard: '#1e293b'
           }
@@ -22,16 +21,22 @@
     }
   </script>
   <style>
-    /* Visual Editor Editable Outlines */
+    :root {
+      --color-primary: #1e3a8a;
+      --color-body: #ffffff;
+      --color-border: #e2e8f0;
+      --color-light: #f8fafc;
+    }
+
     .editable-section {
       position: relative;
       border: 2px dashed transparent;
       transition: all 0.2s ease;
-      border-radius: 1rem;
+      border-radius: 1.25rem;
     }
     .edit-mode .editable-section:hover {
-      border-color: #3b82f6;
-      background: rgba(59, 130, 246, 0.02);
+      border-color: var(--color-primary, #1e3a8a);
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
     }
     .edit-overlay {
       position: absolute;
@@ -44,7 +49,11 @@
       display: flex;
     }
 
-    /* Floating Language Pill */
+    /* Dynamic Applied Primary Theme Color */
+    .theme-primary-bg { background-color: var(--color-primary, #1e3a8a) !important; color: white !important; }
+    .theme-primary-text { color: var(--color-primary, #1e3a8a) !important; }
+    .theme-primary-border { border-color: var(--color-primary, #1e3a8a) !important; }
+
     .floating-pill {
       position: absolute;
       padding: 0.5rem 1rem;
@@ -59,65 +68,50 @@
       gap: 0.5rem;
       border: 1px solid rgba(226, 232, 240, 0.8);
     }
-
-    /* Calculator Card */
-    .calculator-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-      border-radius: 1.25rem;
-    }
-    .calc-slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 8px;
-      border-radius: 4px;
-      background: #cbd5e1;
-    }
-    .calc-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #1e3a8a;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans edit-mode">
 
-  <!-- Sticky Top Visual Editor Bar -->
-  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-xl">
+  <!-- Sticky Top Control & Color Palette Toolbar -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
-      <!-- Brand & Status -->
+      <!-- Brand & Mode -->
       <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-lg text-white shadow-md">
-          ✏️
+        <div class="w-9 h-9 rounded-lg theme-primary-bg flex items-center justify-center font-bold text-lg text-white shadow-md">
+          🎨
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-sm font-bold tracking-tight">Editor Visuale Live</h1>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Copia Identica del Sito</span>
+            <h1 class="text-sm font-bold tracking-tight">Editor Grafico Live Completo</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Anteprima In-Live</span>
           </div>
-          <p class="text-xs text-slate-400">Passa il mouse sulle sezioni per modificarle direttamente</p>
+          <p class="text-xs text-slate-400">Modifica colori, testi, immagini e carte direttamente sullo schermo</p>
         </div>
       </div>
 
-      <!-- Page Nav Switcher -->
+      <!-- Live Color Pickers Toolbar -->
+      <div class="hidden lg:flex items-center space-x-4 bg-slate-800/80 px-4 py-1.5 rounded-xl border border-slate-700 text-xs">
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-slate-300">🎨 Colore Principale:</span>
+          <input type="color" id="theme-color-primary" value="#1e3a8a" onchange="updateLiveThemeColor(this.value)" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
+        </div>
+        <div class="w-px h-5 bg-slate-700"></div>
+        <button onclick="toggleDarkModePreview()" id="btn-darkmode-toggle" class="font-semibold text-slate-300 hover:text-white flex items-center gap-1">
+          🌙 <span id="label-darkmode">Anteprima Scura (Dark)</span>
+        </button>
+      </div>
+
+      <!-- Page Switcher -->
       <div class="hidden md:flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
-        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow">🏠 Homepage</button>
+        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3 py-1.5 rounded-lg theme-primary-bg text-white shadow">🏠 Home</button>
         <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
         <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
       </div>
 
       <!-- Actions & Save -->
       <div class="flex items-center space-x-3">
-        <button id="btn-toggle-edit-mode" onclick="toggleEditMode()" class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5">
-          <span>✏️</span> <span id="label-edit-mode">Modalità Modifica Attiva</span>
-        </button>
-
-        <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-900/50 flex items-center gap-2 transition-all">
+        <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl theme-primary-bg font-bold text-xs shadow-lg flex items-center gap-2 transition-all hover:opacity-90">
           <span>💾</span> Salva & Pubblica sul Sito Live
         </button>
 
@@ -138,11 +132,11 @@
   <!-- Loading Overlay -->
   <div id="loading-spinner" class="py-24 text-center">
     <div class="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento replica visuale del sito da GitHub...</p>
+    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento replica grafica del sito da GitHub...</p>
   </div>
 
-  <!-- MAIN CANVAS (LIVE SITE REPLICA) -->
-  <main id="main-canvas" class="hidden py-6">
+  <!-- MAIN CANVAS (LIVE GRAPHIC SITE REPLICA) -->
+  <main id="main-canvas" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- PAGE 1: HOMEPAGE REPLICA -->
     <div id="page-view-home" class="space-y-8">
@@ -150,25 +144,25 @@
       <!-- HERO SECTION -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditHeroModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Hero & Copertina
+          <button onclick="openEditHeroModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Testi & Immagine Copertina
           </button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-7">
             <div class="inline-flex flex-wrap gap-2 mb-4">
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">Madrelingua Italiana</span>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Riservatezza & NDA</span>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">Rispetto Scadenze 100%</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">Madrelingua Italiana</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">Riservatezza & NDA</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">Rispetto Scadenze 100%</span>
             </div>
 
             <h1 id="view-hero-title" class="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight">Traduzione & Localizzazione Professionale</h1>
             <p id="view-hero-content" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6">Rendo la tua comunicazione impeccabile ed efficace in Italiano.</p>
             
             <div class="flex gap-3">
-              <span class="px-5 py-2.5 bg-blue-900 text-white font-semibold text-sm rounded-lg shadow">Richiedi un Preventivo Gratuito ✉️</span>
-              <span class="px-5 py-2.5 border border-blue-900 text-blue-900 font-semibold text-sm rounded-lg">🧮 Calcola Stima</span>
+              <span class="px-5 py-2.5 theme-primary-bg font-semibold text-sm rounded-lg shadow">Richiedi un Preventivo Gratuito ✉️</span>
+              <span class="px-5 py-2.5 border theme-primary-border theme-primary-text font-semibold text-sm rounded-lg">🧮 Calcola Stima</span>
             </div>
           </div>
 
@@ -179,23 +173,23 @@
       </div>
 
       <!-- STATS BANNER -->
-      <div class="editable-section bg-blue-900/5 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+      <div class="editable-section bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditStatsModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Statistiche
+          <button onclick="openEditStatsModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Statistiche (Valori & Etichette)
           </button>
         </div>
 
         <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <!-- Dynamically rendered -->
+          <!-- Rendered dynamically -->
         </div>
       </div>
 
       <!-- CALCULATOR SECTION -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditCalcModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Tariffe & Calcolatore
+          <button onclick="openEditCalcModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Tariffe & Parametri Calcolatore
           </button>
         </div>
 
@@ -205,16 +199,16 @@
             <h2 class="text-2xl font-bold mt-2">Calcolatore Preventivo Immediato</h2>
           </div>
 
-          <div class="calculator-card p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl border bg-slate-50 dark:bg-slate-900/50 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-4 text-xs">
               <div>
-                <label class="font-bold">Conteggio Parole: <span id="view-calc-words-val" class="text-blue-700 font-extrabold text-sm">1.500</span></label>
-                <input type="range" min="100" max="10000" step="100" value="1500" class="calc-slider mt-2" oninput="updateLiveCalcPreview(this.value)">
+                <label class="font-bold">Conteggio Parole: <span id="view-calc-words-val" class="theme-primary-text font-extrabold text-sm">1.500</span></label>
+                <input type="range" min="100" max="10000" step="100" value="1500" class="w-full mt-2" oninput="updateLiveCalcPreview(this.value)">
               </div>
 
               <div>
                 <label class="font-bold">Tipo Servizio:</label>
-                <select id="view-calc-service-select" class="w-full mt-1 p-2 rounded border" onchange="updateLiveCalcPreview()">
+                <select id="view-calc-service-select" class="w-full mt-1 p-2 rounded border bg-white dark:bg-slate-800 text-xs" onchange="updateLiveCalcPreview()">
                   <option value="translation">Traduzione Specialistica</option>
                   <option value="localization">Localizzazione Web & Software</option>
                   <option value="revision">Revisione & Proofreading</option>
@@ -223,13 +217,13 @@
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-blue-50 text-blue-900 flex flex-col justify-between">
+            <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-200 flex flex-col justify-between border border-blue-200 dark:border-blue-800">
               <div>
                 <span class="text-[10px] uppercase font-bold text-slate-500">Stima Progetto Live:</span>
-                <div id="view-calc-price" class="text-2xl font-extrabold text-blue-900 mt-1">€ 120 - € 135</div>
-                <div id="view-calc-rate" class="text-xs text-slate-600 mt-0.5">~ € 0.080 / parola</div>
+                <div id="view-calc-price" class="text-2xl font-extrabold theme-primary-text mt-1">€ 120 - € 135</div>
+                <div id="view-calc-rate" class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">~ € 0.080 / parola</div>
               </div>
-              <span class="px-4 py-2 bg-blue-900 text-white font-bold text-xs text-center rounded-lg">📩 Richiedi Preventivo</span>
+              <span class="px-4 py-2 theme-primary-bg font-bold text-xs text-center rounded-lg">📩 Richiedi Preventivo</span>
             </div>
           </div>
         </div>
@@ -237,14 +231,17 @@
 
       <!-- WORKFLOW TIMELINE -->
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
-        <div class="edit-overlay">
-          <button onclick="openEditWorkflowModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Processo di Lavoro
+        <div class="edit-overlay space-x-2">
+          <button onclick="addWorkflowStep()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ➕ Aggiungi Step
+          </button>
+          <button onclick="openEditWorkflowModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Passaggi
           </button>
         </div>
 
         <div class="text-center mb-8">
-          <h2 class="text-2xl font-bold">Come Lavoro: Il Processo in 5 Fasi</h2>
+          <h2 class="text-2xl font-bold">Come Lavoro: Il Processo di Lavoro</h2>
         </div>
 
         <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -254,9 +251,12 @@
 
       <!-- CAT TOOLS GRID -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <div class="edit-overlay">
-          <button onclick="openEditCatToolsModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica CAT Tools & Software
+        <div class="edit-overlay space-x-2">
+          <button onclick="addCatTool()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ➕ Aggiungi Software
+          </button>
+          <button onclick="openEditCatToolsModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica CAT Tools
           </button>
         </div>
 
@@ -271,8 +271,11 @@
 
       <!-- FAQ ACCORDION -->
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
-        <div class="edit-overlay">
-          <button onclick="openEditFaqModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+        <div class="edit-overlay space-x-2">
+          <button onclick="addFaqItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ➕ Nuova FAQ
+          </button>
+          <button onclick="openEditFaqModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Domande FAQ
           </button>
         </div>
@@ -294,7 +297,7 @@
     <div id="page-view-about" class="hidden space-y-8">
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditAboutModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="openEditAboutModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Profilo Chi Sono
           </button>
         </div>
@@ -319,9 +322,7 @@
 
           <div class="lg:col-span-7 space-y-6">
             <h2 class="text-2xl font-bold">Profilo Professionale</h2>
-            <div id="view-about-bio" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
-              <!-- Bio content -->
-            </div>
+            <div id="view-about-bio" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3"></div>
 
             <div class="pt-4 border-t">
               <h3 class="font-bold text-lg mb-3">🎓 Formazione & Certificazioni</h3>
@@ -335,8 +336,11 @@
     <!-- PAGE 3: SERVICES REPLICA -->
     <div id="page-view-services" class="hidden space-y-8">
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <div class="edit-overlay">
-          <button onclick="openEditServicesModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+        <div class="edit-overlay space-x-2">
+          <button onclick="addServiceCard()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ➕ Aggiungi Servizio
+          </button>
+          <button onclick="openEditServicesModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Carte Servizi
           </button>
         </div>
@@ -346,9 +350,7 @@
           <p id="view-services-intro" class="text-slate-500 text-sm mt-1">Soluzioni su misura per l'internazionalizzazione.</p>
         </div>
 
-        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Dynamically rendered cards -->
-        </div>
+        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
       </div>
     </div>
 
@@ -362,29 +364,27 @@
         <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
       </div>
 
-      <div id="modal-body" class="space-y-4">
-        <!-- Dynamic Form Fields inserted by JS -->
-      </div>
+      <div id="modal-body" class="space-y-4"></div>
 
       <div class="flex justify-end space-x-3 pt-4 border-t">
         <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-xl">
           Annulla
         </button>
-        <button id="modal-save-btn" onclick="saveModalChanges()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md">
+        <button id="modal-save-btn" onclick="saveModalChanges()" class="px-6 py-2 theme-primary-bg font-bold text-xs rounded-xl shadow-md">
           Applica Modifiche alla Preview
         </button>
       </div>
     </div>
   </div>
 
-  <!-- TOKEN SETUP MODAL -->
+  <!-- TOKEN MODAL -->
   <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200 dark:border-slate-700">
       <h3 class="text-lg font-bold">🔑 Token di Accesso GitHub</h3>
-      <p class="text-xs text-slate-500">Inserisci la tua chiave Token per salvare direttamente le modifiche sul sito live.</p>
+      <p class="text-xs text-slate-500">Inserisci la tua chiave Token di GitHub per pubblicare direttamente le modifiche sul sito live.</p>
       <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border text-sm" placeholder="ghp_xxxxxxxxxxxx">
       <div class="flex space-x-2 pt-2">
-        <button onclick="saveToken()" class="flex-1 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl">Salva Chiave</button>
+        <button onclick="saveToken()" class="flex-1 py-2 theme-primary-bg font-bold text-xs rounded-xl">Salva Chiave</button>
         <button onclick="closeTokenModal()" class="px-3 py-2 bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl">Chiudi</button>
       </div>
     </div>
@@ -395,6 +395,7 @@
     const REPO_OWNER = 'iannotta-translations';
     const REPO_NAME = 'iannotta-translations.github.io';
 
+    let themeData = null, themeSha = null;
     let homepageData = null, homepageSha = null;
     let aboutData = null, aboutSha = null;
     let servicesData = null, servicesSha = null;
@@ -405,10 +406,18 @@
       loadAllData();
     });
 
-    function toggleEditMode() {
-      document.body.classList.toggle('edit-mode');
-      const isEdit = document.body.classList.contains('edit-mode');
-      document.getElementById('label-edit-mode').textContent = isEdit ? 'Modalità Modifica Attiva' : 'Modalità Anteprima Pura';
+    function updateLiveThemeColor(hexColor) {
+      document.documentElement.style.setProperty('--color-primary', hexColor);
+      if (themeData && themeData.colors && themeData.colors.default) {
+        themeData.colors.default.theme_color.primary = hexColor;
+      }
+      showToast('🎨 Colore primario aggiornato in anteprima!', 'success');
+    }
+
+    function toggleDarkModePreview() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      document.getElementById('label-darkmode').textContent = isDark ? 'Anteprima Chiara (Light)' : 'Anteprima Scura (Dark)';
     }
 
     function switchViewPage(page) {
@@ -417,7 +426,7 @@
         document.getElementById('page-nav-' + p).className = 'px-3 py-1.5 rounded-lg text-slate-300 hover:text-white';
       });
       document.getElementById('page-view-' + page).classList.remove('hidden');
-      document.getElementById('page-nav-' + page).className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow';
+      document.getElementById('page-nav-' + page).className = 'px-3 py-1.5 rounded-lg theme-primary-bg text-white shadow';
     }
 
     async function loadAllData() {
@@ -427,6 +436,19 @@
       try {
         const token = localStorage.getItem('gh_token');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        // Fetch theme.json
+        const resT = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/theme.json`, { headers });
+        if (resT.ok) {
+          const f = await resT.json();
+          themeSha = f.sha;
+          themeData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
+          if (themeData.colors && themeData.colors.default && themeData.colors.default.theme_color.primary) {
+            const pColor = themeData.colors.default.theme_color.primary;
+            document.getElementById('theme-color-primary').value = pColor;
+            document.documentElement.style.setProperty('--color-primary', pColor);
+          }
+        }
 
         // Fetch homepage.json
         const resH = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
@@ -473,8 +495,10 @@
       // 1. Hero
       const titleMatch = indexMdRaw.match(/title:\s*"(.*?)"/);
       const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
+      const imgMatch = indexMdRaw.match(/image:\s*"(.*?)"/);
       if (titleMatch) document.getElementById('view-hero-title').textContent = titleMatch[1];
       if (contentMatch) document.getElementById('view-hero-content').textContent = contentMatch[1];
+      if (imgMatch) document.getElementById('view-hero-img').src = imgMatch[1];
 
       // 2. Stats
       if (homepageData && homepageData.stats) {
@@ -483,8 +507,8 @@
         homepageData.stats.forEach(st => {
           statsGrid.innerHTML += `
             <div class="p-2">
-              <div class="text-2xl lg:text-3xl font-extrabold text-blue-900 dark:text-blue-400">${st.value}</div>
-              <div class="text-xs font-medium text-slate-500 mt-1">${st.label}</div>
+              <div class="text-2xl lg:text-3xl font-extrabold theme-primary-text">${st.value}</div>
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">${st.label}</div>
             </div>
           `;
         });
@@ -499,8 +523,8 @@
         wfGrid.innerHTML = '';
         homepageData.workflow.forEach(wf => {
           wfGrid.innerHTML += `
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border text-center space-y-2">
-              <div class="w-8 h-8 rounded-full bg-blue-900 text-white font-bold text-xs flex items-center justify-center mx-auto">${wf.step}</div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border text-center space-y-2 relative group">
+              <div class="w-8 h-8 rounded-full theme-primary-bg font-bold text-xs flex items-center justify-center mx-auto">${wf.step}</div>
               <h4 class="font-bold text-xs">${wf.title}</h4>
               <p class="text-[11px] text-slate-500">${wf.description}</p>
             </div>
@@ -515,7 +539,7 @@
         homepageData.cat_tools.forEach(ct => {
           catGrid.innerHTML += `
             <div class="p-4 rounded-xl border bg-slate-50 dark:bg-slate-900/50 space-y-2">
-              <div class="font-bold text-xs text-blue-900 dark:text-blue-400">🛠️ ${ct.name}</div>
+              <div class="font-bold text-xs theme-primary-text">🛠️ ${ct.name}</div>
               <p class="text-[11px] text-slate-500">${ct.description}</p>
             </div>
           `;
@@ -538,6 +562,7 @@
 
       // 7. About
       if (aboutData) {
+        if (aboutData.image) document.getElementById('view-about-img').src = aboutData.image;
         if (aboutData.profile_card) {
           document.getElementById('view-about-card-name').textContent = aboutData.profile_card.name || 'Alessia Iannotta';
           document.getElementById('view-about-card-role').textContent = aboutData.profile_card.role || '';
@@ -551,7 +576,7 @@
           eduGrid.innerHTML = '';
           aboutData.education.forEach(ed => {
             eduGrid.innerHTML += `
-              <div class="p-3 rounded-lg border border-l-4 border-l-blue-600 bg-slate-50 dark:bg-slate-900 text-xs">
+              <div class="p-3 rounded-lg border border-l-4 theme-primary-border bg-slate-50 dark:bg-slate-900 text-xs">
                 <div class="font-bold text-sm">${ed.title}</div>
                 <div class="text-slate-500 mt-1">${ed.description}</div>
               </div>
@@ -569,7 +594,7 @@
           servicesData.service_cards.forEach(sc => {
             srvGrid.innerHTML += `
               <div class="p-5 rounded-2xl border bg-white dark:bg-slate-800 space-y-2">
-                <div class="font-extrabold text-blue-900 dark:text-blue-400">#${sc.number} ${sc.title}</div>
+                <div class="font-extrabold theme-primary-text">#${sc.number} ${sc.title}</div>
                 <p class="text-xs text-slate-500">${sc.description}</p>
                 <div class="text-[10px] font-bold text-slate-400 pt-2 border-t">Tempi: ${sc.turnaround}</div>
               </div>
@@ -593,10 +618,11 @@
       document.getElementById('view-calc-rate').textContent = `~ € ${baseRate.toFixed(3)} / parola`;
     }
 
-    // EDIT MODAL HANDLERS
+    // MODAL EDITORS
     function openEditHeroModal() {
       const titleMatch = indexMdRaw.match(/title:\s*"(.*?)"/);
       const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
+      const imgMatch = indexMdRaw.match(/image:\s*"(.*?)"/);
 
       openModal('✏️ Modifica Hero Copertina', `
         <div>
@@ -607,11 +633,17 @@
           <label class="block text-xs font-bold mb-1">Descrizione Copertina:</label>
           <textarea id="edit-hero-content" rows="3" class="w-full p-2 border rounded text-xs">${escapeHtml(contentMatch ? contentMatch[1] : '')}</textarea>
         </div>
+        <div>
+          <label class="block text-xs font-bold mb-1">URL Immagine Copertina:</label>
+          <input type="text" id="edit-hero-img-url" value="${escapeHtml(imgMatch ? imgMatch[1] : '/images/banner.png')}" class="w-full p-2 border rounded text-xs">
+        </div>
       `, () => {
         const t = document.getElementById('edit-hero-title').value;
         const c = document.getElementById('edit-hero-content').value;
+        const img = document.getElementById('edit-hero-img-url').value;
         indexMdRaw = indexMdRaw.replace(/title:\s*".*?"/, `title: "${t}"`);
         indexMdRaw = indexMdRaw.replace(/content:\s*".*?"/, `content: "${c}"`);
+        indexMdRaw = indexMdRaw.replace(/image:\s*".*?"/, `image: "${img}"`);
         renderLiveCanvas();
       });
     }
@@ -678,12 +710,116 @@
       });
     }
 
+    function addWorkflowStep() {
+      if (!homepageData.workflow) homepageData.workflow = [];
+      homepageData.workflow.push({
+        step: homepageData.workflow.length + 1,
+        title: "Nuovo Passaggio",
+        description: "Descrizione del processo..."
+      });
+      renderLiveCanvas();
+      showToast('➕ Step aggiunto al workflow!', 'success');
+    }
+
+    function openEditWorkflowModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      homepageData.workflow.forEach((wf, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold">
+              <span>Step #${wf.step}</span>
+              <button onclick="removeWorkflowStep(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
+            <div>
+              <label class="font-semibold">Titolo:</label>
+              <input type="text" id="edit-wf-t-${idx}" value="${escapeHtml(wf.title)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-wf-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(wf.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Processo di Lavoro', html, () => {
+        homepageData.workflow.forEach((wf, idx) => {
+          wf.title = document.getElementById(`edit-wf-t-${idx}`).value;
+          wf.description = document.getElementById(`edit-wf-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
+    function removeWorkflowStep(idx) {
+      homepageData.workflow.splice(idx, 1);
+      homepageData.workflow.forEach((w, i) => w.step = i + 1);
+      openEditWorkflowModal();
+    }
+
+    function addCatTool() {
+      if (!homepageData.cat_tools) homepageData.cat_tools = [];
+      homepageData.cat_tools.push({
+        name: "Nuovo Software",
+        description: "Descrizione dello strumento..."
+      });
+      renderLiveCanvas();
+      showToast('➕ Software aggiunto!', 'success');
+    }
+
+    function openEditCatToolsModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      homepageData.cat_tools.forEach((ct, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold">
+              <span>Software #${idx+1}</span>
+              <button onclick="removeCatTool(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
+            <div>
+              <label class="font-semibold">Nome:</label>
+              <input type="text" id="edit-ct-n-${idx}" value="${escapeHtml(ct.name)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-ct-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(ct.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Software & CAT Tools', html, () => {
+        homepageData.cat_tools.forEach((ct, idx) => {
+          ct.name = document.getElementById(`edit-ct-n-${idx}`).value;
+          ct.description = document.getElementById(`edit-ct-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
+    function removeCatTool(idx) {
+      homepageData.cat_tools.splice(idx, 1);
+      openEditCatToolsModal();
+    }
+
+    function addFaqItem() {
+      if (!homepageData.faqs) homepageData.faqs = [];
+      homepageData.faqs.push({ question: "Nuova Domanda FAQ", answer: "Risposta..." });
+      renderLiveCanvas();
+      showToast('➕ Domanda FAQ aggiunta!', 'success');
+    }
+
     function openEditFaqModal() {
       let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
       homepageData.faqs.forEach((faq, idx) => {
         html += `
           <div class="p-3 border rounded-xl space-y-2 text-xs">
-            <div class="font-bold text-blue-600">FAQ #${idx+1}</div>
+            <div class="flex justify-between font-bold text-blue-600">
+              <span>FAQ #${idx+1}</span>
+              <button onclick="removeFaqItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
             <div>
               <label class="font-semibold">Domanda:</label>
               <input type="text" id="edit-faq-q-${idx}" value="${escapeHtml(faq.question)}" class="w-full p-1.5 border rounded font-bold">
@@ -706,9 +842,18 @@
       });
     }
 
+    function removeFaqItem(idx) {
+      homepageData.faqs.splice(idx, 1);
+      openEditFaqModal();
+    }
+
     function openEditAboutModal() {
       openModal('✏️ Modifica Profilo Chi Sono', `
         <div class="space-y-3 text-xs">
+          <div>
+            <label class="font-bold">URL Foto Profilo:</label>
+            <input type="text" id="edit-about-img-url" value="${escapeHtml(aboutData.image || '/images/alessia-profile.png')}" class="w-full p-1.5 border rounded font-bold">
+          </div>
           <div>
             <label class="font-bold">Nome Profilo:</label>
             <input type="text" id="edit-about-name" value="${escapeHtml(aboutData.profile_card.name)}" class="w-full p-1.5 border rounded font-bold">
@@ -723,6 +868,7 @@
           </div>
         </div>
       `, () => {
+        aboutData.image = document.getElementById('edit-about-img-url').value;
         aboutData.profile_card.name = document.getElementById('edit-about-name').value;
         aboutData.profile_card.role = document.getElementById('edit-about-role').value;
         aboutData.bio = document.getElementById('edit-about-bio').value;
@@ -730,12 +876,29 @@
       });
     }
 
+    function addServiceCard() {
+      if (!servicesData.service_cards) servicesData.service_cards = [];
+      servicesData.service_cards.push({
+        id: "custom-service-" + Date.now(),
+        number: (servicesData.service_cards.length + 1).toString(),
+        title: "Nuovo Servizio",
+        description: "Descrizione del servizio offerto...",
+        turnaround: "Su misura",
+        bulletpoints: ["Caratteristica 1", "Caratteristica 2"]
+      });
+      renderLiveCanvas();
+      showToast('➕ Servizio aggiunto!', 'success');
+    }
+
     function openEditServicesModal() {
       let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
       servicesData.service_cards.forEach((sc, idx) => {
         html += `
           <div class="p-3 border rounded-xl space-y-2 text-xs">
-            <div class="font-bold text-blue-600">Servizio #${sc.number}</div>
+            <div class="flex justify-between font-bold text-blue-600">
+              <span>Servizio #${sc.number}</span>
+              <button onclick="removeServiceCard(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
             <div>
               <label class="font-semibold">Titolo:</label>
               <input type="text" id="edit-srv-t-${idx}" value="${escapeHtml(sc.title)}" class="w-full p-1.5 border rounded font-bold">
@@ -756,6 +919,12 @@
         });
         renderLiveCanvas();
       });
+    }
+
+    function removeServiceCard(idx) {
+      servicesData.service_cards.splice(idx, 1);
+      servicesData.service_cards.forEach((s, i) => s.number = (i + 1).toString());
+      openEditServicesModal();
     }
 
     function openModal(title, bodyHtml, onSave) {
@@ -786,6 +955,13 @@
       showToast('⏳ Salvataggio in corso su GitHub...', 'info');
 
       try {
+        // Save theme.json
+        if (themeData) {
+          const strT = JSON.stringify(themeData, null, 2);
+          const resT = await putGitHubFile('data/theme.json', strT, themeSha);
+          if (resT.content) themeSha = resT.content.sha;
+        }
+
         // Save homepage.json
         if (homepageData) {
           const strH = JSON.stringify(homepageData, null, 2);
@@ -813,7 +989,7 @@
           if (resI.content) indexMdSha = resI.content.sha;
         }
 
-        showToast('🚀 TUTTE LE MODIFICHE PUBBLICATE SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
+        showToast('🚀 TUTTE LE MODIFICHE & COLORI PUBBLICATI SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
       } catch (err) {
         console.error('Save all error:', err);
         showToast('❌ Errore durante il salvataggio su GitHub.', 'error');
