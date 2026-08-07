@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pannello di Amministrazione Completo — Alessia Iannotta Portfolio</title>
+  <title>Editor Visuale In-Live — Alessia Iannotta Portfolio</title>
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -22,40 +22,110 @@
     }
   </script>
   <style>
-    .tab-active {
-      border-bottom: 3px solid #1e3a8a;
-      color: #1e3a8a;
-      font-weight: 700;
+    /* Visual Editor Editable Outlines */
+    .editable-section {
+      position: relative;
+      border: 2px dashed transparent;
+      transition: all 0.2s ease;
+      border-radius: 1rem;
     }
-    .dark .tab-active {
-      border-bottom-color: #60a5fa;
-      color: #60a5fa;
+    .edit-mode .editable-section:hover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.02);
+    }
+    .edit-overlay {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 30;
+      display: none;
+    }
+    .edit-mode .editable-section:hover .edit-overlay {
+      display: flex;
+    }
+
+    /* Floating Language Pill */
+    .floating-pill {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      font-weight: 600;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    /* Calculator Card */
+    .calculator-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+      border-radius: 1.25rem;
+    }
+    .calc-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #cbd5e1;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1e3a8a;
+      cursor: pointer;
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans">
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans edit-mode">
 
-  <!-- Admin Top Navigation Bar -->
-  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 shadow-sm">
+  <!-- Sticky Top Visual Editor Bar -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand & Status -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center font-bold text-xl">
-          ⚙️
+        <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-lg text-white shadow-md">
+          ✏️
         </div>
         <div>
-          <h1 class="text-lg font-bold leading-tight">Pannello Amministrazione Completo — Alessia Iannotta</h1>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Modifica Grafica No-Code di Tutte le Pagine del Sito</p>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-sm font-bold tracking-tight">Editor Visuale Live</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Copia Identica del Sito</span>
+          </div>
+          <p class="text-xs text-slate-400">Passa il mouse sulle sezioni per modificarle direttamente</p>
         </div>
       </div>
 
-      <div class="flex items-center space-x-4">
-        <a href="/" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 flex items-center gap-1">
-          👁️ vedi Sito Live ↗
-        </a>
-        <button id="token-modal-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
-          🔑 Chiave Accesso (Token)
+      <!-- Page Nav Switcher -->
+      <div class="hidden md:flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
+        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow">🏠 Homepage</button>
+        <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
+        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
+      </div>
+
+      <!-- Actions & Save -->
+      <div class="flex items-center space-x-3">
+        <button id="btn-toggle-edit-mode" onclick="toggleEditMode()" class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5">
+          <span>✏️</span> <span id="label-edit-mode">Modalità Modifica Attiva</span>
+        </button>
+
+        <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-900/50 flex items-center gap-2 transition-all">
+          <span>💾</span> Salva & Pubblica sul Sito Live
+        </button>
+
+        <button onclick="openTokenModal()" class="text-xs font-medium px-2.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white">
+          🔑 Token
         </button>
       </div>
+
     </div>
   </header>
 
@@ -65,636 +135,731 @@
     <span id="toast-message">Modifiche salvate con successo!</span>
   </div>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Loading Overlay -->
+  <div id="loading-spinner" class="py-24 text-center">
+    <div class="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento replica visuale del sito da GitHub...</p>
+  </div>
 
-    <!-- Admin Tabs -->
-    <div class="flex space-x-8 border-b border-slate-200 dark:border-slate-700 mb-8 overflow-x-auto">
-      <button onclick="switchTab('tab-calc')" id="btn-tab-calc" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 tab-active flex items-center gap-2">
-        🧮 Tariffe & Calcolatore
-      </button>
-      <button onclick="switchTab('tab-faqs')" id="btn-tab-faqs" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        ❓ Domande Frequenti (FAQ)
-      </button>
-      <button onclick="switchTab('tab-about')" id="btn-tab-about" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        👩‍💼 Profilo Chi Sono
-      </button>
-      <button onclick="switchTab('tab-services')" id="btn-tab-services" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        🛠️ Carte Servizi
-      </button>
-      <button onclick="switchTab('tab-home')" id="btn-tab-home" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        🏠 Copertina Homepage
-      </button>
-      <button onclick="switchTab('tab-stats')" id="btn-tab-stats" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        📊 Statistiche & CAT Tools
-      </button>
+  <!-- MAIN CANVAS (LIVE SITE REPLICA) -->
+  <main id="main-canvas" class="hidden py-6">
+
+    <!-- PAGE 1: HOMEPAGE REPLICA -->
+    <div id="page-view-home" class="space-y-8">
+      
+      <!-- HERO SECTION -->
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditHeroModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Hero & Copertina
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7">
+            <div class="inline-flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">Madrelingua Italiana</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Riservatezza & NDA</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">Rispetto Scadenze 100%</span>
+            </div>
+
+            <h1 id="view-hero-title" class="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight">Traduzione & Localizzazione Professionale</h1>
+            <p id="view-hero-content" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6">Rendo la tua comunicazione impeccabile ed efficace in Italiano.</p>
+            
+            <div class="flex gap-3">
+              <span class="px-5 py-2.5 bg-blue-900 text-white font-semibold text-sm rounded-lg shadow">Richiedi un Preventivo Gratuito ✉️</span>
+              <span class="px-5 py-2.5 border border-blue-900 text-blue-900 font-semibold text-sm rounded-lg">🧮 Calcola Stima</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <img id="view-hero-img" src="/images/banner.png" alt="Banner Preview" class="rounded-2xl shadow-md border border-slate-200 w-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS BANNER -->
+      <div class="editable-section bg-blue-900/5 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditStatsModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Statistiche
+          </button>
+        </div>
+
+        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+
+      <!-- CALCULATOR SECTION -->
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditCalcModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Tariffe & Calcolatore
+          </button>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-6">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">Strumento Interattivo</span>
+            <h2 class="text-2xl font-bold mt-2">Calcolatore Preventivo Immediato</h2>
+          </div>
+
+          <div class="calculator-card p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4 text-xs">
+              <div>
+                <label class="font-bold">Conteggio Parole: <span id="view-calc-words-val" class="text-blue-700 font-extrabold text-sm">1.500</span></label>
+                <input type="range" min="100" max="10000" step="100" value="1500" class="calc-slider mt-2" oninput="updateLiveCalcPreview(this.value)">
+              </div>
+
+              <div>
+                <label class="font-bold">Tipo Servizio:</label>
+                <select id="view-calc-service-select" class="w-full mt-1 p-2 rounded border" onchange="updateLiveCalcPreview()">
+                  <option value="translation">Traduzione Specialistica</option>
+                  <option value="localization">Localizzazione Web & Software</option>
+                  <option value="revision">Revisione & Proofreading</option>
+                  <option value="postediting">Post-Editing MT (PEMT)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-blue-50 text-blue-900 flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-500">Stima Progetto Live:</span>
+                <div id="view-calc-price" class="text-2xl font-extrabold text-blue-900 mt-1">€ 120 - € 135</div>
+                <div id="view-calc-rate" class="text-xs text-slate-600 mt-0.5">~ € 0.080 / parola</div>
+              </div>
+              <span class="px-4 py-2 bg-blue-900 text-white font-bold text-xs text-center rounded-lg">📩 Richiedi Preventivo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKFLOW TIMELINE -->
+      <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditWorkflowModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Processo di Lavoro
+          </button>
+        </div>
+
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold">Come Lavoro: Il Processo in 5 Fasi</h2>
+        </div>
+
+        <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+
+      <!-- CAT TOOLS GRID -->
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditCatToolsModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica CAT Tools & Software
+          </button>
+        </div>
+
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold">CAT Tools & Strumenti Professionali</h2>
+        </div>
+
+        <div id="view-cat-tools-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+
+      <!-- FAQ ACCORDION -->
+      <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditFaqModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Domande FAQ
+          </button>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-4">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold">FAQ & Informazioni Utili</h2>
+          </div>
+
+          <div id="view-faq-list" class="space-y-3">
+            <!-- Dynamically rendered FAQs -->
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Loading State -->
-    <div id="loading-spinner" class="py-20 text-center">
-      <div class="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-      <p class="mt-4 text-sm font-medium text-slate-500">Caricamento dati del sito da GitHub...</p>
+    <!-- PAGE 2: ABOUT REPLICA -->
+    <div id="page-view-about" class="hidden space-y-8">
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditAboutModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Profilo Chi Sono
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 text-center">
+            <div class="relative max-w-xs mx-auto mb-6">
+              <img id="view-about-img" src="/images/alessia-profile.png" alt="Profile" class="rounded-2xl shadow-lg border w-full">
+              <div class="floating-pill -top-3 -left-3">🇬🇧 ➔ 🇮🇹 EN ➔ IT</div>
+              <div class="floating-pill -bottom-3 -right-3">🇫🇷 ➔ 🇮🇹 FR ➔ IT</div>
+            </div>
+
+            <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border text-left text-xs space-y-2">
+              <div class="font-bold text-base" id="view-about-card-name">Alessia Iannotta</div>
+              <div class="text-slate-500" id="view-about-card-role">Traduttrice & Localizzatrice</div>
+              <div class="pt-2 border-t space-y-1">
+                <div>📍 Base: <span id="view-about-card-location" class="font-semibold">Italia</span></div>
+                <div>🎓 Titolo: <span id="view-about-card-degree" class="font-semibold">Laurea Traduzione</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6">
+            <h2 class="text-2xl font-bold">Profilo Professionale</h2>
+            <div id="view-about-bio" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+              <!-- Bio content -->
+            </div>
+
+            <div class="pt-4 border-t">
+              <h3 class="font-bold text-lg mb-3">🎓 Formazione & Certificazioni</h3>
+              <div id="view-about-education" class="space-y-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Content Sections Container -->
-    <div id="admin-content" class="hidden">
-
-      <!-- TAB 1: TARIFFE & CALCOLATORE -->
-      <section id="tab-calc" class="space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">🧮 Gestione Tariffe Calcolatore Preventivo</h2>
-              <p class="text-xs text-slate-500 mt-1">Imposta le tariffe base per parola (€) ed i parametri del calcolatore automatico.</p>
-            </div>
-            <button onclick="saveHomepageData('Tariffe salvate')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-              💾 Salva e Pubblica Tariffe
-            </button>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-4">
-              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Tariffe Base a Parola (€)</h3>
-              
-              <div>
-                <label class="block text-xs font-semibold mb-1">Traduzione Specialistica (€ / parola):</label>
-                <input type="number" step="0.005" id="rate-translation" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold mb-1">Localizzazione Web & Software (€ / parola):</label>
-                <input type="number" step="0.005" id="rate-localization" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold mb-1">Revisione & Proofreading (€ / parola):</label>
-                <input type="number" step="0.005" id="rate-revision" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold mb-1">Post-Editing Machine Translation (€ / parola):</label>
-                <input type="number" step="0.005" id="rate-postediting" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-            </div>
-
-            <div class="space-y-4">
-              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Parametri Progetto</h3>
-              
-              <div>
-                <label class="block text-xs font-semibold mb-1">Prezzo Minimo per Progetto (€):</label>
-                <input type="number" id="calc-min-fee" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold mb-1">Parole Predefinite nello Slider:</label>
-                <input type="number" id="calc-default-words" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-            </div>
-          </div>
+    <!-- PAGE 3: SERVICES REPLICA -->
+    <div id="page-view-services" class="hidden space-y-8">
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditServicesModal()" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Carte Servizi
+          </button>
         </div>
-      </section>
 
-      <!-- TAB 2: DOMANDE FREQUENTI (FAQ) -->
-      <section id="tab-faqs" class="hidden space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">❓ Gestione Domande Frequenti (FAQ)</h2>
-              <p class="text-xs text-slate-500 mt-1">Aggiungi, modifica o elimina le domande e risposte visibili nella sezione FAQ.</p>
-            </div>
-            <div class="flex space-x-3">
-              <button onclick="addFaqItem()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-1">
-                ➕ Nuova Domanda
-              </button>
-              <button onclick="saveHomepageData('FAQ salvate')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-                💾 Salva Tutte le FAQ
-              </button>
-            </div>
-          </div>
-
-          <div id="faq-list-container" class="space-y-4"></div>
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold">Servizi Linguistici Specialistici</h2>
+          <p id="view-services-intro" class="text-slate-500 text-sm mt-1">Soluzioni su misura per l'internazionalizzazione.</p>
         </div>
-      </section>
 
-      <!-- TAB 3: PROFILO CHI SONO -->
-      <section id="tab-about" class="hidden space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">👩‍💼 Gestione Profilo "Chi Sono"</h2>
-              <p class="text-xs text-slate-500 mt-1">Modifica biografia, formazione, certificazioni e la card del profilo.</p>
-            </div>
-            <button onclick="saveAboutData()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-              💾 Salva Profilo Chi Sono
-            </button>
-          </div>
-
-          <div class="space-y-6">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Testo Biografico Principale (Markdown):</label>
-              <textarea id="about-bio" rows="6" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm leading-relaxed"></textarea>
-            </div>
-
-            <!-- Profile Card inputs -->
-            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Info Card Profilo</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold mb-1">Nome Completo:</label>
-                <input type="text" id="about-card-name" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold mb-1">Ruolo / Titolo Sottotitolo:</label>
-                <input type="text" id="about-card-role" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold mb-1">Localizzazione / Base:</label>
-                <input type="text" id="about-card-location" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold mb-1">Titolo di Studio:</label>
-                <input type="text" id="about-card-degree" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
-              </div>
-            </div>
-
-            <!-- Education Timeline -->
-            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider pt-4 border-t border-slate-200 dark:border-slate-700">Formazione & Certificazioni</h3>
-            <div id="about-education-container" class="space-y-3"></div>
-          </div>
+        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Dynamically rendered cards -->
         </div>
-      </section>
-
-      <!-- TAB 4: CARTE SERVIZI -->
-      <section id="tab-services" class="hidden space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">🛠️ Gestione Carte Servizi</h2>
-              <p class="text-xs text-slate-500 mt-1">Modifica le 4 carte servizio, le descrizioni ed i punti di forza.</p>
-            </div>
-            <button onclick="saveServicesData()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-              💾 Salva Carte Servizi
-            </button>
-          </div>
-
-          <div id="services-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        </div>
-      </section>
-
-      <!-- TAB 5: HOMEPAGE COPERTINA -->
-      <section id="tab-home" class="hidden space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">🏠 Testi Copertina Homepage</h2>
-              <p class="text-xs text-slate-500 mt-1">Modifica il titolo di copertina e il messaggio di presentazione.</p>
-            </div>
-            <button onclick="saveIndexMarkdown()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-              💾 Salva Testi Copertina
-            </button>
-          </div>
-
-          <div class="space-y-4">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Titolo Principale Copertina:</label>
-              <input type="text" id="home-banner-title" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold mb-1">Sottotitolo / Descrizione Copertina:</label>
-              <textarea id="home-banner-content" rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm"></textarea>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 6: STATISTICHE & CAT TOOLS -->
-      <section id="tab-stats" class="hidden space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl font-bold">📊 Banner Statistiche & Lista CAT Tools</h2>
-              <p class="text-xs text-slate-500 mt-1">Modifica i valori numerici del banner statistico e i software di traduzione gestiti.</p>
-            </div>
-            <button onclick="saveHomepageData('Statistiche e Tools salvati')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
-              💾 Salva Statistiche & Tools
-            </button>
-          </div>
-
-          <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">Statistiche Banner (4 Box)</h3>
-          <div id="stats-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"></div>
-
-          <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">CAT Tools & Strumenti</h3>
-          <div id="cat-tools-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-        </div>
-      </section>
-
+      </div>
     </div>
 
   </main>
 
-  <!-- GitHub Token Setup Modal -->
-  <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200 dark:border-slate-700">
-      <div class="flex items-center space-x-3">
-        <span class="text-2xl">🔑</span>
-        <h3 class="text-lg font-bold">Chiave di Accesso GitHub</h3>
-      </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-        Inserisci la tua chiave Token di GitHub per salvare le modifiche direttamente sul sito in totale sicurezza.
-      </p>
-      
-      <div>
-        <label class="block text-xs font-semibold mb-1">GitHub Personal Access Token:</label>
-        <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm" placeholder="ghp_xxxxxxxxxxxxxxxxx">
+  <!-- UNIVERSAL EDIT MODAL -->
+  <div id="edit-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-2xl w-full p-6 space-y-6 border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center pb-4 border-b">
+        <h3 id="modal-title" class="text-lg font-bold">Modifica Sezione</h3>
+        <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
       </div>
 
-      <div class="text-xs text-slate-400 space-y-1">
-        <p>• La chiave viene salvata **esclusivamente nel tuo browser**.</p>
-        <p>• Puoi crearne una in 1 click su GitHub ➔ Settings ➔ Personal access tokens.</p>
+      <div id="modal-body" class="space-y-4">
+        <!-- Dynamic Form Fields inserted by JS -->
       </div>
 
-      <div class="flex space-x-3 pt-2">
-        <button onclick="saveToken()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md">
-          Salva Chiave
+      <div class="flex justify-end space-x-3 pt-4 border-t">
+        <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-xl">
+          Annulla
         </button>
-        <button onclick="closeTokenModal()" class="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl">
-          Chiudi
+        <button id="modal-save-btn" onclick="saveModalChanges()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md">
+          Applica Modifiche alla Preview
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Admin Panel JS App -->
+  <!-- TOKEN SETUP MODAL -->
+  <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200 dark:border-slate-700">
+      <h3 class="text-lg font-bold">🔑 Token di Accesso GitHub</h3>
+      <p class="text-xs text-slate-500">Inserisci la tua chiave Token per salvare direttamente le modifiche sul sito live.</p>
+      <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border text-sm" placeholder="ghp_xxxxxxxxxxxx">
+      <div class="flex space-x-2 pt-2">
+        <button onclick="saveToken()" class="flex-1 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl">Salva Chiave</button>
+        <button onclick="closeTokenModal()" class="px-3 py-2 bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl">Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT ENGINE -->
   <script>
     const REPO_OWNER = 'iannotta-translations';
     const REPO_NAME = 'iannotta-translations.github.io';
-    
-    let homepageData = null, homepageDataSha = null;
-    let aboutData = null, aboutDataSha = null;
-    let servicesData = null, servicesDataSha = null;
-    let indexMarkdownRaw = '', indexMarkdownSha = null;
+
+    let homepageData = null, homepageSha = null;
+    let aboutData = null, aboutSha = null;
+    let servicesData = null, servicesSha = null;
+    let indexMdRaw = '', indexMdSha = null;
+    let activeModalCallback = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-      checkToken();
-      loadDataFromGitHub();
+      loadAllData();
     });
 
-    function checkToken() {
-      const token = localStorage.getItem('gh_token');
-      if (!token) document.getElementById('token-modal').classList.remove('hidden');
+    function toggleEditMode() {
+      document.body.classList.toggle('edit-mode');
+      const isEdit = document.body.classList.contains('edit-mode');
+      document.getElementById('label-edit-mode').textContent = isEdit ? 'Modalità Modifica Attiva' : 'Modalità Anteprima Pura';
     }
 
-    function saveToken() {
-      const token = document.getElementById('input-token').value.trim();
-      if (token) {
-        localStorage.setItem('gh_token', token);
-        showToast('🔑 Chiave salvata!', 'success');
-        closeTokenModal();
-        loadDataFromGitHub();
-      }
-    }
-
-    function closeTokenModal() {
-      document.getElementById('token-modal').classList.add('hidden');
-    }
-
-    document.getElementById('token-modal-btn').addEventListener('click', () => {
-      document.getElementById('input-token').value = localStorage.getItem('gh_token') || '';
-      document.getElementById('token-modal').classList.remove('hidden');
-    });
-
-    function switchTab(tabId) {
-      ['tab-calc', 'tab-faqs', 'tab-about', 'tab-services', 'tab-home', 'tab-stats'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-        document.getElementById('btn-' + id).classList.remove('tab-active');
+    function switchViewPage(page) {
+      ['home', 'about', 'services'].forEach(p => {
+        document.getElementById('page-view-' + p).classList.add('hidden');
+        document.getElementById('page-nav-' + p).className = 'px-3 py-1.5 rounded-lg text-slate-300 hover:text-white';
       });
-      document.getElementById(tabId).classList.remove('hidden');
-      document.getElementById('btn-' + tabId).classList.add('tab-active');
+      document.getElementById('page-view-' + page).classList.remove('hidden');
+      document.getElementById('page-nav-' + page).className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow';
     }
 
-    async function loadDataFromGitHub() {
+    async function loadAllData() {
       document.getElementById('loading-spinner').classList.remove('hidden');
-      document.getElementById('admin-content').classList.add('hidden');
+      document.getElementById('main-canvas').classList.add('hidden');
 
       try {
         const token = localStorage.getItem('gh_token');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-        // Fetch data/homepage.json
-        const resHome = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
-        if (resHome.ok) {
-          const file = await resHome.json();
-          homepageDataSha = file.sha;
-          homepageData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
-          renderHomepageDataForms();
+        // Fetch homepage.json
+        const resH = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
+        if (resH.ok) {
+          const f = await resH.json();
+          homepageSha = f.sha;
+          homepageData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch data/about.json
-        const resAbout = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/about.json`, { headers });
-        if (resAbout.ok) {
-          const file = await resAbout.json();
-          aboutDataSha = file.sha;
-          aboutData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
-          renderAboutForms();
+        // Fetch about.json
+        const resA = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/about.json`, { headers });
+        if (resA.ok) {
+          const f = await resA.json();
+          aboutSha = f.sha;
+          aboutData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch data/services.json
-        const resSrv = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/services.json`, { headers });
-        if (resSrv.ok) {
-          const file = await resSrv.json();
-          servicesDataSha = file.sha;
-          servicesData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
-          renderServicesForms();
+        // Fetch services.json
+        const resS = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/services.json`, { headers });
+        if (resS.ok) {
+          const f = await resS.json();
+          servicesSha = f.sha;
+          servicesData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch content/_index.md
-        const resIndex = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/content/_index.md`, { headers });
-        if (resIndex.ok) {
-          const mdFile = await resIndex.json();
-          indexMarkdownSha = mdFile.sha;
-          indexMarkdownRaw = decodeURIComponent(escape(atob(mdFile.content)));
-          parseIndexMarkdown();
+        // Fetch _index.md
+        const resI = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/content/_index.md`, { headers });
+        if (resI.ok) {
+          const f = await resI.json();
+          indexMdSha = f.sha;
+          indexMdRaw = decodeURIComponent(escape(atob(f.content)));
         }
 
+        renderLiveCanvas();
         document.getElementById('loading-spinner').classList.add('hidden');
-        document.getElementById('admin-content').classList.remove('hidden');
+        document.getElementById('main-canvas').classList.remove('hidden');
       } catch (err) {
         console.error('Error loading data:', err);
-        showToast('⚠️ Impossibile caricare i dati. Verifica il Token.', 'error');
-        document.getElementById('loading-spinner').classList.add('hidden');
-        document.getElementById('admin-content').classList.remove('hidden');
+        showToast('⚠️ Errore durante il caricamento dati.', 'error');
       }
     }
 
-    function renderHomepageDataForms() {
-      if (!homepageData) return;
-      if (homepageData.calculator) {
-        document.getElementById('calc-min-fee').value = homepageData.calculator.min_fee || 25;
-        document.getElementById('calc-default-words').value = homepageData.calculator.default_words || 1500;
-        if (homepageData.calculator.rates) {
-          document.getElementById('rate-translation').value = homepageData.calculator.rates.translation || 0.08;
-          document.getElementById('rate-localization').value = homepageData.calculator.rates.localization || 0.09;
-          document.getElementById('rate-revision').value = homepageData.calculator.rates.revision || 0.04;
-          document.getElementById('rate-postediting').value = homepageData.calculator.rates.postediting || 0.05;
+    function renderLiveCanvas() {
+      // 1. Hero
+      const titleMatch = indexMdRaw.match(/title:\s*"(.*?)"/);
+      const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
+      if (titleMatch) document.getElementById('view-hero-title').textContent = titleMatch[1];
+      if (contentMatch) document.getElementById('view-hero-content').textContent = contentMatch[1];
+
+      // 2. Stats
+      if (homepageData && homepageData.stats) {
+        const statsGrid = document.getElementById('view-stats-grid');
+        statsGrid.innerHTML = '';
+        homepageData.stats.forEach(st => {
+          statsGrid.innerHTML += `
+            <div class="p-2">
+              <div class="text-2xl lg:text-3xl font-extrabold text-blue-900 dark:text-blue-400">${st.value}</div>
+              <div class="text-xs font-medium text-slate-500 mt-1">${st.label}</div>
+            </div>
+          `;
+        });
+      }
+
+      // 3. Calculator preview
+      updateLiveCalcPreview(1500);
+
+      // 4. Workflow
+      if (homepageData && homepageData.workflow) {
+        const wfGrid = document.getElementById('view-workflow-grid');
+        wfGrid.innerHTML = '';
+        homepageData.workflow.forEach(wf => {
+          wfGrid.innerHTML += `
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border text-center space-y-2">
+              <div class="w-8 h-8 rounded-full bg-blue-900 text-white font-bold text-xs flex items-center justify-center mx-auto">${wf.step}</div>
+              <h4 class="font-bold text-xs">${wf.title}</h4>
+              <p class="text-[11px] text-slate-500">${wf.description}</p>
+            </div>
+          `;
+        });
+      }
+
+      // 5. CAT Tools
+      if (homepageData && homepageData.cat_tools) {
+        const catGrid = document.getElementById('view-cat-tools-grid');
+        catGrid.innerHTML = '';
+        homepageData.cat_tools.forEach(ct => {
+          catGrid.innerHTML += `
+            <div class="p-4 rounded-xl border bg-slate-50 dark:bg-slate-900/50 space-y-2">
+              <div class="font-bold text-xs text-blue-900 dark:text-blue-400">🛠️ ${ct.name}</div>
+              <p class="text-[11px] text-slate-500">${ct.description}</p>
+            </div>
+          `;
+        });
+      }
+
+      // 6. FAQs
+      if (homepageData && homepageData.faqs) {
+        const faqList = document.getElementById('view-faq-list');
+        faqList.innerHTML = '';
+        homepageData.faqs.forEach(faq => {
+          faqList.innerHTML += `
+            <div class="p-4 rounded-xl border bg-white dark:bg-slate-800 space-y-1">
+              <div class="font-bold text-xs">❓ ${faq.question}</div>
+              <div class="text-[11px] text-slate-500">${faq.answer}</div>
+            </div>
+          `;
+        });
+      }
+
+      // 7. About
+      if (aboutData) {
+        if (aboutData.profile_card) {
+          document.getElementById('view-about-card-name').textContent = aboutData.profile_card.name || 'Alessia Iannotta';
+          document.getElementById('view-about-card-role').textContent = aboutData.profile_card.role || '';
+          document.getElementById('view-about-card-location').textContent = aboutData.profile_card.location || '';
+          document.getElementById('view-about-card-degree').textContent = aboutData.profile_card.degree || '';
+        }
+        document.getElementById('view-about-bio').innerHTML = (aboutData.bio || '').replace(/\n/g, '<br>');
+
+        if (aboutData.education) {
+          const eduGrid = document.getElementById('view-about-education');
+          eduGrid.innerHTML = '';
+          aboutData.education.forEach(ed => {
+            eduGrid.innerHTML += `
+              <div class="p-3 rounded-lg border border-l-4 border-l-blue-600 bg-slate-50 dark:bg-slate-900 text-xs">
+                <div class="font-bold text-sm">${ed.title}</div>
+                <div class="text-slate-500 mt-1">${ed.description}</div>
+              </div>
+            `;
+          });
         }
       }
-      renderFaqsList();
-      renderStatsList();
-      renderCatToolsList();
-    }
 
-    function renderAboutForms() {
-      if (!aboutData) return;
-      document.getElementById('about-bio').value = aboutData.bio || '';
-      if (aboutData.profile_card) {
-        document.getElementById('about-card-name').value = aboutData.profile_card.name || '';
-        document.getElementById('about-card-role').value = aboutData.profile_card.role || '';
-        document.getElementById('about-card-location').value = aboutData.profile_card.location || '';
-        document.getElementById('about-card-degree').value = aboutData.profile_card.degree || '';
+      // 8. Services
+      if (servicesData) {
+        document.getElementById('view-services-intro').textContent = servicesData.intro_text || '';
+        if (servicesData.service_cards) {
+          const srvGrid = document.getElementById('view-services-grid');
+          srvGrid.innerHTML = '';
+          servicesData.service_cards.forEach(sc => {
+            srvGrid.innerHTML += `
+              <div class="p-5 rounded-2xl border bg-white dark:bg-slate-800 space-y-2">
+                <div class="font-extrabold text-blue-900 dark:text-blue-400">#${sc.number} ${sc.title}</div>
+                <p class="text-xs text-slate-500">${sc.description}</p>
+                <div class="text-[10px] font-bold text-slate-400 pt-2 border-t">Tempi: ${sc.turnaround}</div>
+              </div>
+            `;
+          });
+        }
       }
-      renderEducationList();
     }
 
-    function renderEducationList() {
-      const container = document.getElementById('about-education-container');
-      container.innerHTML = '';
-      if (!aboutData.education) return;
+    function updateLiveCalcPreview(val) {
+      if (!homepageData || !homepageData.calculator) return;
+      const words = parseInt(val) || 1500;
+      document.getElementById('view-calc-words-val').textContent = words.toLocaleString('it-IT');
 
-      aboutData.education.forEach((edu, index) => {
-        const div = document.createElement('div');
-        div.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
-        div.innerHTML = `
-          <div>
-            <label class="block text-xs font-semibold mb-1">Titolo Formazione:</label>
-            <input type="text" value="${escapeHtml(edu.title)}" onchange="aboutData.education[${index}].title = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
-            <textarea rows="2" onchange="aboutData.education[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(edu.description)}</textarea>
-          </div>
-        `;
-        container.appendChild(div);
+      const service = document.getElementById('view-calc-service-select')?.value || 'translation';
+      const baseRate = homepageData.calculator.rates[service] || 0.08;
+      let price = Math.round(words * baseRate);
+      if (price < homepageData.calculator.min_fee) price = homepageData.calculator.min_fee;
+
+      document.getElementById('view-calc-price').textContent = `€ ${price} - € ${Math.round(price * 1.15)}`;
+      document.getElementById('view-calc-rate').textContent = `~ € ${baseRate.toFixed(3)} / parola`;
+    }
+
+    // EDIT MODAL HANDLERS
+    function openEditHeroModal() {
+      const titleMatch = indexMdRaw.match(/title:\s*"(.*?)"/);
+      const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
+
+      openModal('✏️ Modifica Hero Copertina', `
+        <div>
+          <label class="block text-xs font-bold mb-1">Titolo Copertina:</label>
+          <input type="text" id="edit-hero-title" value="${escapeHtml(titleMatch ? titleMatch[1] : '')}" class="w-full p-2 border rounded text-sm font-bold">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1">Descrizione Copertina:</label>
+          <textarea id="edit-hero-content" rows="3" class="w-full p-2 border rounded text-xs">${escapeHtml(contentMatch ? contentMatch[1] : '')}</textarea>
+        </div>
+      `, () => {
+        const t = document.getElementById('edit-hero-title').value;
+        const c = document.getElementById('edit-hero-content').value;
+        indexMdRaw = indexMdRaw.replace(/title:\s*".*?"/, `title: "${t}"`);
+        indexMdRaw = indexMdRaw.replace(/content:\s*".*?"/, `content: "${c}"`);
+        renderLiveCanvas();
       });
     }
 
-    function renderServicesForms() {
-      const container = document.getElementById('services-cards-container');
-      container.innerHTML = '';
-      if (!servicesData || !servicesData.service_cards) return;
-
-      servicesData.service_cards.forEach((card, index) => {
-        const div = document.createElement('div');
-        div.className = 'p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-3';
-        div.innerHTML = `
-          <h4 class="text-sm font-bold text-blue-600 dark:text-blue-400">Servizio #${card.number}: ${escapeHtml(card.title)}</h4>
-          <div>
-            <label class="block text-xs font-semibold mb-1">Titolo Servizio:</label>
-            <input type="text" value="${escapeHtml(card.title)}" onchange="servicesData.service_cards[${index}].title = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
-            <textarea rows="2" onchange="servicesData.service_cards[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(card.description)}</textarea>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold mb-1">Tempi Medi / Turnaround:</label>
-            <input type="text" value="${escapeHtml(card.turnaround)}" onchange="servicesData.service_cards[${index}].turnaround = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">
+    function openEditStatsModal() {
+      let html = '<div class="space-y-3">';
+      homepageData.stats.forEach((st, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <label class="font-bold">Valore #${idx+1}:</label>
+              <input type="text" id="edit-stat-val-${idx}" value="${escapeHtml(st.value)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-bold">Etichetta:</label>
+              <input type="text" id="edit-stat-lbl-${idx}" value="${escapeHtml(st.label)}" class="w-full p-1.5 border rounded">
+            </div>
           </div>
         `;
-        container.appendChild(div);
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Statistiche Banner', html, () => {
+        homepageData.stats.forEach((st, idx) => {
+          st.value = document.getElementById(`edit-stat-val-${idx}`).value;
+          st.label = document.getElementById(`edit-stat-lbl-${idx}`).value;
+        });
+        renderLiveCanvas();
       });
     }
 
-    function renderFaqsList() {
-      const container = document.getElementById('faq-list-container');
-      container.innerHTML = '';
-      if (!homepageData.faqs) homepageData.faqs = [];
-
-      homepageData.faqs.forEach((faq, index) => {
-        const item = document.createElement('div');
-        item.className = 'p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-3';
-        item.innerHTML = `
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Domanda FAQ #${index + 1}</span>
-            <button onclick="removeFaqItem(${index})" class="text-xs text-red-500 hover:text-red-700 font-semibold">🗑️ Elimina</button>
+    function openEditCalcModal() {
+      const c = homepageData.calculator;
+      openModal('✏️ Modifica Tariffe Calcolatore', `
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="font-bold">Prezzo Minimo Progetto (€):</label>
+            <input type="number" id="edit-calc-min" value="${c.min_fee}" class="w-full p-1.5 border rounded font-bold">
           </div>
           <div>
-            <label class="block text-xs font-semibold mb-1">Domanda:</label>
-            <input type="text" value="${escapeHtml(faq.question)}" onchange="homepageData.faqs[${index}].question = this.value" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+            <label class="font-bold">Tariffa Traduzione (€/parola):</label>
+            <input type="number" step="0.005" id="edit-rate-trans" value="${c.rates.translation}" class="w-full p-1.5 border rounded font-bold">
           </div>
           <div>
-            <label class="block text-xs font-semibold mb-1">Risposta:</label>
-            <textarea rows="2" onchange="homepageData.faqs[${index}].answer = this.value" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs leading-relaxed">${escapeHtml(faq.answer)}</textarea>
+            <label class="font-bold">Tariffa Localizzazione (€/parola):</label>
+            <input type="number" step="0.005" id="edit-rate-loc" value="${c.rates.localization}" class="w-full p-1.5 border rounded font-bold">
           </div>
-        `;
-        container.appendChild(item);
+          <div>
+            <label class="font-bold">Tariffa Revisione (€/parola):</label>
+            <input type="number" step="0.005" id="edit-rate-rev" value="${c.rates.revision}" class="w-full p-1.5 border rounded font-bold">
+          </div>
+          <div>
+            <label class="font-bold">Tariffa Post-Editing (€/parola):</label>
+            <input type="number" step="0.005" id="edit-rate-post" value="${c.rates.postediting}" class="w-full p-1.5 border rounded font-bold">
+          </div>
+        </div>
+      `, () => {
+        c.min_fee = parseInt(document.getElementById('edit-calc-min').value) || 25;
+        c.rates.translation = parseFloat(document.getElementById('edit-rate-trans').value) || 0.08;
+        c.rates.localization = parseFloat(document.getElementById('edit-rate-loc').value) || 0.09;
+        c.rates.revision = parseFloat(document.getElementById('edit-rate-rev').value) || 0.04;
+        c.rates.postediting = parseFloat(document.getElementById('edit-rate-post').value) || 0.05;
+        renderLiveCanvas();
       });
     }
 
-    function addFaqItem() {
-      if (!homepageData.faqs) homepageData.faqs = [];
-      homepageData.faqs.push({ question: "Nuova Domanda FAQ", answer: "Inserisci la risposta..." });
-      renderFaqsList();
-    }
-
-    function removeFaqItem(index) {
-      homepageData.faqs.splice(index, 1);
-      renderFaqsList();
-    }
-
-    function renderStatsList() {
-      const container = document.getElementById('stats-list-container');
-      container.innerHTML = '';
-      if (!homepageData.stats) return;
-
-      homepageData.stats.forEach((stat, index) => {
-        const item = document.createElement('div');
-        item.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
-        item.innerHTML = `
-          <div>
-            <label class="block text-xs font-semibold mb-1">Valore (es. 500k+):</label>
-            <input type="text" value="${escapeHtml(stat.value)}" onchange="homepageData.stats[${index}].value = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold mb-1">Etichetta:</label>
-            <input type="text" value="${escapeHtml(stat.label)}" onchange="homepageData.stats[${index}].label = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">
+    function openEditFaqModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      homepageData.faqs.forEach((faq, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="font-bold text-blue-600">FAQ #${idx+1}</div>
+            <div>
+              <label class="font-semibold">Domanda:</label>
+              <input type="text" id="edit-faq-q-${idx}" value="${escapeHtml(faq.question)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Risposta:</label>
+              <textarea id="edit-faq-a-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(faq.answer)}</textarea>
+            </div>
           </div>
         `;
-        container.appendChild(item);
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Domande FAQ', html, () => {
+        homepageData.faqs.forEach((faq, idx) => {
+          faq.question = document.getElementById(`edit-faq-q-${idx}`).value;
+          faq.answer = document.getElementById(`edit-faq-a-${idx}`).value;
+        });
+        renderLiveCanvas();
       });
     }
 
-    function renderCatToolsList() {
-      const container = document.getElementById('cat-tools-list-container');
-      container.innerHTML = '';
-      if (!homepageData.cat_tools) return;
-
-      homepageData.cat_tools.forEach((tool, index) => {
-        const item = document.createElement('div');
-        item.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
-        item.innerHTML = `
+    function openEditAboutModal() {
+      openModal('✏️ Modifica Profilo Chi Sono', `
+        <div class="space-y-3 text-xs">
           <div>
-            <label class="block text-xs font-semibold mb-1">Nome Software:</label>
-            <input type="text" value="${escapeHtml(tool.name)}" onchange="homepageData.cat_tools[${index}].name = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+            <label class="font-bold">Nome Profilo:</label>
+            <input type="text" id="edit-about-name" value="${escapeHtml(aboutData.profile_card.name)}" class="w-full p-1.5 border rounded font-bold">
           </div>
           <div>
-            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
-            <textarea rows="2" onchange="homepageData.cat_tools[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(tool.description)}</textarea>
+            <label class="font-bold">Ruolo / Titolo:</label>
+            <input type="text" id="edit-about-role" value="${escapeHtml(aboutData.profile_card.role)}" class="w-full p-1.5 border rounded">
           </div>
-        `;
-        container.appendChild(item);
+          <div>
+            <label class="font-bold">Testo Biografico (Markdown):</label>
+            <textarea id="edit-about-bio" rows="5" class="w-full p-1.5 border rounded">${escapeHtml(aboutData.bio)}</textarea>
+          </div>
+        </div>
+      `, () => {
+        aboutData.profile_card.name = document.getElementById('edit-about-name').value;
+        aboutData.profile_card.role = document.getElementById('edit-about-role').value;
+        aboutData.bio = document.getElementById('edit-about-bio').value;
+        renderLiveCanvas();
       });
     }
 
-    function parseIndexMarkdown() {
-      const titleMatch = indexMarkdownRaw.match(/title:\s*"(.*?)"/);
-      const contentMatch = indexMarkdownRaw.match(/content:\s*"(.*?)"/);
-      if (titleMatch) document.getElementById('home-banner-title').value = titleMatch[1];
-      if (contentMatch) document.getElementById('home-banner-content').value = contentMatch[1];
+    function openEditServicesModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      servicesData.service_cards.forEach((sc, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="font-bold text-blue-600">Servizio #${sc.number}</div>
+            <div>
+              <label class="font-semibold">Titolo:</label>
+              <input type="text" id="edit-srv-t-${idx}" value="${escapeHtml(sc.title)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-srv-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(sc.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Carte Servizi', html, () => {
+        servicesData.service_cards.forEach((sc, idx) => {
+          sc.title = document.getElementById(`edit-srv-t-${idx}`).value;
+          sc.description = document.getElementById(`edit-srv-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
     }
 
-    async function saveHomepageData(successMsg) {
-      homepageData.calculator.min_fee = parseInt(document.getElementById('calc-min-fee').value) || 25;
-      homepageData.calculator.default_words = parseInt(document.getElementById('calc-default-words').value) || 1500;
-      homepageData.calculator.rates.translation = parseFloat(document.getElementById('rate-translation').value) || 0.08;
-      homepageData.calculator.rates.localization = parseFloat(document.getElementById('rate-localization').value) || 0.09;
-      homepageData.calculator.rates.revision = parseFloat(document.getElementById('rate-revision').value) || 0.04;
-      homepageData.calculator.rates.postediting = parseFloat(document.getElementById('rate-postediting').value) || 0.05;
-
-      const str = JSON.stringify(homepageData, null, 2);
-      await updateFileOnGitHub('data/homepage.json', str, homepageDataSha, successMsg || 'Dati salvati!');
+    function openModal(title, bodyHtml, onSave) {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').innerHTML = bodyHtml;
+      activeModalCallback = onSave;
+      document.getElementById('edit-modal').classList.remove('hidden');
     }
 
-    async function saveAboutData() {
-      aboutData.bio = document.getElementById('about-bio').value;
-      if (!aboutData.profile_card) aboutData.profile_card = {};
-      aboutData.profile_card.name = document.getElementById('about-card-name').value;
-      aboutData.profile_card.role = document.getElementById('about-card-role').value;
-      aboutData.profile_card.location = document.getElementById('about-card-location').value;
-      aboutData.profile_card.degree = document.getElementById('about-card-degree').value;
-
-      const str = JSON.stringify(aboutData, null, 2);
-      await updateFileOnGitHub('data/about.json', str, aboutDataSha, 'Profilo Chi Sono salvato!');
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden');
     }
 
-    async function saveServicesData() {
-      const str = JSON.stringify(servicesData, null, 2);
-      await updateFileOnGitHub('data/services.json', str, servicesDataSha, 'Carte Servizi salvate!');
+    function saveModalChanges() {
+      if (activeModalCallback) activeModalCallback();
+      closeEditModal();
+      showToast('✨ Modifiche applicate all\'anteprima live!', 'success');
     }
 
-    async function saveIndexMarkdown() {
-      const newTitle = document.getElementById('home-banner-title').value;
-      const newContent = document.getElementById('home-banner-content').value;
-      let updatedMd = indexMarkdownRaw.replace(/title:\s*".*?"/, `title: "${newTitle}"`);
-      updatedMd = updatedMd.replace(/content:\s*".*?"/, `content: "${newContent}"`);
-      await updateFileOnGitHub('content/_index.md', updatedMd, indexMarkdownSha, 'Testi copertina salvati!');
-    }
-
-    async function updateFileOnGitHub(filePath, fileContent, sha, successMsg) {
+    async function saveAllChangesToGitHub() {
       const token = localStorage.getItem('gh_token');
       if (!token) {
-        showToast('🔑 Per salvare devi inserire la chiave di accesso (Token).', 'error');
-        document.getElementById('token-modal').classList.remove('hidden');
+        showToast('🔑 Inserisci prima il Token GitHub.', 'error');
+        openTokenModal();
         return;
       }
 
-      showToast('⏳ Salvataggio in corso...', 'info');
+      showToast('⏳ Salvataggio in corso su GitHub...', 'info');
 
       try {
-        const encodedContent = btoa(unescape(encodeURIComponent(fileContent)));
-        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `Update ${filePath} via Admin Dashboard`,
-            content: encodedContent,
-            sha: sha
-          })
-        });
-
-        if (res.ok) {
-          showToast(`🚀 ${successMsg} Il sito si aggiornerà online tra 1 minuto.`, 'success');
-          loadDataFromGitHub();
-        } else {
-          const errData = await res.json();
-          showToast(`❌ Errore durante il salvataggio: ${errData.message || 'Verifica il Token'}`, 'error');
+        // Save homepage.json
+        if (homepageData) {
+          const strH = JSON.stringify(homepageData, null, 2);
+          const resH = await putGitHubFile('data/homepage.json', strH, homepageSha);
+          if (resH.content) homepageSha = resH.content.sha;
         }
+
+        // Save about.json
+        if (aboutData) {
+          const strA = JSON.stringify(aboutData, null, 2);
+          const resA = await putGitHubFile('data/about.json', strA, aboutSha);
+          if (resA.content) aboutSha = resA.content.sha;
+        }
+
+        // Save services.json
+        if (servicesData) {
+          const strS = JSON.stringify(servicesData, null, 2);
+          const resS = await putGitHubFile('data/services.json', strS, servicesSha);
+          if (resS.content) servicesSha = resS.content.sha;
+        }
+
+        // Save _index.md
+        if (indexMdRaw) {
+          const resI = await putGitHubFile('content/_index.md', indexMdRaw, indexMdSha);
+          if (resI.content) indexMdSha = resI.content.sha;
+        }
+
+        showToast('🚀 TUTTE LE MODIFICHE PUBBLICATE SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
       } catch (err) {
-        console.error('Save error:', err);
-        showToast('❌ Errore di connessione a GitHub.', 'error');
+        console.error('Save all error:', err);
+        showToast('❌ Errore durante il salvataggio su GitHub.', 'error');
+      }
+    }
+
+    async function putGitHubFile(path, content, sha) {
+      const token = localStorage.getItem('gh_token');
+      const encodedContent = btoa(unescape(encodeURIComponent(content)));
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Update ${path} via Visual Live Editor`,
+          content: encodedContent,
+          sha: sha
+        })
+      });
+      return await res.json();
+    }
+
+    function openTokenModal() { document.getElementById('token-modal').classList.remove('hidden'); }
+    function closeTokenModal() { document.getElementById('token-modal').classList.add('hidden'); }
+    function saveToken() {
+      const t = document.getElementById('input-token').value.trim();
+      if (t) {
+        localStorage.setItem('gh_token', t);
+        showToast('🔑 Token salvato!', 'success');
+        closeTokenModal();
+        loadAllData();
       }
     }
 
     function showToast(msg, type = 'success') {
       const toast = document.getElementById('toast');
-      const icon = document.getElementById('toast-icon');
-      const text = document.getElementById('toast-message');
-
-      text.textContent = msg;
-      if (type === 'success') {
-        icon.textContent = '✅';
-        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-emerald-900 text-white border-emerald-700';
-      } else if (type === 'error') {
-        icon.textContent = '❌';
-        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-red-900 text-white border-red-700';
-      } else {
-        icon.textContent = '⏳';
-        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-blue-900 text-white border-blue-700';
-      }
-
+      document.getElementById('toast-message').textContent = msg;
+      toast.className = `fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 text-white ${type === 'success' ? 'bg-emerald-900 border-emerald-700' : (type === 'error' ? 'bg-red-900 border-red-700' : 'bg-blue-900 border-blue-700')}`;
       toast.classList.remove('hidden');
       setTimeout(() => { toast.classList.add('hidden'); }, 5000);
     }
 
-    function escapeHtml(text) {
-      if (!text) return '';
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
   </script>
 </body>
