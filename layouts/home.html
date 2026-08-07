@@ -42,7 +42,7 @@
                 {{ end }}
               {{ end }}
               <a href="#quick-calculator" class="btn btn-outline-primary px-6 py-3 text-base font-medium">
-                🧮 Calcola Stima Preventivo
+                Calcola Stima Preventivo
               </a>
             </div>
           </div>
@@ -58,7 +58,7 @@
   {{ end }}
   <!-- /Hero Section -->
 
-  <!-- Stats Banner Counter (Loaded from data/homepage.json) -->
+  <!-- Stats Banner Counter -->
   {{ with $data.stats }}
     <section class="py-10 bg-primary/5 dark:bg-darkmode-light border-y border-border dark:border-darkmode-border">
       <div class="container">
@@ -73,7 +73,6 @@
       </div>
     </section>
   {{ end }}
-  <!-- /Stats Banner Counter -->
 
   <!-- Interactive Instant Quote Estimator -->
   <section id="quick-calculator" class="section py-16">
@@ -133,7 +132,8 @@
             <div class="flex flex-col justify-between p-6 rounded-xl bg-primary/5 dark:bg-darkmode-light border border-primary/10 dark:border-darkmode-border">
               <div>
                 <h3 class="text-lg font-bold mb-4 border-b border-border dark:border-darkmode-border pb-3 flex items-center gap-2">
-                  <span>📊</span> Stima del Progetto
+                  <svg class="w-5 h-5 text-primary dark:text-darkmode-primary fill-current" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                  <span>Stima del Progetto</span>
                 </h3>
 
                 <div class="space-y-4">
@@ -152,7 +152,7 @@
 
               <div class="mt-6 pt-4 border-t border-border dark:border-darkmode-border">
                 <a id="calc-cta-btn" href="/contact/#contact-form" class="btn btn-primary w-full text-center py-3 font-semibold shadow-md">
-                  📩 Richiedi questo Preventivo Gratuito
+                  Richiedi questo Preventivo Gratuito
                 </a>
                 <p class="text-xs text-center text-text-light dark:text-darkmode-text-light mt-2">
                   Stima non vincolante. Il preventivo finale viene confermato dopo la visione del file.
@@ -164,53 +164,8 @@
       </div>
     </div>
   </section>
-  <!-- /Interactive Instant Quote Estimator -->
 
-  <!-- Features / Services Overview -->
-  {{ range $i, $e:= .Params.features }}
-    <section class="section-sm {{ if (modBool $i 2) }}bg-gradient{{ end }}">
-      <div class="container">
-        <div class="row items-center justify-between">
-          <div
-            class="mb:md-0 {{ if not (modBool $i 2) }}
-              md:order-2
-            {{ end }} md:col-5 mb-6">
-            {{ partial "image" (dict "Src" .image "Alt" "service image" "Class" "rounded-2xl shadow-lg border border-border dark:border-darkmode-border" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
-          </div>
-          <div
-            class="{{ if not (modBool $i 2) }}
-              md:order-1
-            {{ end }} md:col-7 lg:col-6">
-            <h2 class="mb-4">
-              {{ .title | markdownify }}
-            </h2>
-            <p class="mb-8 text-lg">
-              {{ .content | markdownify }}
-            </p>
-            <ul>
-              {{ range .bulletpoints }}
-                <li class="relative mb-4 pl-7">
-                  <svg class="absolute left-0 top-1 w-5 h-5 text-primary dark:text-darkmode-primary fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                  {{ . | markdownify }}
-                </li>
-              {{ end }}
-            </ul>
-            {{ with .button }}
-              {{ if .enable }}
-                <a class="btn btn-primary mt-6" href="{{ .link | absURL }}">
-                  {{ .label }}
-                  <svg class="inline-block w-4 h-4 ml-2 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                </a>
-              {{ end }}
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-  <!-- /Features -->
-
-  <!-- Step-by-Step Workflow Timeline (Loaded from data/homepage.json) -->
+  <!-- Step-by-Step Workflow Timeline -->
   {{ with $data.workflow }}
     <section class="section py-16 bg-light dark:bg-darkmode-light">
       <div class="container">
@@ -236,9 +191,8 @@
       </div>
     </section>
   {{ end }}
-  <!-- /Step-by-Step Workflow Timeline -->
 
-  <!-- CAT Tools & Tech Stack Grid (Loaded from data/homepage.json) -->
+  <!-- CAT Tools & Tech Stack Grid -->
   {{ with $data.cat_tools }}
     <section class="section py-16">
       <div class="container">
@@ -266,9 +220,8 @@
       </div>
     </section>
   {{ end }}
-  <!-- /CAT Tools & Tech Stack Grid -->
 
-  <!-- Interactive FAQ Accordion (Loaded from data/homepage.json) -->
+  <!-- Interactive FAQ Accordion -->
   {{ with $data.faqs }}
     <section class="section py-16 bg-light dark:bg-darkmode-light">
       <div class="container">
@@ -300,9 +253,7 @@
       </div>
     </section>
   {{ end }}
-  <!-- /Interactive FAQ Accordion -->
 
   <!-- Call to action -->
   {{ partial "call-to-action" . }}
-  <!-- /Call to action -->
 {{ end }}

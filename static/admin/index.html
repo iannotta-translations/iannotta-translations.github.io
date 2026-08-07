@@ -147,33 +147,33 @@
       <!-- Logo & Indicator -->
       <div class="flex items-center space-x-3">
         <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center font-bold text-lg text-white shadow-md">
-          ✏️
+          Pannello
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-sm font-bold tracking-tight">Editor Visuale Fedele 100%</h1>
+            <h1 class="text-sm font-bold tracking-tight">Pannello di Gestione Sito</h1>
             <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Live Replica</span>
           </div>
-          <p class="text-xs text-slate-400">Clicca su qualsiasi sezione per modificarla o gestirne i dati</p>
+          <p class="text-xs text-slate-400">Seleziona e modifica visivamente ogni elemento del portfolio</p>
         </div>
       </div>
 
       <!-- Page Switcher -->
       <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
-        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">🏠 Homepage</button>
-        <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
-        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
-        <button onclick="switchViewPage('contact')" id="page-nav-contact" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">✉️ Contatti & Social</button>
+        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">Homepage</button>
+        <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Chi Sono</button>
+        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Servizi</button>
+        <button onclick="switchViewPage('contact')" id="page-nav-contact" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Contatti & Social</button>
       </div>
 
       <!-- Actions & Save -->
       <div class="flex items-center space-x-3">
         <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl bg-blue-700 hover:bg-blue-600 font-bold text-xs text-white shadow-lg shadow-blue-900/50 flex items-center gap-2 transition-all">
-          <span>💾</span> Salva & Pubblica sul Sito Live
+          Salva & Pubblica sul Sito Live
         </button>
 
         <button onclick="openTokenModal()" class="text-xs font-medium px-2.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white">
-          🔑 Token
+          Token Accesso
         </button>
       </div>
 
@@ -182,14 +182,14 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="hidden fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 transition-all duration-300">
-    <span id="toast-icon">✅</span>
+    <span id="toast-icon">✓</span>
     <span id="toast-message">Modifiche salvate con successo!</span>
   </div>
 
   <!-- Loading Overlay -->
   <div id="loading-spinner" class="py-24 text-center">
     <div class="inline-block w-10 h-10 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
-    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento anteprima fedele del sito da GitHub...</p>
+    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento anteprima del sito da GitHub...</p>
   </div>
 
   <!-- MAIN CANVAS -->
@@ -201,7 +201,7 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
           <button onclick="openEditHeroModal()" class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Testi & Foto Copertina
+            Modifica Testi & Foto Copertina
           </button>
         </div>
 
@@ -217,8 +217,8 @@
             <p id="view-hero-content" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8">Rendo la tua comunicazione impeccabile ed efficace in Italiano.</p>
             
             <div class="flex flex-wrap gap-4">
-              <span class="btn-primary">Richiedi un Preventivo Gratuito ➔</span>
-              <span class="btn-outline-primary">🧮 Calcola Stima Preventivo</span>
+              <span class="btn-primary">Richiedi un Preventivo Gratuito</span>
+              <span class="btn-outline-primary">Calcola Stima Preventivo</span>
             </div>
           </div>
 
@@ -232,7 +232,7 @@
       <div class="editable-section py-8 bg-blue-900/5 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
           <button onclick="openEditStatsModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Statistiche
+            Modifica Statistiche
           </button>
         </div>
 
@@ -243,7 +243,7 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
           <button onclick="openEditCalcModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Tariffe Calcolatore
+            Modifica Tariffe Calcolatore
           </button>
         </div>
 
@@ -280,7 +280,7 @@
                 <div id="view-calc-price" class="text-3xl font-extrabold text-blue-900 dark:text-blue-400 mt-1">€ 120 - € 135</div>
                 <div id="view-calc-rate" class="text-xs text-slate-600 dark:text-slate-400 mt-1">~ € 0.080 / parola</div>
               </div>
-              <span class="btn-primary text-center mt-4 py-2.5 text-xs">📩 Richiedi questo Preventivo</span>
+              <span class="btn-primary text-center mt-4 py-2.5 text-xs">Richiedi questo Preventivo</span>
             </div>
           </div>
         </div>
@@ -290,10 +290,10 @@
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
           <button onclick="addWorkflowStep()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ➕ Aggiungi Step
+            + Aggiungi Step
           </button>
           <button onclick="openEditWorkflowModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Passaggi
+            Modifica Passaggi
           </button>
         </div>
 
@@ -309,10 +309,10 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
           <button onclick="addCatTool()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ➕ Aggiungi Software
+            + Aggiungi Software
           </button>
           <button onclick="openEditCatToolsModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Software
+            Modifica Software
           </button>
         </div>
 
@@ -328,10 +328,10 @@
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
           <button onclick="addFaqItem()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ➕ Nuova FAQ
+            + Nuova FAQ
           </button>
           <button onclick="openEditFaqModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Domande FAQ
+            Modifica Domande FAQ
           </button>
         </div>
 
@@ -352,7 +352,7 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
           <button onclick="openEditAboutModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Biografia & Info Card
+            Modifica Biografia & Info Card
           </button>
         </div>
 
@@ -369,15 +369,15 @@
 
               <div class="pt-3 border-t border-slate-200 text-sm text-left space-y-2">
                 <div class="flex items-center gap-2">
-                  <span class="text-blue-900 font-bold">📍 Base:</span>
+                  <span class="text-blue-900 font-bold">Base:</span>
                   <span id="view-about-card-location">Italia</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <span class="text-blue-900 font-bold">🎓 Titolo:</span>
+                  <span class="text-blue-900 font-bold">Titolo:</span>
                   <span id="view-about-card-degree">Laurea in Traduzione</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <span class="text-blue-900 font-bold">⚡ Risposta:</span>
+                  <span class="text-blue-900 font-bold">Risposta:</span>
                   <span id="view-about-card-response">Entro 24 ore lavorative</span>
                 </div>
               </div>
@@ -392,10 +392,10 @@
 
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold flex items-center gap-2"><span>🎓</span> Formazione & Certificazioni</h3>
+                <h3 class="text-xl font-bold flex items-center gap-2">Formazione & Certificazioni</h3>
                 <div class="flex space-x-2">
-                  <button onclick="openEditEducationModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">✏️ Modifica Formazione</button>
-                  <button onclick="addEducationItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Titolo</button>
+                  <button onclick="openEditEducationModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">Modifica Formazione</button>
+                  <button onclick="addEducationItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">+ Aggiungi Titolo</button>
                 </div>
               </div>
               <div id="view-about-education" class="space-y-4"></div>
@@ -403,10 +403,10 @@
 
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold flex items-center gap-2"><span>🌟</span> I Miei Valori Guida</h3>
+                <h3 class="text-xl font-bold flex items-center gap-2">I Miei Valori Guida</h3>
                 <div class="flex space-x-2">
-                  <button onclick="openEditCoreValuesModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">✏️ Modifica Valori</button>
-                  <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Valore</button>
+                  <button onclick="openEditCoreValuesModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">Modifica Valori</button>
+                  <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">+ Aggiungi Valore</button>
                 </div>
               </div>
               <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -421,10 +421,10 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
           <button onclick="addServiceCard()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ➕ Aggiungi Servizio
+            + Aggiungi Servizio
           </button>
           <button onclick="openEditServicesModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Carte Servizi
+            Modifica Carte Servizi
           </button>
         </div>
 
@@ -442,7 +442,7 @@
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
           <button onclick="openEditSocialModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Email & Link Social Footer
+            Modifica Email & Link Social Footer
           </button>
         </div>
 
@@ -478,7 +478,7 @@
   <!-- TOKEN MODAL -->
   <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
-      <h3 class="text-lg font-bold">🔑 Token di Accesso GitHub</h3>
+      <h3 class="text-lg font-bold">Token di Accesso GitHub</h3>
       <p class="text-xs text-slate-500">Inserisci la tua chiave Token di GitHub per pubblicare direttamente le modifiche sul sito live.</p>
       <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border text-sm" placeholder="ghp_xxxxxxxxxxxx">
       <div class="flex space-x-2 pt-2">
@@ -611,7 +611,7 @@
         homepageData.cat_tools.forEach(ct => {
           catGrid.innerHTML += `
             <div class="feature-card space-y-2">
-              <div class="font-bold text-sm text-blue-900 dark:text-blue-400">🛠️ ${ct.name}</div>
+              <div class="font-bold text-sm text-blue-900 dark:text-blue-400">${ct.name}</div>
               <p class="text-xs text-slate-500">${ct.description}</p>
             </div>
           `;
@@ -625,7 +625,7 @@
         homepageData.faqs.forEach(faq => {
           faqList.innerHTML += `
             <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
-              <div class="font-bold text-sm">❓ ${faq.question}</div>
+              <div class="font-bold text-sm">${faq.question}</div>
               <div class="text-xs text-slate-500 leading-relaxed">${faq.answer}</div>
             </div>
           `;
@@ -681,7 +681,6 @@
           aboutData.core_values.forEach(v => {
             valGrid.innerHTML += `
               <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1">
-                <div class="text-xl mb-1">${v.icon}</div>
                 <h4 class="font-bold text-sm">${v.title}</h4>
                 <p class="text-xs text-slate-500">${v.description}</p>
               </div>
@@ -727,15 +726,14 @@
         const socGrid = document.getElementById('view-social-links-grid');
         socGrid.innerHTML = '';
         socialData.main.forEach(soc => {
-          let iconEmoji = '🔗';
-          if (soc.name === 'linkedin') iconEmoji = '💼';
-          else if (soc.name === 'email') iconEmoji = '✉️';
-          else if (soc.name === 'proz') iconEmoji = '🌐';
+          let labelText = soc.name.toUpperCase();
+          if (soc.name === 'email') labelText = 'Email Diretta';
+          else if (soc.name === 'linkedin') labelText = 'Profilo LinkedIn';
+          else if (soc.name === 'proz') labelText = 'Directory ProZ';
 
           socGrid.innerHTML += `
             <div class="feature-card text-center space-y-3 p-6">
-              <div class="text-3xl mb-1">${iconEmoji}</div>
-              <h4 class="font-bold text-base capitalize">${soc.name}</h4>
+              <h4 class="font-bold text-base capitalize">${labelText}</h4>
               <p class="text-xs font-semibold text-blue-900 break-all">${soc.link}</p>
             </div>
           `;
@@ -780,7 +778,7 @@
       });
       html += '</div>';
 
-      openModal('✉️ Modifica Email & Link Social Footer', html, () => {
+      openModal('Modifica Email & Link Social Footer', html, () => {
         socialData.main.forEach((soc, idx) => {
           soc.name = document.getElementById(`edit-soc-name-${idx}`).value;
           soc.link = document.getElementById(`edit-soc-link-${idx}`).value;
@@ -794,7 +792,7 @@
       const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
       const imgMatch = indexMdRaw.match(/image:\s*"(.*?)"/);
 
-      openModal('✏️ Modifica Hero Copertina', `
+      openModal('Modifica Hero Copertina', `
         <div>
           <label class="block text-xs font-bold mb-1">Titolo Copertina:</label>
           <input type="text" id="edit-hero-title" value="${escapeHtml(titleMatch ? titleMatch[1] : '')}" class="w-full p-2 border rounded text-sm font-bold">
@@ -820,7 +818,7 @@
 
     function openEditAboutModal() {
       const pc = aboutData.profile_card || {};
-      openModal('✏️ Modifica Dettagliata Profilo Chi Sono', `
+      openModal('Modifica Dettagliata Profilo Chi Sono', `
         <div class="space-y-4 text-xs">
           <div>
             <label class="font-bold">URL Foto Profilo:</label>
@@ -871,7 +869,7 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold text-blue-900">
               <span>Titolo #${idx+1}</span>
-              <button onclick="removeEducationItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeEducationItem(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
             <div>
               <label class="font-semibold">Titolo Formazione:</label>
@@ -890,7 +888,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Formazione & Certificazioni', html, () => {
+      openModal('Modifica Formazione & Certificazioni', html, () => {
         aboutData.education.forEach((ed, idx) => {
           ed.title = document.getElementById(`edit-edu-t-${idx}`).value;
           ed.category = document.getElementById(`edit-edu-c-${idx}`).value;
@@ -924,17 +922,11 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold text-blue-900">
               <span>Valore #${idx+1}</span>
-              <button onclick="removeCoreValueItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeCoreValueItem(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
-            <div class="grid grid-cols-4 gap-2">
-              <div class="col-span-1">
-                <label class="font-semibold">Icona Emoji:</label>
-                <input type="text" id="edit-val-i-${idx}" value="${escapeHtml(v.icon)}" class="w-full p-1.5 border rounded text-center text-base">
-              </div>
-              <div class="col-span-3">
-                <label class="font-semibold">Titolo Valore:</label>
-                <input type="text" id="edit-val-t-${idx}" value="${escapeHtml(v.title)}" class="w-full p-1.5 border rounded font-bold">
-              </div>
+            <div>
+              <label class="font-semibold">Titolo Valore:</label>
+              <input type="text" id="edit-val-t-${idx}" value="${escapeHtml(v.title)}" class="w-full p-1.5 border rounded font-bold">
             </div>
             <div>
               <label class="font-semibold">Descrizione:</label>
@@ -945,9 +937,8 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Valori Guida', html, () => {
+      openModal('Modifica Valori Guida', html, () => {
         aboutData.core_values.forEach((v, idx) => {
-          v.icon = document.getElementById(`edit-val-i-${idx}`).value;
           v.title = document.getElementById(`edit-val-t-${idx}`).value;
           v.description = document.getElementById(`edit-val-d-${idx}`).value;
         });
@@ -962,7 +953,7 @@
 
     function addCoreValueItem() {
       if (!aboutData.core_values) aboutData.core_values = [];
-      aboutData.core_values.push({ icon: "🌟", title: "Nuovo Valore", description: "Descrizione..." });
+      aboutData.core_values.push({ title: "Nuovo Valore", description: "Descrizione..." });
       renderLiveCanvas();
       openEditCoreValuesModal();
     }
@@ -985,7 +976,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Statistiche Banner', html, () => {
+      openModal('Modifica Statistiche Banner', html, () => {
         homepageData.stats.forEach((st, idx) => {
           st.value = document.getElementById(`edit-stat-val-${idx}`).value;
           st.label = document.getElementById(`edit-stat-lbl-${idx}`).value;
@@ -996,7 +987,7 @@
 
     function openEditCalcModal() {
       const c = homepageData.calculator;
-      openModal('✏️ Modifica Tariffe Calcolatore', `
+      openModal('Modifica Tariffe Calcolatore', `
         <div class="space-y-3 text-xs">
           <div>
             <label class="font-bold">Prezzo Minimo Progetto (€):</label>
@@ -1043,7 +1034,7 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold">
               <span>Step #${wf.step}</span>
-              <button onclick="removeWorkflowStep(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeWorkflowStep(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
             <div>
               <label class="font-semibold">Titolo:</label>
@@ -1058,7 +1049,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Processo di Lavoro', html, () => {
+      openModal('Modifica Processo di Lavoro', html, () => {
         homepageData.workflow.forEach((wf, idx) => {
           wf.title = document.getElementById(`edit-wf-t-${idx}`).value;
           wf.description = document.getElementById(`edit-wf-d-${idx}`).value;
@@ -1087,7 +1078,7 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold">
               <span>Software #${idx+1}</span>
-              <button onclick="removeCatTool(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeCatTool(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
             <div>
               <label class="font-semibold">Nome:</label>
@@ -1102,7 +1093,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Software', html, () => {
+      openModal('Modifica Software', html, () => {
         homepageData.cat_tools.forEach((ct, idx) => {
           ct.name = document.getElementById(`edit-ct-n-${idx}`).value;
           ct.description = document.getElementById(`edit-ct-d-${idx}`).value;
@@ -1130,7 +1121,7 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold text-blue-900">
               <span>FAQ #${idx+1}</span>
-              <button onclick="removeFaqItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeFaqItem(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
             <div>
               <label class="font-semibold">Domanda:</label>
@@ -1145,7 +1136,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Domande FAQ', html, () => {
+      openModal('Modifica Domande FAQ', html, () => {
         homepageData.faqs.forEach((faq, idx) => {
           faq.question = document.getElementById(`edit-faq-q-${idx}`).value;
           faq.answer = document.getElementById(`edit-faq-a-${idx}`).value;
@@ -1180,7 +1171,7 @@
           <div class="p-3 border rounded-xl space-y-2 text-xs">
             <div class="flex justify-between font-bold text-blue-900">
               <span>Servizio #${sc.number}</span>
-              <button onclick="removeServiceCard(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+              <button onclick="removeServiceCard(${idx})" class="text-red-500 text-[11px]">Elimina</button>
             </div>
             <div>
               <label class="font-semibold">Titolo:</label>
@@ -1195,7 +1186,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Carte Servizi', html, () => {
+      openModal('Modifica Carte Servizi', html, () => {
         servicesData.service_cards.forEach((sc, idx) => {
           sc.title = document.getElementById(`edit-srv-t-${idx}`).value;
           sc.description = document.getElementById(`edit-srv-d-${idx}`).value;
@@ -1221,7 +1212,7 @@
     function saveModalChanges() {
       if (activeModalCallback) activeModalCallback();
       closeEditModal();
-      showToast('✨ Modifiche applicate alla preview!', 'success');
+      showToast('Modifiche applicate alla preview!', 'success');
     }
 
     // ATOMIC SAVE USING GITHUB TREES API (EXACTLY 1 COMMIT FOR ALL FILES)
@@ -1241,17 +1232,14 @@
           'Content-Type': 'application/json'
         };
 
-        // 1. Get current commit SHA of main branch
         const refRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/ref/heads/main`, { headers });
         const refData = await refRes.json();
         const currentCommitSha = refData.object.sha;
 
-        // 2. Get base tree SHA of current commit
         const commitRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${currentCommitSha}`, { headers });
         const commitData = await commitRes.json();
         const baseTreeSha = commitData.tree.sha;
 
-        // 3. Construct tree items for all modified files
         const treeItems = [];
         if (homepageData) {
           treeItems.push({ path: 'data/homepage.json', mode: '100644', type: 'blob', content: JSON.stringify(homepageData, null, 2) });
@@ -1269,7 +1257,6 @@
           treeItems.push({ path: 'content/_index.md', mode: '100644', type: 'blob', content: indexMdRaw });
         }
 
-        // 4. Create new single tree
         const treeRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees`, {
           method: 'POST',
           headers,
@@ -1277,7 +1264,6 @@
         });
         const treeData = await treeRes.json();
 
-        // 5. Create 1 single atomic commit
         const newCommitRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits`, {
           method: 'POST',
           headers,
@@ -1289,14 +1275,13 @@
         });
         const newCommitData = await newCommitRes.json();
 
-        // 6. Update main branch reference to new commit (Single push!)
         await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/main`, {
           method: 'PATCH',
           headers,
           body: JSON.stringify({ sha: newCommitData.sha })
         });
 
-        showToast('🚀 TUTTE LE MODIFICHE SALVATE IN 1 SOLO COMMIT! (Aggiornamento in 60s)', 'success');
+        showToast('🚀 MODIFICHE PUBBLICATE SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
       } catch (err) {
         console.error('Atomic save error:', err);
         showToast('❌ Errore durante il salvataggio atomico su GitHub.', 'error');
@@ -1309,7 +1294,7 @@
       const t = document.getElementById('input-token').value.trim();
       if (t) {
         localStorage.setItem('gh_token', t);
-        showToast('🔑 Token salvato!', 'success');
+        showToast('Token salvato!', 'success');
         closeTokenModal();
         loadAllData();
       }

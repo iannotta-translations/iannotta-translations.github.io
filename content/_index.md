@@ -6,7 +6,7 @@ banner:
   image: "/images/banner.png"
   button:
     enable: true
-    label: "Richiedi un Preventivo Gratuito ✉️"
+    label: "Richiedi un Preventivo Gratuito"
     link: "/contact"
 
 # Features

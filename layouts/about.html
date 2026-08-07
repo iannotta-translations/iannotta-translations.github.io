@@ -28,24 +28,24 @@
                   {{ .role }}
                 </p>
 
-                <div class="pt-3 border-t border-border dark:border-darkmode-border flex flex-col gap-2 text-sm text-left">
+                <div class="pt-3 border-t border-border dark:border-darkmode-border flex flex-col gap-2.5 text-sm text-left">
                   <div class="flex items-center gap-2">
-                    <span class="text-primary font-bold">📍 Base:</span>
+                    <span class="text-primary font-bold">Base:</span>
                     <span>{{ .location }}</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="text-primary font-bold">🎓 Titolo:</span>
+                    <span class="text-primary font-bold">Titolo di studio:</span>
                     <span>{{ .degree }}</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="text-primary font-bold">⚡ Risposta:</span>
+                    <span class="text-primary font-bold">Tempo di risposta:</span>
                     <span>{{ .response_time }}</span>
                   </div>
                 </div>
 
                 <div class="pt-2">
                   <a href="/contact" class="btn btn-primary w-full text-center py-2.5 font-semibold text-sm">
-                    ✉️ Richiedi Informazioni o Preventivo
+                    Richiedi Informazioni o Preventivo
                   </a>
                 </div>
               </div>
@@ -63,8 +63,9 @@
           <!-- Education & Experience Timeline -->
           {{ with $about.education }}
             <div class="pt-6 border-t border-border dark:border-darkmode-border">
-              <h3 class="h3 font-bold mb-6 flex items-center gap-2">
-                <span>🎓</span> Formazione & Certificazioni
+              <h3 class="h3 font-bold mb-6 flex items-center gap-2.5">
+                <svg class="w-6 h-6 text-primary dark:text-darkmode-primary fill-current" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.97 9L12 4.61 20.03 9 12 13.39 3.97 9zM5 13.78v4.13C6.73 19.16 9.24 20 12 20s7.27-.84 9-2.09v-4.13l-9 4.91-7-4.91z"/></svg>
+                <span>Formazione & Certificazioni</span>
               </h3>
 
               <div class="space-y-6">
@@ -86,16 +87,16 @@
           <!-- Core Values Grid -->
           {{ with $about.core_values }}
             <div class="pt-6 border-t border-border dark:border-darkmode-border">
-              <h3 class="h3 font-bold mb-6 flex items-center gap-2">
-                <span>🌟</span> I Miei Valori Guida
+              <h3 class="h3 font-bold mb-6 flex items-center gap-2.5">
+                <svg class="w-6 h-6 text-primary dark:text-darkmode-primary fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>I Miei Valori Guida</span>
               </h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {{ range . }}
-                  <div class="p-4 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
-                    <div class="text-2xl mb-2">{{ .icon }}</div>
-                    <h4 class="h5 font-bold mb-1">{{ .title }}</h4>
-                    <p class="text-xs text-text-light dark:text-darkmode-text-light">
+                  <div class="p-5 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                    <h4 class="h5 font-bold mb-1.5">{{ .title }}</h4>
+                    <p class="text-xs text-text-light dark:text-darkmode-text-light leading-relaxed">
                       {{ .description }}
                     </p>
                   </div>
@@ -110,5 +111,4 @@
 
   <!-- Call to action -->
   {{ partial "call-to-action" . }}
-  <!-- /Call to action -->
 {{ end }}
