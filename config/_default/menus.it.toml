@@ -16,14 +16,9 @@ url = "/services"
 weight = 3
 
 [[main]]
-name = "Portfolio & Articoli"
-url = "/blog"
-weight = 4
-
-[[main]]
 name = "Contatti"
 url = "/contact"
-weight = 5
+weight = 4
 
 ############# Footer Navigation ##############
 

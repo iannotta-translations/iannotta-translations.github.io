@@ -1,0 +1,20 @@
+[full-name]
+other = "Nome Completo"
+
+[john-doe]
+other = "Mario Rossi"
+
+[working-mail]
+other = "Email"
+
+[john-doe-email]
+other = "mario.rossi@email.com"
+
+[anything-else]
+other = "Il tuo messaggio"
+
+[message-goes-here]
+other = "Descrivi il tuo progetto: tipo di documento, combinazione linguistica, scadenza..."
+
+[submit]
+other = "Invia Messaggio"

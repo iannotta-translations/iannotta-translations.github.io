@@ -36,9 +36,9 @@ exclude = []
 
 # search
 [search]
-enable = true
-primary_color = "#121212"
-include_sections = ["blog"]
+enable = false
+primary_color = "#1e3a8a"
+include_sections = []
 show_image = true
 show_description = true
 show_tags = true
