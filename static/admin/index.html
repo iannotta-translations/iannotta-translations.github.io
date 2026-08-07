@@ -1,13 +1,569 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pannello di Gestione Contenuti — Alessia Iannotta Portfolio</title>
+  <title>Pannello di Amministrazione — Alessia Iannotta Portfolio</title>
   <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <!-- Tailwind CSS via CDN for Admin Panel -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e3a8a',
+            primaryHover: '#1d4ed8',
+            darkmodeBg: '#0f172a',
+            darkmodeCard: '#1e293b'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .tab-active {
+      border-bottom: 3px solid #1e3a8a;
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+    .dark .tab-active {
+      border-bottom-color: #60a5fa;
+      color: #60a5fa;
+    }
+  </style>
 </head>
-<body>
-  <!-- Decap CMS Script -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans">
+
+  <!-- Admin Top Navigation Bar -->
+  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center font-bold text-xl">
+          ⚙️
+        </div>
+        <div>
+          <h1 class="text-lg font-bold leading-tight">Gestione Sito — Alessia Iannotta</h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Pannello di Amministrazione No-Code</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <a href="/" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 flex items-center gap-1">
+          👁️ Vedi Sito Live ↗
+        </a>
+        <button id="token-modal-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
+          🔑 Chiave di Accesso (Token)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 transition-all duration-300">
+    <span id="toast-icon">✅</span>
+    <span id="toast-message">Modifiche salvate con successo!</span>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Admin Tabs -->
+    <div class="flex space-x-8 border-b border-slate-200 dark:border-slate-700 mb-8 overflow-x-auto">
+      <button onclick="switchTab('tab-calc')" id="btn-tab-calc" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 tab-active flex items-center gap-2">
+        🧮 Tariffe & Calcolatore
+      </button>
+      <button onclick="switchTab('tab-faqs')" id="btn-tab-faqs" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
+        ❓ Domande Frequenti (FAQ)
+      </button>
+      <button onclick="switchTab('tab-home')" id="btn-tab-home" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
+        🏠 Testi Homepage & Banner
+      </button>
+      <button onclick="switchTab('tab-stats')" id="btn-tab-stats" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
+        📊 Statistiche & CAT Tools
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-spinner" class="py-20 text-center">
+      <div class="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-4 text-sm font-medium text-slate-500">Caricamento dati del sito da GitHub...</p>
+    </div>
+
+    <!-- Content Sections Container -->
+    <div id="admin-content" class="hidden">
+
+      <!-- TAB 1: CALCOLATORE & TARIFFE -->
+      <section id="tab-calc" class="space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">🧮 Gestione Tariffe Calcolatore Preventivo</h2>
+              <p class="text-xs text-slate-500 mt-1">Imposta le tariffe base per parola (€) ed i parametri del calcolatore automatico.</p>
+            </div>
+            <button onclick="saveHomepageData('Calcolatore salvato')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+              💾 Salva e Pubblica Tariffe
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Rate Inputs -->
+            <div class="space-y-4">
+              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Tariffe Base a Parola (€)</h3>
+              
+              <div>
+                <label class="block text-xs font-semibold mb-1">Traduzione Specialistica (€ / parola):</label>
+                <input type="number" step="0.005" id="rate-translation" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1">Localizzazione Web & Software (€ / parola):</label>
+                <input type="number" step="0.005" id="rate-localization" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1">Revisione & Proofreading (€ / parola):</label>
+                <input type="number" step="0.005" id="rate-revision" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1">Post-Editing Machine Translation (€ / parola):</label>
+                <input type="number" step="0.005" id="rate-postediting" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+            </div>
+
+            <!-- Parameters -->
+            <div class="space-y-4">
+              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Parametri Progetto</h3>
+              
+              <div>
+                <label class="block text-xs font-semibold mb-1">Prezzo Minimo per Progetto (€):</label>
+                <input type="number" id="calc-min-fee" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1">Parole Predefinite nello Slider:</label>
+                <input type="number" id="calc-default-words" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+              </div>
+
+              <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-xs text-blue-800 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
+                💡 <strong>Come funziona:</strong> Quando un cliente sposta lo slider in homepage, il sito moltiplica le parole per la tariffa corrispondente ed applica il prezzo minimo impostato qui sopra.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: DOMANDE FREQUENTI (FAQ) -->
+      <section id="tab-faqs" class="hidden space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">❓ Gestione Domande Frequenti (FAQ)</h2>
+              <p class="text-xs text-slate-500 mt-1">Aggiungi, modifica o elimina le domande e risposte visibili nella sezione FAQ.</p>
+            </div>
+            <div class="flex space-x-3">
+              <button onclick="addFaqItem()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-1">
+                ➕ Nuova Domanda
+              </button>
+              <button onclick="saveHomepageData('FAQ salvate')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+                💾 Salva Tutte le FAQ
+              </button>
+            </div>
+          </div>
+
+          <div id="faq-list-container" class="space-y-4">
+            <!-- FAQ items will be rendered dynamically here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: TESTI HOMEPAGE & BANNER -->
+      <section id="tab-home" class="hidden space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">🏠 Testi Copertina & Banner Homepage</h2>
+              <p class="text-xs text-slate-500 mt-1">Modifica il titolo di copertina e il messaggio di presentazione.</p>
+            </div>
+            <button onclick="saveIndexMarkdown()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+              💾 Salva Testi Copertina
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1">Titolo Principale Copertina:</label>
+              <input type="text" id="home-banner-title" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1">Sottotitolo / Descrizione Copertina:</label>
+              <textarea id="home-banner-content" rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: STATISTICHE & CAT TOOLS -->
+      <section id="tab-stats" class="hidden space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">📊 Banner Statistiche & Lista CAT Tools</h2>
+              <p class="text-xs text-slate-500 mt-1">Modifica i valori numerici del banner statistico e i software di traduzione gestiti.</p>
+            </div>
+            <button onclick="saveHomepageData('Statistiche e Tools salvati')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+              💾 Salva Statistiche & Tools
+            </button>
+          </div>
+
+          <!-- Stats Inputs -->
+          <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">Statistiche Banner (4 Box)</h3>
+          <div id="stats-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Stats inputs rendered dynamically -->
+          </div>
+
+          <!-- CAT Tools Inputs -->
+          <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">CAT Tools & Strumenti</h3>
+          <div id="cat-tools-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- CAT Tools rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- GitHub Token Setup Modal -->
+  <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200 dark:border-slate-700">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">🔑</span>
+        <h3 class="text-lg font-bold">Chiave di Accesso GitHub</h3>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        Inserisci il tuo Personal Access Token di GitHub per salvare le modifiche direttamente sul sito in totale sicurezza.
+      </p>
+      
+      <div>
+        <label class="block text-xs font-semibold mb-1">GitHub Personal Access Token:</label>
+        <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm" placeholder="ghp_xxxxxxxxxxxxxxxxx">
+      </div>
+
+      <div class="text-xs text-slate-400 space-y-1">
+        <p>• La chiave viene salvata **esclusivamente nel tuo browser**.</p>
+        <p>• Puoi crearne una in 1 click su GitHub ➔ Settings ➔ Developer settings ➔ Personal access tokens (Fine-grained o Classic con permesso `repo`).</p>
+      </div>
+
+      <div class="flex space-x-3 pt-2">
+        <button onclick="saveToken()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md">
+          Salva Chiave
+        </button>
+        <button onclick="closeTokenModal()" class="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl">
+          Chiudi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Panel JS App -->
+  <script>
+    const REPO_OWNER = 'iannotta-translations';
+    const REPO_NAME = 'iannotta-translations.github.io';
+    
+    let homepageData = null;
+    let homepageDataSha = null;
+    let indexMarkdownRaw = '';
+    let indexMarkdownSha = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkToken();
+      loadDataFromGitHub();
+    });
+
+    function checkToken() {
+      const token = localStorage.getItem('gh_token');
+      if (!token) {
+        document.getElementById('token-modal').classList.remove('hidden');
+      }
+    }
+
+    function saveToken() {
+      const token = document.getElementById('input-token').value.trim();
+      if (token) {
+        localStorage.setItem('gh_token', token);
+        showToast('🔑 Chiave di accesso salvata!', 'success');
+        closeTokenModal();
+        loadDataFromGitHub();
+      }
+    }
+
+    function closeTokenModal() {
+      document.getElementById('token-modal').classList.add('hidden');
+    }
+
+    document.getElementById('token-modal-btn').addEventListener('click', () => {
+      document.getElementById('input-token').value = localStorage.getItem('gh_token') || '';
+      document.getElementById('token-modal').classList.remove('hidden');
+    });
+
+    function switchTab(tabId) {
+      ['tab-calc', 'tab-faqs', 'tab-home', 'tab-stats'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+        document.getElementById('btn-' + id).classList.remove('tab-active');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-' + tabId).classList.add('tab-active');
+    }
+
+    async function loadDataFromGitHub() {
+      document.getElementById('loading-spinner').classList.remove('hidden');
+      document.getElementById('admin-content').classList.add('hidden');
+
+      try {
+        const token = localStorage.getItem('gh_token');
+        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        // 1. Fetch data/homepage.json
+        const resData = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
+        if (resData.ok) {
+          const jsonFile = await resData.json();
+          homepageDataSha = jsonFile.sha;
+          homepageData = JSON.parse(decodeURIComponent(escape(atob(jsonFile.content))));
+          renderHomepageDataForms();
+        }
+
+        // 2. Fetch content/_index.md
+        const resIndex = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/content/_index.md`, { headers });
+        if (resIndex.ok) {
+          const mdFile = await resIndex.json();
+          indexMarkdownSha = mdFile.sha;
+          indexMarkdownRaw = decodeURIComponent(escape(atob(mdFile.content)));
+          parseIndexMarkdown();
+        }
+
+        document.getElementById('loading-spinner').classList.add('hidden');
+        document.getElementById('admin-content').classList.remove('hidden');
+      } catch (err) {
+        console.error('Error loading data:', err);
+        showToast('⚠️ Impossibile caricare i dati da GitHub. Verifica il token.', 'error');
+        document.getElementById('loading-spinner').classList.add('hidden');
+        document.getElementById('admin-content').classList.remove('hidden');
+      }
+    }
+
+    function renderHomepageDataForms() {
+      if (!homepageData) return;
+
+      // Calculator Rates
+      if (homepageData.calculator) {
+        document.getElementById('calc-min-fee').value = homepageData.calculator.min_fee || 25;
+        document.getElementById('calc-default-words').value = homepageData.calculator.default_words || 1500;
+        if (homepageData.calculator.rates) {
+          document.getElementById('rate-translation').value = homepageData.calculator.rates.translation || 0.08;
+          document.getElementById('rate-localization').value = homepageData.calculator.rates.localization || 0.09;
+          document.getElementById('rate-revision').value = homepageData.calculator.rates.revision || 0.04;
+          document.getElementById('rate-postediting').value = homepageData.calculator.rates.postediting || 0.05;
+        }
+      }
+
+      // FAQs
+      renderFaqsList();
+
+      // Stats
+      renderStatsList();
+
+      // CAT Tools
+      renderCatToolsList();
+    }
+
+    function renderFaqsList() {
+      const container = document.getElementById('faq-list-container');
+      container.innerHTML = '';
+      if (!homepageData.faqs) homepageData.faqs = [];
+
+      homepageData.faqs.forEach((faq, index) => {
+        const item = document.createElement('div');
+        item.className = 'p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-3';
+        item.innerHTML = `
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Domanda FAQ #${index + 1}</span>
+            <button onclick="removeFaqItem(${index})" class="text-xs text-red-500 hover:text-red-700 font-semibold">🗑️ Elimina</button>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Domanda:</label>
+            <input type="text" value="${escapeHtml(faq.question)}" onchange="homepageData.faqs[${index}].question = this.value" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Risposta:</label>
+            <textarea rows="2" onchange="homepageData.faqs[${index}].answer = this.value" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs leading-relaxed">${escapeHtml(faq.answer)}</textarea>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function addFaqItem() {
+      if (!homepageData.faqs) homepageData.faqs = [];
+      homepageData.faqs.push({
+        question: "Nuova Domanda FAQ",
+        answer: "Inserisci qui la risposta..."
+      });
+      renderFaqsList();
+    }
+
+    function removeFaqItem(index) {
+      homepageData.faqs.splice(index, 1);
+      renderFaqsList();
+    }
+
+    function renderStatsList() {
+      const container = document.getElementById('stats-list-container');
+      container.innerHTML = '';
+      if (!homepageData.stats) return;
+
+      homepageData.stats.forEach((stat, index) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
+        item.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold mb-1">Valore (es. 500k+):</label>
+            <input type="text" value="${escapeHtml(stat.value)}" onchange="homepageData.stats[${index}].value = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Etichetta:</label>
+            <input type="text" value="${escapeHtml(stat.label)}" onchange="homepageData.stats[${index}].label = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function renderCatToolsList() {
+      const container = document.getElementById('cat-tools-list-container');
+      container.innerHTML = '';
+      if (!homepageData.cat_tools) return;
+
+      homepageData.cat_tools.forEach((tool, index) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
+        item.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold mb-1">Nome Software:</label>
+            <input type="text" value="${escapeHtml(tool.name)}" onchange="homepageData.cat_tools[${index}].name = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
+            <textarea rows="2" onchange="homepageData.cat_tools[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(tool.description)}</textarea>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function parseIndexMarkdown() {
+      const titleMatch = indexMarkdownRaw.match(/title:\s*"(.*?)"/);
+      const contentMatch = indexMarkdownRaw.match(/content:\s*"(.*?)"/);
+
+      if (titleMatch) document.getElementById('home-banner-title').value = titleMatch[1];
+      if (contentMatch) document.getElementById('home-banner-content').value = contentMatch[1];
+    }
+
+    async function saveHomepageData(successMsg) {
+      // Sync calculator rates back to data structure
+      homepageData.calculator.min_fee = parseInt(document.getElementById('calc-min-fee').value) || 25;
+      homepageData.calculator.default_words = parseInt(document.getElementById('calc-default-words').value) || 1500;
+      homepageData.calculator.rates.translation = parseFloat(document.getElementById('rate-translation').value) || 0.08;
+      homepageData.calculator.rates.localization = parseFloat(document.getElementById('rate-localization').value) || 0.09;
+      homepageData.calculator.rates.revision = parseFloat(document.getElementById('rate-revision').value) || 0.04;
+      homepageData.calculator.rates.postediting = parseFloat(document.getElementById('rate-postediting').value) || 0.05;
+
+      const updatedJsonStr = JSON.stringify(homepageData, null, 2);
+      await updateFileOnGitHub('data/homepage.json', updatedJsonStr, homepageDataSha, successMsg || 'Dati salvati con successo!');
+    }
+
+    async function saveIndexMarkdown() {
+      const newTitle = document.getElementById('home-banner-title').value;
+      const newContent = document.getElementById('home-banner-content').value;
+
+      let updatedMd = indexMarkdownRaw.replace(/title:\s*".*?"/, `title: "${newTitle}"`);
+      updatedMd = updatedMd.replace(/content:\s*".*?"/, `content: "${newContent}"`);
+
+      await updateFileOnGitHub('content/_index.md', updatedMd, indexMarkdownSha, 'Testi copertina salvati con successo!');
+    }
+
+    async function updateFileOnGitHub(filePath, fileContent, sha, successMsg) {
+      const token = localStorage.getItem('gh_token');
+      if (!token) {
+        showToast('🔑 Per salvare devi inserire la chiave di accesso (Token).', 'error');
+        document.getElementById('token-modal').classList.remove('hidden');
+        return;
+      }
+
+      showToast('⏳ Salvataggio in corso...', 'info');
+
+      try {
+        const encodedContent = btoa(unescape(encodeURIComponent(fileContent)));
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Update ${filePath} via Admin Dashboard`,
+            content: encodedContent,
+            sha: sha
+          })
+        });
+
+        if (res.ok) {
+          showToast(`🚀 ${successMsg} Il sito si aggiornerà online tra 1 minuto.`, 'success');
+          loadDataFromGitHub(); // refresh SHA
+        } else {
+          const errData = await res.json();
+          showToast(`❌ Errore durante il salvataggio: ${errData.message || 'Verifica il Token'}`, 'error');
+        }
+      } catch (err) {
+        console.error('Save error:', err);
+        showToast('❌ Errore di connessione a GitHub.', 'error');
+      }
+    }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toast-icon');
+      const text = document.getElementById('toast-message');
+
+      text.textContent = msg;
+      if (type === 'success') {
+        icon.textContent = '✅';
+        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-emerald-900 text-white border-emerald-700';
+      } else if (type === 'error') {
+        icon.textContent = '❌';
+        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-red-900 text-white border-red-700';
+      } else {
+        icon.textContent = '⏳';
+        toast.className = 'fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border text-sm font-medium flex items-center space-x-3 bg-blue-900 text-white border-blue-700';
+      }
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
 </body>
 </html>
