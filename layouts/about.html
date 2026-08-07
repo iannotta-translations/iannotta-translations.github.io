@@ -1,15 +1,154 @@
 {{ define "main" }}
-  <section class="section-sm">
+  {{ partial "page-header" . }}
+
+  <section class="section-sm py-12">
     <div class="container">
-      <div class="row justify-center">
-        <div class="md:col-10 lg:col-8">
-          {{ if .Params.image }}
-            {{ partial "image" (dict "Src" .Params.image "Context" .Page "Alt" .Title "Class" "mx-auto rounded mb-6" ) }}
-          {{ end }}
-          <h2 class="h3 mb-6">{{ .Title }}</h2>
-          <div class="content">{{ .Content }}</div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Left Column: Profile & Floating Pills -->
+        <div class="lg:col-span-5">
+          <div class="sticky top-28">
+            <div class="relative max-w-md mx-auto mb-8">
+              {{ if .Params.image }}
+                {{ partial "image" (dict "Src" .Params.image "Context" .Page "Alt" .Title "Class" "w-full rounded-2xl shadow-xl border border-border dark:border-darkmode-border" ) }}
+              {{ end }}
+
+              <!-- Floating Language Pill Top Left -->
+              <div class="floating-pill -top-4 -left-4">
+                <span>🇬🇧 ➔ 🇮🇹</span>
+                <span class="text-xs font-semibold text-primary dark:text-darkmode-primary">EN ➔ IT</span>
+              </div>
+
+              <!-- Floating Language Pill Bottom Right -->
+              <div class="floating-pill -bottom-4 -right-4" style="animation-delay: 2s;">
+                <span>🇫🇷 ➔ 🇮🇹</span>
+                <span class="text-xs font-semibold text-primary dark:text-darkmode-primary">FR ➔ IT</span>
+              </div>
+            </div>
+
+            <!-- Profile Info Card -->
+            <div class="feature-card p-6 text-center space-y-4">
+              <h3 class="h4 font-bold">Alessia Iannotta</h3>
+              <p class="text-sm text-text-light dark:text-darkmode-text-light">
+                Traduttrice & Localizzatrice Freelance<br>
+                Specializzata in EN ↔ IT | FR ↔ IT
+              </p>
+
+              <div class="pt-3 border-t border-border dark:border-darkmode-border flex flex-col gap-2 text-sm text-left">
+                <div class="flex items-center gap-2">
+                  <span class="text-primary font-bold">📍 Base:</span>
+                  <span>Italia (Servizio Globale Remoto)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-primary font-bold">🎓 Titolo:</span>
+                  <span>Laurea in Traduzione Specialistica</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-primary font-bold">⚡ Risposta:</span>
+                  <span>Entro 24 ore lavorative</span>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <a href="/contact" class="btn btn-primary w-full text-center py-2.5 font-semibold text-sm">
+                  ✉️ Richiedi Informazioni o Preventivo
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Content & Timeline -->
+        <div class="lg:col-span-7 space-y-10">
+          <!-- Main Content from Markdown -->
+          <div class="content prose dark:prose-invert max-w-none">
+            {{ .Content }}
+          </div>
+
+          <!-- Education & Experience Timeline -->
+          <div class="pt-6 border-t border-border dark:border-darkmode-border">
+            <h3 class="h3 font-bold mb-6 flex items-center gap-2">
+              <span>🎓</span> Formazione & Certificazioni
+            </h3>
+
+            <div class="space-y-6">
+              <div class="feature-card p-5 border-l-4 border-l-primary">
+                <div class="flex justify-between items-start mb-1">
+                  <h4 class="h5 font-bold">Laurea in Traduzione e Adattamento Linguistico</h4>
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">Universitario</span>
+                </div>
+                <p class="text-sm text-text-light dark:text-darkmode-text-light">
+                  Formazione approfondita nella traduzione specialistica dall'Inglese e dal Francese verso l'Italiano, con focus su analisi stilistica, terminologia e linguistica applicata.
+                </p>
+              </div>
+
+              <div class="feature-card p-5 border-l-4 border-l-emerald-500">
+                <div class="flex justify-between items-start mb-1">
+                  <h4 class="h5 font-bold">Certificazione CAT Tools & Traduzione Assistita</h4>
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400">Professionale</span>
+                </div>
+                <p class="text-sm text-text-light dark:text-darkmode-text-light">
+                  Padronanza avanzata di SDL Trados Studio, MemoQ e Phrase (Memsource), gestione di Memorie di Traduzione (TM) e database terminologici aziendali.
+                </p>
+              </div>
+
+              <div class="feature-card p-5 border-l-4 border-l-amber-500">
+                <div class="flex justify-between items-start mb-1">
+                  <h4 class="h5 font-bold">Corso di Specializzazione in Localizzazione Web & Software</h4>
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-500/10 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">Specializzazione</span>
+                </div>
+                <p class="text-sm text-text-light dark:text-darkmode-text-light">
+                  Tecniche di localizzazione di interfacce utente (UI), gestione file di codice (.json, .po, .xliff), adattamento SEO e ottimizzazione micro-copy.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core Values Grid -->
+          <div class="pt-6 border-t border-border dark:border-darkmode-border">
+            <h3 class="h3 font-bold mb-6 flex items-center gap-2">
+              <span>🌟</span> I Miei Valori Guida
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                <div class="text-2xl mb-2">🎯</div>
+                <h4 class="h5 font-bold mb-1">Precisione Naturale</h4>
+                <p class="text-xs text-text-light dark:text-darkmode-text-light">
+                  Traduzioni che non "sembrano traduzioni", ma testi nativi scritti direttamente in italiano da un professionista.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                <div class="text-2xl mb-2">⏱️</div>
+                <h4 class="h5 font-bold mb-1">Puntualità Assoluta</h4>
+                <p class="text-xs text-text-light dark:text-darkmode-text-light">
+                  Ogni consegna viene effettuata rispettando rigorosamente la data concordata, senza ritardi né eccezioni.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                <div class="text-2xl mb-2">🔒</div>
+                <h4 class="h5 font-bold mb-1">Riservatezza Certificata</h4>
+                <p class="text-xs text-text-light dark:text-darkmode-text-light">
+                  Trattamento sicuro dei dati aziendali e disponibilità alla firma immediata di accordi di non divulgazione (NDA).
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                <div class="text-2xl mb-2">🤝</div>
+                <h4 class="h5 font-bold mb-1">Comunicazione Diretta</h4>
+                <p class="text-xs text-text-light dark:text-darkmode-text-light">
+                  Relazione trasparente con il cliente, aggiornamenti sullo stato dei lavori e supporto post-consegna incluso.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Call to action -->
+  {{ partial "call-to-action" . }}
+  <!-- /Call to action -->
 {{ end }}

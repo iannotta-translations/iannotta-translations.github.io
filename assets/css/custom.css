@@ -1,101 +1,254 @@
-/* ============================
-   Custom Styles — Alessia Iannotta Portfolio
-   ============================= */
+/* ==========================================================================
+   Alessia Iannotta Portfolio — Custom Styles & Design System
+   ========================================================================== */
 
-/* Smooth scrolling */
+/* 1. Global & Micro-interactions */
 html {
   scroll-behavior: smooth;
 }
 
-/* Primary button: add hover lift + shadow */
-.btn-primary {
-  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
-  transition: all 0.3s ease;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.35);
-}
-
-/* Outline button: proper primary color border */
-.btn-outline-primary {
-  border-color: var(--color-primary) !important;
-  color: var(--color-primary) !important;
-  background: transparent !important;
-}
-.btn-outline-primary:hover {
-  background: var(--color-primary) !important;
-  color: white !important;
-}
-
-/* Navigation: glassmorphism effect on scroll */
-header.header-sticky-top {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.85) !important;
-}
-.dark header.header-sticky-top {
-  background: rgba(15, 23, 42, 0.85) !important;
-}
-
-/* Feature section: smooth image hover */
-.section-sm img,
-section.section img {
-  transition: transform 0.4s ease;
-}
-.section-sm img:hover,
-section.section img:hover {
-  transform: scale(1.02);
-}
-
-/* Footer social icons: smooth hover */
-footer a svg {
-  transition: transform 0.3s ease;
-}
-footer a:hover svg {
-  transform: scale(1.15);
-}
-
-/* Form inputs: better focus states */
-.form-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
-  outline: none;
-}
-
-/* Content prose styling for services page */
-.content h3 {
-  margin-top: 2rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--color-primary);
-  display: inline-block;
-}
-
-/* Page header: subtle gradient background */
-.page-hero {
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(96, 165, 250, 0.05) 100%);
-}
-
-/* Call to action section: subtle shadow */
-.bg-light.rounded-xl {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-}
-
-/* Dark mode CTA shadow */
-.dark .bg-darkmode-light.rounded-xl {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-}
-
-/* Navbar brand: hover effect */
-.navbar-brand {
-  transition: opacity 0.2s ease;
-}
-.navbar-brand:hover {
-  opacity: 0.8;
-}
-
-/* Selection color */
 ::selection {
   background: rgba(30, 58, 138, 0.2);
   color: inherit;
+}
+
+.btn-primary {
+  box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.35);
+}
+
+.btn-outline-primary {
+  border-color: var(--color-primary, #1e3a8a) !important;
+  color: var(--color-primary, #1e3a8a) !important;
+  background: transparent !important;
+  transition: all 0.3s ease;
+}
+.btn-outline-primary:hover {
+  background: var(--color-primary, #1e3a8a) !important;
+  color: white !important;
+  transform: translateY(-2px);
+}
+
+/* Glassmorphism Header on Scroll */
+header.header-sticky-top {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+.dark header.header-sticky-top {
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.8);
+}
+
+/* 2. Interactive Quote Estimator Calculator Card */
+.calculator-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+}
+.dark .calculator-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+.calc-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #cbd5e1;
+  outline: none;
+  transition: background 0.2s;
+}
+.dark .calc-slider {
+  background: #334155;
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1e3a8a;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease;
+}
+.dark .calc-slider::-webkit-slider-thumb {
+  background: #60a5fa;
+}
+.calc-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* 3. Step-by-Step Workflow Timeline */
+.timeline-container {
+  position: relative;
+}
+.timeline-step {
+  transition: all 0.3s ease;
+}
+.timeline-step:hover {
+  transform: translateY(-4px);
+}
+.timeline-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+/* 4. FAQ Accordion Styling */
+.faq-item {
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 0.875rem;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.dark .faq-item {
+  border-color: rgba(51, 65, 85, 0.8);
+  background: #1e293b;
+}
+.faq-item:hover {
+  border-color: rgba(30, 58, 138, 0.4);
+}
+.faq-trigger {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.faq-chevron {
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-in-out;
+  padding: 0 1.5rem;
+}
+.faq-item.active .faq-content {
+  padding: 0 1.5rem 1.25rem 1.5rem;
+}
+
+/* 5. Radio Cards in Contact Form */
+.radio-card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+.radio-card {
+  position: relative;
+  cursor: pointer;
+}
+.radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.radio-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.75rem;
+  border: 2px solid rgba(226, 232, 240, 0.9);
+  border-radius: 0.75rem;
+  background: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.dark .radio-card-content {
+  border-color: rgba(51, 65, 85, 0.9);
+  background: #1e293b;
+}
+.radio-card input[type="radio"]:checked + .radio-card-content {
+  border-color: #1e3a8a;
+  background: rgba(30, 58, 138, 0.05);
+  color: #1e3a8a;
+}
+.dark .radio-card input[type="radio"]:checked + .radio-card-content {
+  border-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  color: #60a5fa;
+}
+
+/* 6. Feature & Tech Cards */
+.feature-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #ffffff;
+  padding: 1.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dark .feature-card {
+  border-color: rgba(51, 65, 85, 0.8);
+  background: #1e293b;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.1);
+}
+.dark .feature-card:hover {
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* Floating Language Pills on Profile Image */
+.floating-pill {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  animation: floatAnim 4s ease-in-out infinite alternate;
+}
+.dark .floating-pill {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(51, 65, 85, 0.8);
+  color: white;
+}
+
+@keyframes floatAnim {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+/* Form input focus polish */
+.form-input:focus {
+  border-color: var(--color-primary, #1e3a8a);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+  outline: none;
 }

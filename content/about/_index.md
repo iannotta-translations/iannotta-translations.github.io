@@ -1,27 +1,25 @@
 ---
-title: "Chi Sono - Alessia Iannotta"
-meta_title: "Chi Sono | Alessia Iannotta Traduttrice Freelance"
-description: "Profilo professionale di Alessia Iannotta, traduttrice freelance EN-IT e FR-IT."
+title: "Chi Sono"
+meta_title: "Chi Sono | Alessia Iannotta — Traduttrice Freelance EN/FR ➔ IT"
+description: "Profilo professionale di Alessia Iannotta: traduzione specialistica, localizzazione web e revisione testo dall'Inglese e Francese verso l'Italiano."
 image: "/images/alessia-profile.png"
 layout: "about"
 draft: false
 ---
 
-Benvenuti! Sono **Alessia Iannotta**, traduttrice e localizzatrice freelance dal francese e dall'inglese verso l'italiano.
+## Profilo Professionale
 
-La mia missione è abbattere le barriere linguistiche e culturali, aiutando aziende, agenzie e professionisti a comunicare con efficacia e naturalezza nel mercato italiano.
+Mi chiamo **Alessia Iannotta** e sono una traduttrice e localizzatrice freelance **madrelingua italiana**, specializzata nelle combinazioni linguistico-culturali dall'**Inglese** e dal **Francese** verso l'**Italiano**.
 
----
-
-### Formazione e Percorso
-
-Con una solida formazione accademica in **Lingue e Traduzione Specialistica**, ho maturato esperienza nella traduzione di testi complessi in diversi ambiti professionali. La cura dei dettagli, la passione per la resa stilistica e il continuo aggiornamento terminologico sono i pilastri del mio lavoro.
+La mia missione professionale è garantire che la comunicazione della tua azienda o agenzia risulti naturale, accurata ed efficace nel mercato italiano, rispettando il tono di voce originale e abbattendo qualsiasi barriera culturale.
 
 ---
 
-### Perché lavorare con me
+### Per chi lavoro e come posso aiutarti
 
-- **Madrelingua Italiana**: Garantisco traduzioni fluide, naturali e perfettamente calibrate per il pubblico di destinazione.
-- **Precisione Terminologica**: Approfondita ricerca di contesto e utilizzo di memorie di traduzione personalizzate.
-- **Puntualità e Affidabilità**: Rispetto delle scadenze e comunicazione chiara durante tutte le fasi del progetto.
-- **Flessibilità**: Soluzioni su misura per piccoli progetti urgenti o grandi volumi di lavoro.
+Lavoro al fianco di **aziende internazionali**, **agenzie di traduzione**, **software house** e **clienti privati**, fornendo soluzioni linguistiche su misura in diversi ambiti chiave:
+
+- **Marketing & Comunicazione**: Adattamento e transcreation di brochure, comunicati stampa, campagne pubblicitarie e newsletter.
+- **Localizzazione Web & Software**: Traduzione di siti web, e-commerce, interfacce utente (UI) ed elementi di micro-copy ottimizzati per la SEO.
+- **Documentazione Tecnica & IT**: Traduzione di manuali d'uso, schede tecniche, guide e documentazione software.
+- **Revisione & Controllo Qualità**: Proofreading rigoroso e post-editing (PEMT) di bozze esistenti per portare la resa stilistica a un livello eccellente.

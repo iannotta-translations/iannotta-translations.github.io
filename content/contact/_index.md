@@ -1,7 +1,7 @@
 ---
 title: "Contatti"
-meta_title: "Contatta Alessia Iannotta | Richiedi un Preventivo"
-description: "Mettiti in contatto per informazioni, preventivi gratuiti o collaborazioni."
+meta_title: "Contatti | Alessia Iannotta — Richiedi un Preventivo Gratuito"
+description: "Mettiti in contatto con Alessia Iannotta per informazioni, preventivi gratuiti o collaborazioni per traduzioni dall'Inglese e Francese."
 layout: "contact"
 draft: false
 ---
@@ -12,4 +12,4 @@ Compila il modulo sottostante oppure scrivimi direttamente via email. Rispondo d
 
 - **Email**: info@iannotta-translations.com
 - **LinkedIn**: [in/alessia-iannotta](https://www.linkedin.com/in/alessia-iannotta)
-- **Combinazioni**: Inglese ↔ Italiano | Francese ↔ Italiano
+- **Combinazioni**: Inglese ➔ Italiano | Francese ➔ Italiano
