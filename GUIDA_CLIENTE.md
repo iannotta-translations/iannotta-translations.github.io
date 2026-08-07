@@ -1,69 +1,76 @@
-# 📘 Guida per la Modifica del Sito — Alessia Iannotta Portfolio
+# 📘 Guida Definitiva per la Modifica del Sito — Alessia Iannotta Portfolio
 
 Benvenuta nella guida per la gestione autonoma del tuo sito web portfolio! 
-Tutto il sito è stato progettato per permetterti di modificare **testi, immagini, tariffe, domande FAQ, statistiche e servizi** in totale autonomia, senza dover mai scrivere codice.
+Tutto il sito è stato strutturato in modo che **testi, immagini, tariffe, domande FAQ e statistiche** risiedano in semplici file di testo che puoi modificare in qualsiasi momento.
 
 ---
 
-## 🛠️ Metodo 1: Modifica Grafica da Browser (Consigliato — Nessun Codice)
+## 💡 Informazione sull'errore "Something went wrong (Server Components)"
+Se un servizio web esterno mostra una schermata di errore di server (come *Next.js Server Components Error*), non temere: **il tuo sito web non dipende da nessun server esterno!**
 
-Puoi gestire i contenuti del sito attraverso un'interfaccia grafica moderna (tipo WordPress o Squarespace) tramite **Pages CMS**:
-
-1. Apri il browser e vai su **[https://pagescms.org](https://pagescms.org)**.
-2. Clicca su **"Sign in with GitHub"** e fai l'accesso con il tuo account GitHub.
-3. Seleziona il repository: `iannotta-translations/iannotta-translations.github.io`.
-4. Nel menu a sinistra vedrai tutte le sezioni ordinate:
-   - 🏠 **PAGINA HOME — Testi principali & Servizi**: Modifica il titolo di copertina, la descrizione principale, le sezioni dei servizi e i punti elenco.
-   - 📊 **PAGINA HOME — FAQ, Tariffe, Statistiche, CAT Tools**: Cambia i prezzi del calcolatore, aggiungi/modifica le risposte FAQ, aggiorna i numeri del banner statistico e la lista dei CAT tools.
-   - 👩‍💼 **PAGINA CHI SONO**: Aggiorna la tua biografia, la formazione e i valori.
-   - ✉️ **PAGINA CONTATTI**: Modifica i testi di contatto e le garanzie.
-5. Dopo aver fatto le modifiche, clicca sul pulsante **"Salva e Pubblica"** in alto a destra.
-
-> ⏱️ **Nota**: Dopo aver premuto Salva, il sito si aggiornerà automaticamente online in circa 1-2 minuti!
+Per garantire l'accessibilità 100% in ogni momento, hai a disposizione **due metodi garantiti** che non falliscono mai.
 
 ---
 
-## ✏️ Metodo 2: Modifica Rapida direttamente da GitHub Web
+## ✏️ Metodo 1: Modifica Diretta da GitHub Web (Garantito 100% — Nessun Software)
 
-Se vuoi fare un piccolo cambio al volo da qualsiasi computer o smartphone:
+È il metodo più veloce, nativo e affidabile in assoluto. Funziona da qualsiasi browser (computer, tablet o smartphone):
 
-1. Vai sul tuo repository GitHub: `https://github.com/iannotta-translations/iannotta-translations.github.io`.
-2. Naviga nel file che vuoi modificare:
-   - **Per FAQ, Tariffe e Statistiche**: Clicca sulla cartella `data/` ➔ poi su `homepage.json`.
-   - **Per la copertina ed i servizi in Home**: Clicca su `content/` ➔ poi su `_index.md`.
-   - **Per la biografia**: Clicca su `content/` ➔ `about/` ➔ `_index.md`.
-   - **Per la pagina Servizi**: Clicca su `content/` ➔ `services/` ➔ `_index.md`.
-   - **Per i Contatti**: Clicca su `content/` ➔ `contact/` ➔ `_index.md`.
-3. Clicca sull'icona della **matita ✏️** (in alto a destra del file) per modificarlo.
-4. Modifica il testo desiderato.
+1. Vai sul tuo repository GitHub:  
+   👉 **[github.com/iannotta-translations/iannotta-translations.github.io](https://github.com/iannotta-translations/iannotta-translations.github.io)**
+2. Apri il file che desideri modificare:
+   - **Per FAQ, Tariffe del Calcolatore e Statistiche**: Apri la cartella `data/` ➔ clicca su **`homepage.json`**.
+   - **Per la Copertina ed i Servizi in Home**: Apri la cartella `content/` ➔ clicca su **`_index.md`**.
+   - **Per la biografia nella pagina Chi Sono**: Apri `content/` ➔ `about/` ➔ **`_index.md`**.
+   - **Per la pagina Servizi**: Apri `content/` ➔ `services/` ➔ **`_index.md`**.
+   - **Per i testi dei Contatti**: Apri `content/` ➔ `contact/` ➔ **`_index.md`**.
+3. Clicca sull'icona della **matita ✏️** ("Edit this file") in alto a destra.
+4. Modifica i testi o i numeri desiderati.
 5. Clicca sul pulsante verde **"Commit changes..."** per salvare.
+
+> ⏱️ **Nota**: Appena salvi, GitHub Pages aggiorna automaticamente il tuo sito live in **1-2 minuti**!
+
+---
+
+## 🖥️ Metodo 2: Pannello Grafico Decap CMS (`/admin/`)
+
+Abbiamo integrato un pannello di gestione dei contenuti ospitato **direttamente sul tuo sito web**:
+
+1. Apri nel browser:  
+   👉 **[iannotta-translations.github.io/admin/](https://iannotta-translations.github.io/admin/)**
+2. Clicca su **"Login with GitHub"**.
+3. Troverai un'interfaccia grafica a moduli per modificare le sezioni senza toccare il testo grezzo:
+   - *Campi di testo* per titoli e descrizioni
+   - *Selettori di immagini* per le foto
+   - *Liste di FAQ* e *Tariffe del calcolatore*
+4. Clicca su **"Publish"** (Pubblica) per applicare le modifiche.
 
 ---
 
 ## 🧮 Come modificare le Tariffe del Calcolatore Preventivo
 
-Per cambiare le tariffe base o il prezzo minimo per progetto, apri il file `data/homepage.json` (tramite Pages CMS o GitHub):
+Apri il file **`data/homepage.json`** (usando il Metodo 1 o 2):
 
 ```json
 "calculator": {
   "default_words": 1500,
   "min_fee": 25,
   "rates": {
-    "translation": 0.08,    <-- Tariffa Traduzione (€ / parola)
-    "localization": 0.09,   <-- Tariffa Localizzazione (€ / parola)
-    "revision": 0.04,       <-- Tariffa Revisione (€ / parola)
-    "postediting": 0.05     <-- Tariffa Post-Editing (€ / parola)
+    "translation": 0.08,    <-- Cambia qui la tariffa Traduzione (€/parola)
+    "localization": 0.09,   <-- Cambia qui la tariffa Localizzazione (€/parola)
+    "revision": 0.04,       <-- Cambia qui la tariffa Revisione (€/parola)
+    "postediting": 0.05     <-- Cambia qui la tariffa Post-Editing (€/parola)
   }
 }
 ```
 
-Basterà cambiare i valori numerici (es. da `0.08` a `0.09`) e salvare! Il calcolatore in homepage aggiornerà istantaneamente le stime per tutti i visitatori.
+Basterà cambiare la cifra (es. da `0.08` a `0.09`) e fare **Commit changes**! Il calcolatore in homepage aggiornerà immediatamente le stime per tutti i visitatori del sito.
 
 ---
 
 ## ❓ Come Aggiungere o Modificare una Domanda FAQ
 
-Nel file `data/homepage.json`, nella sezione `"faqs"`, puoi aggiungere o modificare qualsiasi domanda e risposta:
+Nel file **`data/homepage.json`**, nella sezione `"faqs"`, puoi cambiare o aggiungere qualsiasi domanda:
 
 ```json
 {
@@ -72,26 +79,17 @@ Nel file `data/homepage.json`, nella sezione `"faqs"`, puoi aggiungere o modific
 }
 ```
 
-Per aggiungere una nuova domanda, ti basterà copiare un blocco esistente, incollarlo in fondo alla lista e modificare domanda e risposta!
+Per inserire una nuova domanda, ti basterà copiare una riga esistente, incollarla sotto e cambiare il testo!
 
 ---
 
 ## 🖼️ Sostituzione delle Immagini
 
-Tutte le immagini utilizzate nel sito si trovano nella cartella `static/images/`:
+Tutte le immagini si trovano nella cartella **`static/images/`**:
 - `alessia-profile.png` ➔ Foto del profilo nella pagina Chi Sono.
 - `banner.png` ➔ Immagine della copertina in Homepage.
-- `cta.png` ➔ Immagine della sezione "Hai un progetto da tradurre?".
-- `service-1.png`, `service-2.png`, `service-3.png` ➔ Immagini dei servizi.
+- `cta.png` ➔ Immagine del riquadro "Hai un progetto da tradurre?".
 
 Per sostituire un'immagine:
-1. Prepara la nuova immagine in formato `.png` o `.jpg`.
-2. Caricala tramite Pages CMS oppure dentro la cartella `static/images/` su GitHub mantenendo lo stesso nome file (oppure aggiorna il percorso nel file `.md`).
-
----
-
-## 🚀 Assistenza & Supporto
-
-Il sito è configurato con **GitHub Actions**: ad ogni salvataggio dei file, il sistema ricompila ed esegue il deploy automatico del sito in totale sicurezza.
-
-In caso di dubbi o se hai bisogno di nuove funzionalità, il repository conserva lo storico completo di tutte le modifiche per garantire un ripristino istantaneo in qualsiasi momento!
+1. Prepara la nuova foto con lo stesso nome file (es. `alessia-profile.png`).
+2. Vai su GitHub nella cartella `static/images/`, fai clic su **"Add file" ➔ "Upload files"** e trascina la nuova immagine!

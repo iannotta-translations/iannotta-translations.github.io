@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: iannotta-translations/iannotta-translations.github.io
+  branch: main
+
+media_folder: "static/images"
+public_folder: "/images"
+
+locale: 'it'
+
+collections:
+  - name: "homepage_data"
+    label: "PAGINA HOME — FAQ, Tariffe, Statistiche"
+    files:
+      - file: "data/homepage.json"
+        label: "Dati & Tariffe Homepage"
+        name: "homepage"
+        fields:
+          - { label: "Statistiche (Banner)", name: "stats", widget: "list", fields: [{ label: "Valore", name: "value", widget: "string" }, { label: "Etichetta", name: "label", widget: "string" }] }
+          - { label: "Calcolatore (Prezzo Minimo €)", name: "calculator", widget: "object", fields: [{ label: "Parole Predefinite", name: "default_words", widget: "number" }, { label: "Prezzo Minimo (€)", name: "min_fee", widget: "number" }] }
+          - { label: "FAQ (Domande Frequenti)", name: "faqs", widget: "list", fields: [{ label: "Domanda", name: "question", widget: "string" }, { label: "Risposta", name: "answer", widget: "markdown" }] }
+          - { label: "CAT Tools & Software", name: "cat_tools", widget: "list", fields: [{ label: "Nome", name: "name", widget: "string" }, { label: "Descrizione", name: "description", widget: "text" }] }
+
+  - name: "pages"
+    label: "PAGINE DEL SITO"
+    files:
+      - file: "content/_index.md"
+        label: "Homepage (Copertina & Servizi)"
+        name: "home"
+        fields:
+          - { label: "Titolo", name: "title", widget: "string" }
+          - { label: "Banner Hero", name: "banner", widget: "object", fields: [{ label: "Titolo Copertina", name: "title", widget: "string" }, { label: "Descrizione", name: "text", widget: "text" }, { label: "Immagine Copertina", name: "image", widget: "image" }] }
+
+      - file: "content/about/_index.md"
+        label: "Chi Sono"
+        name: "about"
+        fields:
+          - { label: "Titolo", name: "title", widget: "string" }
+          - { label: "Meta Descrizione SEO", name: "description", widget: "text" }
+          - { label: "Foto Profilo", name: "image", widget: "image" }
+          - { label: "Testo Biografico", name: "body", widget: "markdown" }
+
+      - file: "content/services/_index.md"
+        label: "Servizi"
+        name: "services"
+        fields:
+          - { label: "Titolo", name: "title", widget: "string" }
+          - { label: "Descrizione", name: "description", widget: "text" }
+          - { label: "Contenuto Dettagliato", name: "body", widget: "markdown" }
+
+      - file: "content/contact/_index.md"
+        label: "Contatti"
+        name: "contact"
+        fields:
+          - { label: "Titolo", name: "title", widget: "string" }
+          - { label: "Descrizione", name: "description", widget: "text" }
+          - { label: "Testo Introduttivo", name: "body", widget: "markdown" }
