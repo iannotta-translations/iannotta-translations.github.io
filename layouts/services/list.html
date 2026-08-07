@@ -13,9 +13,9 @@
       </div>
 
       <!-- Core Service Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="flex flex-wrap justify-center gap-8 mb-16">
         {{ range $idx, $card := $srv.service_cards }}
-          <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
+          <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group w-full md:w-[calc(50%-1rem)] max-w-xl">
             <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 dark:bg-darkmode-primary/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
             <div>
               <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary flex items-center justify-center font-extrabold text-xl mb-6">

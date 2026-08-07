@@ -92,9 +92,9 @@
                 <span>I Miei Valori Guida</span>
               </h3>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex flex-wrap justify-center gap-4">
                 {{ range . }}
-                  <div class="p-5 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border">
+                  <div class="p-5 rounded-xl bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border flex-1 min-w-[260px] max-w-[340px]">
                     <h4 class="h5 font-bold mb-1.5">{{ .title }}</h4>
                     <p class="text-xs text-text-light dark:text-darkmode-text-light leading-relaxed">
                       {{ .description }}

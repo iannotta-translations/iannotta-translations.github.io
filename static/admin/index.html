@@ -236,7 +236,7 @@
           </button>
         </div>
 
-        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6"></div>
+        <div id="view-stats-grid" class="flex flex-wrap justify-center gap-6 text-center px-6"></div>
       </div>
 
       <!-- CALCULATOR SECTION -->
@@ -302,7 +302,7 @@
           <h2 class="text-2xl font-bold mt-2">Come Lavoro: Il Processo in 5 Fasi</h2>
         </div>
 
-        <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4"></div>
+        <div id="view-workflow-grid" class="flex flex-wrap justify-center gap-4"></div>
       </div>
 
       <!-- CAT TOOLS GRID -->
@@ -321,7 +321,7 @@
           <h2 class="text-2xl font-bold mt-2">CAT Tools & Strumenti Professionali</h2>
         </div>
 
-        <div id="view-cat-tools-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4"></div>
+        <div id="view-cat-tools-grid" class="flex flex-wrap justify-center gap-4"></div>
       </div>
 
       <!-- FAQ ACCORDION -->
@@ -409,7 +409,7 @@
                   <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">+ Aggiungi Valore</button>
                 </div>
               </div>
-              <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+              <div id="view-about-values" class="flex flex-wrap justify-center gap-4"></div>
             </div>
           </div>
         </div>
@@ -433,7 +433,7 @@
           <p id="view-services-intro" class="text-slate-500 text-sm mt-1">Soluzioni su misura per l'internazionalizzazione.</p>
         </div>
 
-        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="view-services-grid" class="flex flex-wrap justify-center gap-6"></div>
       </div>
     </div>
 
@@ -451,7 +451,7 @@
           <h2 class="text-3xl font-extrabold">I Tuoi Canali di Contatto Live</h2>
           <p class="text-sm text-slate-500">I link sottostanti appaiono nel footer del sito e nella pagina contatti.</p>
 
-          <div id="view-social-links-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4"></div>
+          <div id="view-social-links-grid" class="flex flex-wrap justify-center gap-6 pt-4"></div>
         </div>
       </div>
     </div>
@@ -595,7 +595,7 @@
         wfGrid.innerHTML = '';
         homepageData.workflow.forEach(wf => {
           wfGrid.innerHTML += `
-            <div class="feature-card text-center space-y-2">
+            <div class="feature-card text-center space-y-2 flex-1 min-w-[200px] max-w-[240px]">
               <div class="timeline-number bg-blue-900 text-white mx-auto mb-2">${wf.step}</div>
               <h4 class="font-bold text-sm">${wf.title}</h4>
               <p class="text-xs text-slate-500">${wf.description}</p>
@@ -610,7 +610,7 @@
         catGrid.innerHTML = '';
         homepageData.cat_tools.forEach(ct => {
           catGrid.innerHTML += `
-            <div class="feature-card space-y-2">
+            <div class="feature-card space-y-2 flex-1 min-w-[240px] max-w-[300px]">
               <div class="font-bold text-sm text-blue-900 dark:text-blue-400">${ct.name}</div>
               <p class="text-xs text-slate-500">${ct.description}</p>
             </div>
@@ -680,7 +680,7 @@
           valGrid.innerHTML = '';
           aboutData.core_values.forEach(v => {
             valGrid.innerHTML += `
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1">
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1 flex-1 min-w-[240px] max-w-[320px]">
                 <h4 class="font-bold text-sm">${v.title}</h4>
                 <p class="text-xs text-slate-500">${v.description}</p>
               </div>
@@ -704,7 +704,7 @@
             }
 
             srvGrid.innerHTML += `
-              <div class="feature-card flex flex-col justify-between p-6 space-y-4">
+              <div class="feature-card flex flex-col justify-between p-6 space-y-4 flex-1 min-w-[280px] max-w-[480px]">
                 <div>
                   <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-sm mb-4">#${sc.number}</div>
                   <h3 class="font-bold text-lg mb-2">${sc.title}</h3>
@@ -732,7 +732,7 @@
           else if (soc.name === 'proz') labelText = 'Directory ProZ';
 
           socGrid.innerHTML += `
-            <div class="feature-card text-center space-y-3 p-6">
+            <div class="feature-card text-center space-y-3 p-6 flex-1 min-w-[220px] max-w-[280px]">
               <h4 class="font-bold text-base capitalize">${labelText}</h4>
               <p class="text-xs font-semibold text-blue-900 break-all">${soc.link}</p>
             </div>

@@ -179,9 +179,9 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div class="flex flex-wrap justify-center gap-6">
           {{ range . }}
-            <div class="feature-card timeline-step text-center">
+            <div class="feature-card timeline-step text-center w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-1.25rem)] min-w-[220px] max-w-[260px]">
               <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">{{ .step }}</div>
               <h3 class="h5 font-bold mb-2">{{ .title }}</h3>
               <p class="text-sm text-text-light dark:text-darkmode-text-light">{{ .description }}</p>
@@ -206,9 +206,9 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="flex flex-wrap justify-center gap-6">
           {{ range . }}
-            <div class="feature-card">
+            <div class="feature-card w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.25rem)] min-w-[250px] max-w-[320px]">
               <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary flex items-center justify-center mb-4">
                 <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               </div>
