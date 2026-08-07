@@ -3,12 +3,12 @@
     {
       "name": "linkedin",
       "icon": "fab fa-linkedin",
-      "link": "https://www.linkedin.com/in/alessia-iannotta"
+      "link": "https://www.linkedin.com/in/alessia-iannotta-translator"
     },
     {
       "name": "email",
       "icon": "fas fa-envelope",
-      "link": "mailto:info@iannotta-translations.com"
+      "link": "mailto:alessiaiannotta97@gmail.com"
     },
     {
       "name": "proz",
@@ -17,4 +17,3 @@
     }
   ]
 }
-
