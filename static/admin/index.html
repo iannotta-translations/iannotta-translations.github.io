@@ -236,9 +236,7 @@
           </button>
         </div>
 
-        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
-          <!-- Rendered dynamically -->
-        </div>
+        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6"></div>
       </div>
 
       <!-- CALCULATOR SECTION -->
@@ -439,7 +437,7 @@
       </div>
     </div>
 
-    <!-- PAGE 4: CONTACT & SOCIAL LINKS REPLICA (NEW) -->
+    <!-- PAGE 4: CONTACT & SOCIAL LINKS REPLICA -->
     <div id="page-view-contact" class="hidden space-y-8">
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
@@ -453,9 +451,7 @@
           <h2 class="text-3xl font-extrabold">I Tuoi Canali di Contatto Live</h2>
           <p class="text-sm text-slate-500">I link sottostanti appaiono nel footer del sito e nella pagina contatti.</p>
 
-          <div id="view-social-links-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <!-- Dynamically rendered social link cards -->
-          </div>
+          <div id="view-social-links-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4"></div>
         </div>
       </div>
     </div>
@@ -523,7 +519,6 @@
         const token = localStorage.getItem('gh_token');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-        // Fetch homepage.json
         const resH = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
         if (resH.ok) {
           const f = await resH.json();
@@ -531,7 +526,6 @@
           homepageData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch about.json
         const resA = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/about.json`, { headers });
         if (resA.ok) {
           const f = await resA.json();
@@ -539,7 +533,6 @@
           aboutData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch services.json
         const resS = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/services.json`, { headers });
         if (resS.ok) {
           const f = await resS.json();
@@ -547,7 +540,6 @@
           servicesData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch social.json
         const resSoc = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/social.json`, { headers });
         if (resSoc.ok) {
           const f = await resSoc.json();
@@ -555,7 +547,6 @@
           socialData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
-        // Fetch _index.md
         const resI = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/content/_index.md`, { headers });
         if (resI.ok) {
           const f = await resI.json();
@@ -1230,9 +1221,10 @@
     function saveModalChanges() {
       if (activeModalCallback) activeModalCallback();
       closeEditModal();
-      showToast('✨ Modifiche applicate all\'anteprima!', 'success');
+      showToast('✨ Modifiche applicate alla preview!', 'success');
     }
 
+    // ATOMIC SAVE USING GITHUB TREES API (EXACTLY 1 COMMIT FOR ALL FILES)
     async function saveAllChangesToGitHub() {
       const token = localStorage.getItem('gh_token');
       if (!token) {
@@ -1241,61 +1233,74 @@
         return;
       }
 
-      showToast('⏳ Salvataggio in corso su GitHub...', 'info');
+      showToast('⏳ Salvataggio atomico in corso su GitHub...', 'info');
 
       try {
-        if (homepageData) {
-          const strH = JSON.stringify(homepageData, null, 2);
-          const resH = await putGitHubFile('data/homepage.json', strH, homepageSha);
-          if (resH.content) homepageSha = resH.content.sha;
-        }
-
-        if (aboutData) {
-          const strA = JSON.stringify(aboutData, null, 2);
-          const resA = await putGitHubFile('data/about.json', strA, aboutSha);
-          if (resA.content) aboutSha = resA.content.sha;
-        }
-
-        if (servicesData) {
-          const strS = JSON.stringify(servicesData, null, 2);
-          const resS = await putGitHubFile('data/services.json', strS, servicesSha);
-          if (resS.content) servicesSha = resS.content.sha;
-        }
-
-        if (socialData) {
-          const strSoc = JSON.stringify(socialData, null, 2);
-          const resSoc = await putGitHubFile('data/social.json', strSoc, socialSha);
-          if (resSoc.content) socialSha = resSoc.content.sha;
-        }
-
-        if (indexMdRaw) {
-          const resI = await putGitHubFile('content/_index.md', indexMdRaw, indexMdSha);
-          if (resI.content) indexMdSha = resI.content.sha;
-        }
-
-        showToast('🚀 MODIFICHE PUBBLICATE SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
-      } catch (err) {
-        console.error('Save all error:', err);
-        showToast('❌ Errore durante il salvataggio su GitHub.', 'error');
-      }
-    }
-
-    async function putGitHubFile(path, content, sha) {
-      const token = localStorage.getItem('gh_token');
-      const encodedContent = btoa(unescape(encodeURIComponent(content)));
-      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
-        method: 'PUT',
-        headers: {
+        const headers = {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `Update ${path} via Visual Live Editor`,
-          content: encodedContent,
-          sha: sha
-        })
-      });
-      return await res.json();
+        };
+
+        // 1. Get current commit SHA of main branch
+        const refRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/ref/heads/main`, { headers });
+        const refData = await refRes.json();
+        const currentCommitSha = refData.object.sha;
+
+        // 2. Get base tree SHA of current commit
+        const commitRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${currentCommitSha}`, { headers });
+        const commitData = await commitRes.json();
+        const baseTreeSha = commitData.tree.sha;
+
+        // 3. Construct tree items for all modified files
+        const treeItems = [];
+        if (homepageData) {
+          treeItems.push({ path: 'data/homepage.json', mode: '100644', type: 'blob', content: JSON.stringify(homepageData, null, 2) });
+        }
+        if (aboutData) {
+          treeItems.push({ path: 'data/about.json', mode: '100644', type: 'blob', content: JSON.stringify(aboutData, null, 2) });
+        }
+        if (servicesData) {
+          treeItems.push({ path: 'data/services.json', mode: '100644', type: 'blob', content: JSON.stringify(servicesData, null, 2) });
+        }
+        if (socialData) {
+          treeItems.push({ path: 'data/social.json', mode: '100644', type: 'blob', content: JSON.stringify(socialData, null, 2) });
+        }
+        if (indexMdRaw) {
+          treeItems.push({ path: 'content/_index.md', mode: '100644', type: 'blob', content: indexMdRaw });
+        }
+
+        // 4. Create new single tree
+        const treeRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems })
+        });
+        const treeData = await treeRes.json();
+
+        // 5. Create 1 single atomic commit
+        const newCommitRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            message: 'Update site content via Visual Live Editor (Atomic Commit)',
+            tree: treeData.sha,
+            parents: [currentCommitSha]
+          })
+        });
+        const newCommitData = await newCommitRes.json();
+
+        // 6. Update main branch reference to new commit (Single push!)
+        await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/main`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify({ sha: newCommitData.sha })
+        });
+
+        showToast('🚀 TUTTE LE MODIFICHE SALVATE IN 1 SOLO COMMIT! (Aggiornamento in 60s)', 'success');
+      } catch (err) {
+        console.error('Atomic save error:', err);
+        showToast('❌ Errore durante il salvataggio atomico su GitHub.', 'error');
+      }
     }
 
     function openTokenModal() { document.getElementById('token-modal').classList.remove('hidden'); }
