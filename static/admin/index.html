@@ -163,6 +163,7 @@
         <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">🏠 Homepage</button>
         <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
         <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
+        <button onclick="switchViewPage('contact')" id="page-nav-contact" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">✉️ Contatti & Social</button>
       </div>
 
       <!-- Actions & Save -->
@@ -196,7 +197,6 @@
 
     <!-- PAGE 1: HOMEPAGE REPLICA -->
     <div id="page-view-home" class="space-y-12">
-      
       <!-- HERO SECTION -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
@@ -304,9 +304,7 @@
           <h2 class="text-2xl font-bold mt-2">Come Lavoro: Il Processo in 5 Fasi</h2>
         </div>
 
-        <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <!-- Rendered dynamically -->
-        </div>
+        <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4"></div>
       </div>
 
       <!-- CAT TOOLS GRID -->
@@ -325,9 +323,7 @@
           <h2 class="text-2xl font-bold mt-2">CAT Tools & Strumenti Professionali</h2>
         </div>
 
-        <div id="view-cat-tools-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <!-- Rendered dynamically -->
-        </div>
+        <div id="view-cat-tools-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4"></div>
       </div>
 
       <!-- FAQ ACCORDION -->
@@ -347,15 +343,13 @@
             <h2 class="text-2xl font-bold mt-2">FAQ & Informazioni Utili</h2>
           </div>
 
-          <div id="view-faq-list" class="space-y-3">
-            <!-- Rendered dynamically -->
-          </div>
+          <div id="view-faq-list" class="space-y-3"></div>
         </div>
       </div>
 
     </div>
 
-    <!-- PAGE 2: ABOUT REPLICA (DETAILED EDITING FOR FORMAZIONE & VALORI GUIDA) -->
+    <!-- PAGE 2: ABOUT REPLICA -->
     <div id="page-view-about" class="hidden space-y-8">
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
@@ -365,19 +359,12 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
-          <!-- Left Column: Profile Card & Floating Pills -->
           <div class="lg:col-span-5">
             <div class="relative max-w-md mx-auto mb-8">
               <img id="view-about-img" src="/images/alessia-profile.png" alt="Profile" class="w-full rounded-2xl shadow-xl border border-slate-200">
-              
-              <!-- Floating Pills Container -->
-              <div id="view-about-pills-container">
-                <!-- Dynamically rendered floating language pills -->
-              </div>
+              <div id="view-about-pills-container"></div>
             </div>
 
-            <!-- Profile Info Card -->
             <div class="feature-card p-6 text-center space-y-4">
               <h3 class="h4 font-bold text-xl" id="view-about-card-name">Alessia Iannotta</h3>
               <p class="text-sm text-slate-500" id="view-about-card-role">Traduttrice & Localizzatrice Freelance</p>
@@ -399,53 +386,34 @@
             </div>
           </div>
 
-          <!-- Right Column: Bio, Education Timeline, Core Values -->
           <div class="lg:col-span-7 space-y-8">
             <div>
               <h2 class="text-2xl font-bold mb-4">Profilo Professionale</h2>
-              <div id="view-about-bio" class="prose text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-3">
-                <!-- Bio content -->
-              </div>
+              <div id="view-about-bio" class="prose text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-3"></div>
             </div>
 
-            <!-- Education Timeline -->
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold flex items-center gap-2"><span>🎓</span> Formazione & Certificazioni</h3>
                 <div class="flex space-x-2">
-                  <button onclick="openEditEducationModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-                    ✏️ Modifica Formazione
-                  </button>
-                  <button onclick="addEducationItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">
-                    ➕ Aggiungi Titolo
-                  </button>
+                  <button onclick="openEditEducationModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">✏️ Modifica Formazione</button>
+                  <button onclick="addEducationItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Titolo</button>
                 </div>
               </div>
-              <div id="view-about-education" class="space-y-4">
-                <!-- Education items -->
-              </div>
+              <div id="view-about-education" class="space-y-4"></div>
             </div>
 
-            <!-- Core Values Grid -->
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold flex items-center gap-2"><span>🌟</span> I Miei Valori Guida</h3>
                 <div class="flex space-x-2">
-                  <button onclick="openEditCoreValuesModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-                    ✏️ Modifica Valori
-                  </button>
-                  <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">
-                    ➕ Aggiungi Valore
-                  </button>
+                  <button onclick="openEditCoreValuesModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">✏️ Modifica Valori</button>
+                  <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Valore</button>
                 </div>
               </div>
-              <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Core values items -->
-              </div>
+              <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -467,8 +435,27 @@
           <p id="view-services-intro" class="text-slate-500 text-sm mt-1">Soluzioni su misura per l'internazionalizzazione.</p>
         </div>
 
-        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Dynamically rendered service cards -->
+        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: CONTACT & SOCIAL LINKS REPLICA (NEW) -->
+    <div id="page-view-contact" class="hidden space-y-8">
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay">
+          <button onclick="openEditSocialModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Email & Link Social Footer
+          </button>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-8 text-center">
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Gestione Contatti & Social</span>
+          <h2 class="text-3xl font-extrabold">I Tuoi Canali di Contatto Live</h2>
+          <p class="text-sm text-slate-500">I link sottostanti appaiono nel footer del sito e nella pagina contatti.</p>
+
+          <div id="view-social-links-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <!-- Dynamically rendered social link cards -->
+          </div>
         </div>
       </div>
     </div>
@@ -513,13 +500,14 @@
     let homepageData = null, homepageSha = null;
     let aboutData = null, aboutSha = null;
     let servicesData = null, servicesSha = null;
+    let socialData = null, socialSha = null;
     let indexMdRaw = '', indexMdSha = null;
     let activeModalCallback = null;
 
     document.addEventListener('DOMContentLoaded', () => { loadAllData(); });
 
     function switchViewPage(page) {
-      ['home', 'about', 'services'].forEach(p => {
+      ['home', 'about', 'services', 'contact'].forEach(p => {
         document.getElementById('page-view-' + p).classList.add('hidden');
         document.getElementById('page-nav-' + p).className = 'px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white';
       });
@@ -557,6 +545,14 @@
           const f = await resS.json();
           servicesSha = f.sha;
           servicesData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
+        }
+
+        // Fetch social.json
+        const resSoc = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/social.json`, { headers });
+        if (resSoc.ok) {
+          const f = await resSoc.json();
+          socialSha = f.sha;
+          socialData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
         }
 
         // Fetch _index.md
@@ -599,7 +595,7 @@
         });
       }
 
-      // 3. Calculator preview
+      // 3. Calculator
       updateLiveCalcPreview(1500);
 
       // 4. Workflow
@@ -645,11 +641,10 @@
         });
       }
 
-      // 7. About Page Detailed Canvas
+      // 7. About Page Canvas
       if (aboutData) {
         if (aboutData.image) document.getElementById('view-about-img').src = aboutData.image;
 
-        // Floating Pills
         if (aboutData.floating_pills) {
           const pillsCont = document.getElementById('view-about-pills-container');
           pillsCont.innerHTML = '';
@@ -663,7 +658,6 @@
           });
         }
 
-        // Profile Card
         if (aboutData.profile_card) {
           document.getElementById('view-about-card-name').textContent = aboutData.profile_card.name || 'Alessia Iannotta';
           document.getElementById('view-about-card-role').textContent = aboutData.profile_card.role || '';
@@ -674,13 +668,12 @@
 
         document.getElementById('view-about-bio').innerHTML = (aboutData.bio || '').replace(/\n/g, '<br>');
 
-        // Education Timeline Canvas
         if (aboutData.education) {
           const eduGrid = document.getElementById('view-about-education');
           eduGrid.innerHTML = '';
-          aboutData.education.forEach((ed, idx) => {
+          aboutData.education.forEach(ed => {
             eduGrid.innerHTML += `
-              <div class="feature-card border-l-4 border-l-blue-900 space-y-1 relative group">
+              <div class="feature-card border-l-4 border-l-blue-900 space-y-1">
                 <div class="flex justify-between items-start">
                   <h4 class="font-bold text-sm">${ed.title}</h4>
                   <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-900">${ed.category}</span>
@@ -691,13 +684,12 @@
           });
         }
 
-        // Core Values Canvas
         if (aboutData.core_values) {
           const valGrid = document.getElementById('view-about-values');
           valGrid.innerHTML = '';
-          aboutData.core_values.forEach((v, idx) => {
+          aboutData.core_values.forEach(v => {
             valGrid.innerHTML += `
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1 relative group">
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1">
                 <div class="text-xl mb-1">${v.icon}</div>
                 <h4 class="font-bold text-sm">${v.title}</h4>
                 <p class="text-xs text-slate-500">${v.description}</p>
@@ -707,7 +699,7 @@
         }
       }
 
-      // 8. Services Page Canvas
+      // 8. Services Canvas
       if (servicesData) {
         document.getElementById('view-services-intro').textContent = servicesData.intro_text || '';
         if (servicesData.service_cards) {
@@ -738,6 +730,26 @@
           });
         }
       }
+
+      // 9. Contact & Social Links Canvas
+      if (socialData && socialData.main) {
+        const socGrid = document.getElementById('view-social-links-grid');
+        socGrid.innerHTML = '';
+        socialData.main.forEach(soc => {
+          let iconEmoji = '🔗';
+          if (soc.name === 'linkedin') iconEmoji = '💼';
+          else if (soc.name === 'email') iconEmoji = '✉️';
+          else if (soc.name === 'proz') iconEmoji = '🌐';
+
+          socGrid.innerHTML += `
+            <div class="feature-card text-center space-y-3 p-6">
+              <div class="text-3xl mb-1">${iconEmoji}</div>
+              <h4 class="font-bold text-base capitalize">${soc.name}</h4>
+              <p class="text-xs font-semibold text-blue-900 break-all">${soc.link}</p>
+            </div>
+          `;
+        });
+      }
     }
 
     function updateLiveCalcPreview(val) {
@@ -755,6 +767,37 @@
     }
 
     // MODAL EDITORS
+    function openEditSocialModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      if (!socialData.main) socialData.main = [];
+      socialData.main.forEach((soc, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold text-blue-900">
+              <span class="capitalize">Canale #${idx+1}: ${soc.name}</span>
+            </div>
+            <div>
+              <label class="font-semibold">Nome Canale / Servizio:</label>
+              <input type="text" id="edit-soc-name-${idx}" value="${escapeHtml(soc.name)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">URL o Link (mailto: per email):</label>
+              <input type="text" id="edit-soc-link-${idx}" value="${escapeHtml(soc.link)}" class="w-full p-1.5 border rounded font-semibold text-blue-900">
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✉️ Modifica Email & Link Social Footer', html, () => {
+        socialData.main.forEach((soc, idx) => {
+          soc.name = document.getElementById(`edit-soc-name-${idx}`).value;
+          soc.link = document.getElementById(`edit-soc-link-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
     function openEditHeroModal() {
       const titleMatch = indexMdRaw.match(/title:\s*"(.*?)"/);
       const contentMatch = indexMdRaw.match(/content:\s*"(.*?)"/);
@@ -876,7 +919,7 @@
       aboutData.education.push({
         title: "Nuova Certificazione",
         category: "Professionale",
-        description: "Descrizione del percorso o titolo..."
+        description: "Descrizione del percorso..."
       });
       renderLiveCanvas();
       openEditEducationModal();
@@ -928,11 +971,7 @@
 
     function addCoreValueItem() {
       if (!aboutData.core_values) aboutData.core_values = [];
-      aboutData.core_values.push({
-        icon: "🌟",
-        title: "Nuovo Valore",
-        description: "Descrizione del principio guida..."
-      });
+      aboutData.core_values.push({ icon: "🌟", title: "Nuovo Valore", description: "Descrizione..." });
       renderLiveCanvas();
       openEditCoreValuesModal();
     }
@@ -1001,11 +1040,7 @@
 
     function addWorkflowStep() {
       if (!homepageData.workflow) homepageData.workflow = [];
-      homepageData.workflow.push({
-        step: homepageData.workflow.length + 1,
-        title: "Nuovo Passaggio",
-        description: "Descrizione del processo..."
-      });
+      homepageData.workflow.push({ step: homepageData.workflow.length + 1, title: "Nuovo Passaggio", description: "Descrizione..." });
       renderLiveCanvas();
       openEditWorkflowModal();
     }
@@ -1049,7 +1084,7 @@
 
     function addCatTool() {
       if (!homepageData.cat_tools) homepageData.cat_tools = [];
-      homepageData.cat_tools.push({ name: "Nuovo Software", description: "Descrizione strumento..." });
+      homepageData.cat_tools.push({ name: "Nuovo Software", description: "Descrizione..." });
       renderLiveCanvas();
       openEditCatToolsModal();
     }
@@ -1139,9 +1174,9 @@
         id: "custom-service-" + Date.now(),
         number: (servicesData.service_cards.length + 1).toString(),
         title: "Nuovo Servizio",
-        description: "Descrizione del servizio offerto...",
+        description: "Descrizione...",
         turnaround: "Su misura",
-        bulletpoints: ["Caratteristica 1", "Caratteristica 2"]
+        bulletpoints: ["Caratteristica 1"]
       });
       renderLiveCanvas();
       openEditServicesModal();
@@ -1191,10 +1226,7 @@
       document.getElementById('edit-modal').classList.remove('hidden');
     }
 
-    function closeEditModal() {
-      document.getElementById('edit-modal').classList.add('hidden');
-    }
-
+    function closeEditModal() { document.getElementById('edit-modal').classList.add('hidden'); }
     function saveModalChanges() {
       if (activeModalCallback) activeModalCallback();
       closeEditModal();
@@ -1212,28 +1244,30 @@
       showToast('⏳ Salvataggio in corso su GitHub...', 'info');
 
       try {
-        // Save homepage.json
         if (homepageData) {
           const strH = JSON.stringify(homepageData, null, 2);
           const resH = await putGitHubFile('data/homepage.json', strH, homepageSha);
           if (resH.content) homepageSha = resH.content.sha;
         }
 
-        // Save about.json
         if (aboutData) {
           const strA = JSON.stringify(aboutData, null, 2);
           const resA = await putGitHubFile('data/about.json', strA, aboutSha);
           if (resA.content) aboutSha = resA.content.sha;
         }
 
-        // Save services.json
         if (servicesData) {
           const strS = JSON.stringify(servicesData, null, 2);
           const resS = await putGitHubFile('data/services.json', strS, servicesSha);
           if (resS.content) servicesSha = resS.content.sha;
         }
 
-        // Save _index.md
+        if (socialData) {
+          const strSoc = JSON.stringify(socialData, null, 2);
+          const resSoc = await putGitHubFile('data/social.json', strSoc, socialSha);
+          if (resSoc.content) socialSha = resSoc.content.sha;
+        }
+
         if (indexMdRaw) {
           const resI = await putGitHubFile('content/_index.md', indexMdRaw, indexMdSha);
           if (resI.content) indexMdSha = resI.content.sha;
