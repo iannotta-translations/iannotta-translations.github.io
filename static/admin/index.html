@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pannello di Amministrazione — Alessia Iannotta Portfolio</title>
+  <title>Pannello di Amministrazione Completo — Alessia Iannotta Portfolio</title>
   <link rel="icon" type="image/png" href="/images/favicon.png" />
-  <!-- Tailwind CSS via CDN for Admin Panel -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -44,17 +43,17 @@
           ⚙️
         </div>
         <div>
-          <h1 class="text-lg font-bold leading-tight">Gestione Sito — Alessia Iannotta</h1>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Pannello di Amministrazione No-Code</p>
+          <h1 class="text-lg font-bold leading-tight">Pannello Amministrazione Completo — Alessia Iannotta</h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Modifica Grafica No-Code di Tutte le Pagine del Sito</p>
         </div>
       </div>
 
       <div class="flex items-center space-x-4">
         <a href="/" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 flex items-center gap-1">
-          👁️ Vedi Sito Live ↗
+          👁️ vedi Sito Live ↗
         </a>
         <button id="token-modal-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
-          🔑 Chiave di Accesso (Token)
+          🔑 Chiave Accesso (Token)
         </button>
       </div>
     </div>
@@ -76,8 +75,14 @@
       <button onclick="switchTab('tab-faqs')" id="btn-tab-faqs" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
         ❓ Domande Frequenti (FAQ)
       </button>
+      <button onclick="switchTab('tab-about')" id="btn-tab-about" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
+        👩‍💼 Profilo Chi Sono
+      </button>
+      <button onclick="switchTab('tab-services')" id="btn-tab-services" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
+        🛠️ Carte Servizi
+      </button>
       <button onclick="switchTab('tab-home')" id="btn-tab-home" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
-        🏠 Testi Homepage & Banner
+        🏠 Copertina Homepage
       </button>
       <button onclick="switchTab('tab-stats')" id="btn-tab-stats" class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 flex items-center gap-2">
         📊 Statistiche & CAT Tools
@@ -93,7 +98,7 @@
     <!-- Content Sections Container -->
     <div id="admin-content" class="hidden">
 
-      <!-- TAB 1: CALCOLATORE & TARIFFE -->
+      <!-- TAB 1: TARIFFE & CALCOLATORE -->
       <section id="tab-calc" class="space-y-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
           <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
@@ -101,13 +106,12 @@
               <h2 class="text-xl font-bold">🧮 Gestione Tariffe Calcolatore Preventivo</h2>
               <p class="text-xs text-slate-500 mt-1">Imposta le tariffe base per parola (€) ed i parametri del calcolatore automatico.</p>
             </div>
-            <button onclick="saveHomepageData('Calcolatore salvato')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+            <button onclick="saveHomepageData('Tariffe salvate')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
               💾 Salva e Pubblica Tariffe
             </button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Rate Inputs -->
             <div class="space-y-4">
               <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Tariffe Base a Parola (€)</h3>
               
@@ -132,7 +136,6 @@
               </div>
             </div>
 
-            <!-- Parameters -->
             <div class="space-y-4">
               <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Parametri Progetto</h3>
               
@@ -144,10 +147,6 @@
               <div>
                 <label class="block text-xs font-semibold mb-1">Parole Predefinite nello Slider:</label>
                 <input type="number" id="calc-default-words" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-semibold">
-              </div>
-
-              <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-xs text-blue-800 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
-                💡 <strong>Come funziona:</strong> Quando un cliente sposta lo slider in homepage, il sito moltiplica le parole per la tariffa corrispondente ed applica il prezzo minimo impostato qui sopra.
               </div>
             </div>
           </div>
@@ -172,18 +171,80 @@
             </div>
           </div>
 
-          <div id="faq-list-container" class="space-y-4">
-            <!-- FAQ items will be rendered dynamically here -->
+          <div id="faq-list-container" class="space-y-4"></div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PROFILO CHI SONO -->
+      <section id="tab-about" class="hidden space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">👩‍💼 Gestione Profilo "Chi Sono"</h2>
+              <p class="text-xs text-slate-500 mt-1">Modifica biografia, formazione, certificazioni e la card del profilo.</p>
+            </div>
+            <button onclick="saveAboutData()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+              💾 Salva Profilo Chi Sono
+            </button>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <label class="block text-xs font-semibold mb-1">Testo Biografico Principale (Markdown):</label>
+              <textarea id="about-bio" rows="6" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm leading-relaxed"></textarea>
+            </div>
+
+            <!-- Profile Card inputs -->
+            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Info Card Profilo</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold mb-1">Nome Completo:</label>
+                <input type="text" id="about-card-name" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold mb-1">Ruolo / Titolo Sottotitolo:</label>
+                <input type="text" id="about-card-role" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold mb-1">Localizzazione / Base:</label>
+                <input type="text" id="about-card-location" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold mb-1">Titolo di Studio:</label>
+                <input type="text" id="about-card-degree" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm">
+              </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider pt-4 border-t border-slate-200 dark:border-slate-700">Formazione & Certificazioni</h3>
+            <div id="about-education-container" class="space-y-3"></div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 3: TESTI HOMEPAGE & BANNER -->
+      <!-- TAB 4: CARTE SERVIZI -->
+      <section id="tab-services" class="hidden space-y-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
+            <div>
+              <h2 class="text-xl font-bold">🛠️ Gestione Carte Servizi</h2>
+              <p class="text-xs text-slate-500 mt-1">Modifica le 4 carte servizio, le descrizioni ed i punti di forza.</p>
+            </div>
+            <button onclick="saveServicesData()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+              💾 Salva Carte Servizi
+            </button>
+          </div>
+
+          <div id="services-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </div>
+      </section>
+
+      <!-- TAB 5: HOMEPAGE COPERTINA -->
       <section id="tab-home" class="hidden space-y-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
           <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
             <div>
-              <h2 class="text-xl font-bold">🏠 Testi Copertina & Banner Homepage</h2>
+              <h2 class="text-xl font-bold">🏠 Testi Copertina Homepage</h2>
               <p class="text-xs text-slate-500 mt-1">Modifica il titolo di copertina e il messaggio di presentazione.</p>
             </div>
             <button onclick="saveIndexMarkdown()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
@@ -205,7 +266,7 @@
         </div>
       </section>
 
-      <!-- TAB 4: STATISTICHE & CAT TOOLS -->
+      <!-- TAB 6: STATISTICHE & CAT TOOLS -->
       <section id="tab-stats" class="hidden space-y-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
           <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
@@ -218,17 +279,11 @@
             </button>
           </div>
 
-          <!-- Stats Inputs -->
           <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">Statistiche Banner (4 Box)</h3>
-          <div id="stats-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <!-- Stats inputs rendered dynamically -->
-          </div>
+          <div id="stats-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"></div>
 
-          <!-- CAT Tools Inputs -->
           <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">CAT Tools & Strumenti</h3>
-          <div id="cat-tools-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- CAT Tools rendered dynamically -->
-          </div>
+          <div id="cat-tools-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
       </section>
 
@@ -244,7 +299,7 @@
         <h3 class="text-lg font-bold">Chiave di Accesso GitHub</h3>
       </div>
       <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-        Inserisci il tuo Personal Access Token di GitHub per salvare le modifiche direttamente sul sito in totale sicurezza.
+        Inserisci la tua chiave Token di GitHub per salvare le modifiche direttamente sul sito in totale sicurezza.
       </p>
       
       <div>
@@ -254,7 +309,7 @@
 
       <div class="text-xs text-slate-400 space-y-1">
         <p>• La chiave viene salvata **esclusivamente nel tuo browser**.</p>
-        <p>• Puoi crearne una in 1 click su GitHub ➔ Settings ➔ Developer settings ➔ Personal access tokens (Fine-grained o Classic con permesso `repo`).</p>
+        <p>• Puoi crearne una in 1 click su GitHub ➔ Settings ➔ Personal access tokens.</p>
       </div>
 
       <div class="flex space-x-3 pt-2">
@@ -273,10 +328,10 @@
     const REPO_OWNER = 'iannotta-translations';
     const REPO_NAME = 'iannotta-translations.github.io';
     
-    let homepageData = null;
-    let homepageDataSha = null;
-    let indexMarkdownRaw = '';
-    let indexMarkdownSha = null;
+    let homepageData = null, homepageDataSha = null;
+    let aboutData = null, aboutDataSha = null;
+    let servicesData = null, servicesDataSha = null;
+    let indexMarkdownRaw = '', indexMarkdownSha = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       checkToken();
@@ -285,16 +340,14 @@
 
     function checkToken() {
       const token = localStorage.getItem('gh_token');
-      if (!token) {
-        document.getElementById('token-modal').classList.remove('hidden');
-      }
+      if (!token) document.getElementById('token-modal').classList.remove('hidden');
     }
 
     function saveToken() {
       const token = document.getElementById('input-token').value.trim();
       if (token) {
         localStorage.setItem('gh_token', token);
-        showToast('🔑 Chiave di accesso salvata!', 'success');
+        showToast('🔑 Chiave salvata!', 'success');
         closeTokenModal();
         loadDataFromGitHub();
       }
@@ -310,7 +363,7 @@
     });
 
     function switchTab(tabId) {
-      ['tab-calc', 'tab-faqs', 'tab-home', 'tab-stats'].forEach(id => {
+      ['tab-calc', 'tab-faqs', 'tab-about', 'tab-services', 'tab-home', 'tab-stats'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
         document.getElementById('btn-' + id).classList.remove('tab-active');
       });
@@ -326,16 +379,34 @@
         const token = localStorage.getItem('gh_token');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-        // 1. Fetch data/homepage.json
-        const resData = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
-        if (resData.ok) {
-          const jsonFile = await resData.json();
-          homepageDataSha = jsonFile.sha;
-          homepageData = JSON.parse(decodeURIComponent(escape(atob(jsonFile.content))));
+        // Fetch data/homepage.json
+        const resHome = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
+        if (resHome.ok) {
+          const file = await resHome.json();
+          homepageDataSha = file.sha;
+          homepageData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
           renderHomepageDataForms();
         }
 
-        // 2. Fetch content/_index.md
+        // Fetch data/about.json
+        const resAbout = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/about.json`, { headers });
+        if (resAbout.ok) {
+          const file = await resAbout.json();
+          aboutDataSha = file.sha;
+          aboutData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+          renderAboutForms();
+        }
+
+        // Fetch data/services.json
+        const resSrv = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/services.json`, { headers });
+        if (resSrv.ok) {
+          const file = await resSrv.json();
+          servicesDataSha = file.sha;
+          servicesData = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+          renderServicesForms();
+        }
+
+        // Fetch content/_index.md
         const resIndex = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/content/_index.md`, { headers });
         if (resIndex.ok) {
           const mdFile = await resIndex.json();
@@ -348,7 +419,7 @@
         document.getElementById('admin-content').classList.remove('hidden');
       } catch (err) {
         console.error('Error loading data:', err);
-        showToast('⚠️ Impossibile caricare i dati da GitHub. Verifica il token.', 'error');
+        showToast('⚠️ Impossibile caricare i dati. Verifica il Token.', 'error');
         document.getElementById('loading-spinner').classList.add('hidden');
         document.getElementById('admin-content').classList.remove('hidden');
       }
@@ -356,8 +427,6 @@
 
     function renderHomepageDataForms() {
       if (!homepageData) return;
-
-      // Calculator Rates
       if (homepageData.calculator) {
         document.getElementById('calc-min-fee').value = homepageData.calculator.min_fee || 25;
         document.getElementById('calc-default-words').value = homepageData.calculator.default_words || 1500;
@@ -368,15 +437,70 @@
           document.getElementById('rate-postediting').value = homepageData.calculator.rates.postediting || 0.05;
         }
       }
-
-      // FAQs
       renderFaqsList();
-
-      // Stats
       renderStatsList();
-
-      // CAT Tools
       renderCatToolsList();
+    }
+
+    function renderAboutForms() {
+      if (!aboutData) return;
+      document.getElementById('about-bio').value = aboutData.bio || '';
+      if (aboutData.profile_card) {
+        document.getElementById('about-card-name').value = aboutData.profile_card.name || '';
+        document.getElementById('about-card-role').value = aboutData.profile_card.role || '';
+        document.getElementById('about-card-location').value = aboutData.profile_card.location || '';
+        document.getElementById('about-card-degree').value = aboutData.profile_card.degree || '';
+      }
+      renderEducationList();
+    }
+
+    function renderEducationList() {
+      const container = document.getElementById('about-education-container');
+      container.innerHTML = '';
+      if (!aboutData.education) return;
+
+      aboutData.education.forEach((edu, index) => {
+        const div = document.createElement('div');
+        div.className = 'p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-2';
+        div.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold mb-1">Titolo Formazione:</label>
+            <input type="text" value="${escapeHtml(edu.title)}" onchange="aboutData.education[${index}].title = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
+            <textarea rows="2" onchange="aboutData.education[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(edu.description)}</textarea>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderServicesForms() {
+      const container = document.getElementById('services-cards-container');
+      container.innerHTML = '';
+      if (!servicesData || !servicesData.service_cards) return;
+
+      servicesData.service_cards.forEach((card, index) => {
+        const div = document.createElement('div');
+        div.className = 'p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 space-y-3';
+        div.innerHTML = `
+          <h4 class="text-sm font-bold text-blue-600 dark:text-blue-400">Servizio #${card.number}: ${escapeHtml(card.title)}</h4>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Titolo Servizio:</label>
+            <input type="text" value="${escapeHtml(card.title)}" onchange="servicesData.service_cards[${index}].title = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm font-bold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Descrizione:</label>
+            <textarea rows="2" onchange="servicesData.service_cards[${index}].description = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">${escapeHtml(card.description)}</textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1">Tempi Medi / Turnaround:</label>
+            <input type="text" value="${escapeHtml(card.turnaround)}" onchange="servicesData.service_cards[${index}].turnaround = this.value" class="w-full px-2.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs">
+          </div>
+        `;
+        container.appendChild(div);
+      });
     }
 
     function renderFaqsList() {
@@ -407,10 +531,7 @@
 
     function addFaqItem() {
       if (!homepageData.faqs) homepageData.faqs = [];
-      homepageData.faqs.push({
-        question: "Nuova Domanda FAQ",
-        answer: "Inserisci qui la risposta..."
-      });
+      homepageData.faqs.push({ question: "Nuova Domanda FAQ", answer: "Inserisci la risposta..." });
       renderFaqsList();
     }
 
@@ -466,13 +587,11 @@
     function parseIndexMarkdown() {
       const titleMatch = indexMarkdownRaw.match(/title:\s*"(.*?)"/);
       const contentMatch = indexMarkdownRaw.match(/content:\s*"(.*?)"/);
-
       if (titleMatch) document.getElementById('home-banner-title').value = titleMatch[1];
       if (contentMatch) document.getElementById('home-banner-content').value = contentMatch[1];
     }
 
     async function saveHomepageData(successMsg) {
-      // Sync calculator rates back to data structure
       homepageData.calculator.min_fee = parseInt(document.getElementById('calc-min-fee').value) || 25;
       homepageData.calculator.default_words = parseInt(document.getElementById('calc-default-words').value) || 1500;
       homepageData.calculator.rates.translation = parseFloat(document.getElementById('rate-translation').value) || 0.08;
@@ -480,18 +599,33 @@
       homepageData.calculator.rates.revision = parseFloat(document.getElementById('rate-revision').value) || 0.04;
       homepageData.calculator.rates.postediting = parseFloat(document.getElementById('rate-postediting').value) || 0.05;
 
-      const updatedJsonStr = JSON.stringify(homepageData, null, 2);
-      await updateFileOnGitHub('data/homepage.json', updatedJsonStr, homepageDataSha, successMsg || 'Dati salvati con successo!');
+      const str = JSON.stringify(homepageData, null, 2);
+      await updateFileOnGitHub('data/homepage.json', str, homepageDataSha, successMsg || 'Dati salvati!');
+    }
+
+    async function saveAboutData() {
+      aboutData.bio = document.getElementById('about-bio').value;
+      if (!aboutData.profile_card) aboutData.profile_card = {};
+      aboutData.profile_card.name = document.getElementById('about-card-name').value;
+      aboutData.profile_card.role = document.getElementById('about-card-role').value;
+      aboutData.profile_card.location = document.getElementById('about-card-location').value;
+      aboutData.profile_card.degree = document.getElementById('about-card-degree').value;
+
+      const str = JSON.stringify(aboutData, null, 2);
+      await updateFileOnGitHub('data/about.json', str, aboutDataSha, 'Profilo Chi Sono salvato!');
+    }
+
+    async function saveServicesData() {
+      const str = JSON.stringify(servicesData, null, 2);
+      await updateFileOnGitHub('data/services.json', str, servicesDataSha, 'Carte Servizi salvate!');
     }
 
     async function saveIndexMarkdown() {
       const newTitle = document.getElementById('home-banner-title').value;
       const newContent = document.getElementById('home-banner-content').value;
-
       let updatedMd = indexMarkdownRaw.replace(/title:\s*".*?"/, `title: "${newTitle}"`);
       updatedMd = updatedMd.replace(/content:\s*".*?"/, `content: "${newContent}"`);
-
-      await updateFileOnGitHub('content/_index.md', updatedMd, indexMarkdownSha, 'Testi copertina salvati con successo!');
+      await updateFileOnGitHub('content/_index.md', updatedMd, indexMarkdownSha, 'Testi copertina salvati!');
     }
 
     async function updateFileOnGitHub(filePath, fileContent, sha, successMsg) {
@@ -521,7 +655,7 @@
 
         if (res.ok) {
           showToast(`🚀 ${successMsg} Il sito si aggiornerà online tra 1 minuto.`, 'success');
-          loadDataFromGitHub(); // refresh SHA
+          loadDataFromGitHub();
         } else {
           const errData = await res.json();
           showToast(`❌ Errore durante il salvataggio: ${errData.message || 'Verifica il Token'}`, 'error');
@@ -550,9 +684,7 @@
       }
 
       toast.classList.remove('hidden');
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 5000);
+      setTimeout(() => { toast.classList.add('hidden'); }, 5000);
     }
 
     function escapeHtml(text) {

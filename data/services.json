@@ -1,0 +1,61 @@
+{
+  "title": "I Miei Servizi",
+  "meta_title": "Servizi di Traduzione, Localizzazione e Revisione | Alessia Iannotta",
+  "description": "Panoramica dettagliata dei servizi di traduzione, localizzazione web, revisione e post-editing offerti da Alessia Iannotta.",
+  "intro_text": "Soluzioni su misura per l'internazionalizzazione del tuo business, progettate per garantire precisione terminologica, naturalezza e massimo impatto.",
+  "service_cards": [
+    {
+      "id": "translation",
+      "number": "1",
+      "title": "Traduzione Specialistica",
+      "description": "Traduzione accurata ed elegante dall'Inglese e dal Francese verso l'Italiano per documenti aziendali, articoli, brochure, contratti ed editoria.",
+      "turnaround": "~1.500-2.000 w/giorno",
+      "bulletpoints": [
+        "Combinazioni: EN ➔ IT e FR ➔ IT",
+        "Adattamento di registro e tono di voce",
+        "Gestione memorie di traduzione (TM)"
+      ]
+    },
+    {
+      "id": "localization",
+      "number": "2",
+      "title": "Localizzazione Web & Software",
+      "description": "Adattamento culturale e linguistico di siti web, e-commerce, piattaforme SaaS e app per coinvolgere gli utenti italiani.",
+      "turnaround": "Su misura per sprint",
+      "bulletpoints": [
+        "Traduzione SEO-friendly e meta-tag",
+        "Gestione diretta file .json, .po, .xliff",
+        "Adattamento micro-copy e pulsanti UI"
+      ]
+    },
+    {
+      "id": "revision",
+      "number": "3",
+      "title": "Revisione & Proofreading",
+      "description": "Controllo qualità e correzione di bozze per testi già tradotti o prodotti in italiano, eliminando ogni imprecisione.",
+      "turnaround": "~3.000-4.000 w/giorno",
+      "bulletpoints": [
+        "Verifica ortografica, sintattica e stilistica",
+        "Controllo coerenza con glossario aziendale",
+        "Verifica cifre, link e formattazione"
+      ]
+    },
+    {
+      "id": "postediting",
+      "number": "4",
+      "title": "Post-Editing MT (PEMT)",
+      "description": "Rifinitura e correzione umana di bozze generate da software di traduzione automatica (DeepL, MT engines).",
+      "turnaround": "Veloci su volumi elevati",
+      "bulletpoints": [
+        "Light PEMT: eliminazione errori bloccanti",
+        "Full PEMT: resa fluida pari a traduzione umana",
+        "Ottimizzazione di budget per grandi volumi"
+      ]
+    }
+  ],
+  "pricing_notes": [
+    "Sconti su frasi ripetute (Memorie di Traduzione)",
+    "Progetto minimo a partire da 25 €",
+    "Preventivo e analisi del file sempre gratuiti"
+  ]
+}

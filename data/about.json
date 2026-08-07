@@ -1,0 +1,60 @@
+{
+  "title": "Chi Sono",
+  "meta_title": "Chi Sono | Alessia Iannotta — Traduttrice Freelance EN/FR ➔ IT",
+  "description": "Profilo professionale di Alessia Iannotta: traduzione specialistica, localizzazione web e revisione testo dall'Inglese e Francese verso l'Italiano.",
+  "image": "/images/alessia-profile.png",
+  "bio": "Mi chiamo **Alessia Iannotta** e sono una traduttrice e localizzatrice freelance **madrelingua italiana**, specializzata nelle combinazioni linguistico-culturali dall'**Inglese** e dal **Francese** verso l'**Italiano**.\n\nLa mia missione professionale è garantire che la comunicazione della tua azienda o agenzia risulti naturale, accurata ed efficace nel mercato italiano, rispettando il tono di voce originale e abbattendo qualsiasi barriera culturale.",
+  "profile_card": {
+    "name": "Alessia Iannotta",
+    "role": "Traduttrice & Localizzatrice Freelance EN ↔ IT | FR ↔ IT",
+    "location": "Italia (Servizio Globale Remoto)",
+    "degree": "Laurea in Traduzione Specialistica",
+    "response_time": "Entro 24 ore lavorative"
+  },
+  "floating_pills": [
+    { "flag": "🇬🇧 ➔ 🇮🇹", "label": "EN ➔ IT" },
+    { "flag": "🇫🇷 ➔ 🇮🇹", "label": "FR ➔ IT" }
+  ],
+  "education": [
+    {
+      "title": "Laurea in Traduzione e Adattamento Linguistico",
+      "category": "Universitario",
+      "category_color": "primary",
+      "description": "Formazione approfondita nella traduzione specialistica dall'Inglese e dal Francese verso l'Italiano, con focus su analisi stilistica, terminologia e linguistica applicata."
+    },
+    {
+      "title": "Certificazione CAT Tools & Traduzione Assistita",
+      "category": "Professionale",
+      "category_color": "emerald",
+      "description": "Padronanza avanzata di SDL Trados Studio, MemoQ e Phrase (Memsource), gestione di Memorie di Traduzione (TM) e database terminologici aziendali."
+    },
+    {
+      "title": "Corso di Specializzazione in Localizzazione Web & Software",
+      "category": "Specializzazione",
+      "category_color": "amber",
+      "description": "Tecniche di localizzazione di interfacce utente (UI), gestione file di codice (.json, .po, .xliff), adattamento SEO e ottimizzazione micro-copy."
+    }
+  ],
+  "core_values": [
+    {
+      "icon": "🎯",
+      "title": "Precisione Naturale",
+      "description": "Traduzioni che non sembra traduzioni, ma testi nativi scritti direttamente in italiano da un professionista."
+    },
+    {
+      "icon": "⏱️",
+      "title": "Puntualità Assoluta",
+      "description": "Ogni consegna viene effettuata rispettando rigorosamente la data concordata, senza ritardi né eccezioni."
+    },
+    {
+      "icon": "🔒",
+      "title": "Riservatezza Certificata",
+      "description": "Trattamento sicuro dei dati aziendali e disponibilità alla firma immediata di accordi di non divulgazione (NDA)."
+    },
+    {
+      "icon": "🤝",
+      "title": "Comunicazione Diretta",
+      "description": "Relazione trasparente con il cliente, aggiornamenti sullo stato dei lavori e supporto post-consegna incluso."
+    }
+  ]
+}

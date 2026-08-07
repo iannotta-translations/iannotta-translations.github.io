@@ -1,5 +1,6 @@
 {{ define "main" }}
-  {{ partial "page-header" . }}
+  {{ $srv := hugo.Data.services }}
+  {{ partial "page-header" (dict "Title" ($srv.title | default .Title) "Context" .) }}
 
   <!-- Intro & Services Grid Section -->
   <section class="section-sm py-12">
@@ -7,182 +8,60 @@
       <div class="max-w-3xl mx-auto text-center mb-12">
         <h2 class="text-h3 lg:text-h2 font-bold mb-4">Servizi Linguistici Specialistici</h2>
         <p class="text-text-light dark:text-darkmode-text-light text-lg">
-          Soluzioni su misura per l'internazionalizzazione del tuo business, progettate per garantire precisione terminologica, naturalezza e massimo impatto.
+          {{ $srv.intro_text }}
         </p>
       </div>
 
-      <!-- 4 Core Service Cards -->
+      <!-- Core Service Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-        <!-- Service 1: Traduzione Specialistica -->
-        <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 dark:bg-blue-500/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-blue-600/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2.1l1.1-3h4.6l1.1 3H23l-4.5-12m-2.62 7l1.62-4.41L19.12 17h-3.24z"/></svg>
+        {{ range $idx, $card := $srv.service_cards }}
+          <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 dark:bg-darkmode-primary/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary flex items-center justify-center font-extrabold text-xl mb-6">
+                {{ .number }}
+              </div>
+              <h3 class="h3 font-bold mb-3">{{ .title }}</h3>
+              <p class="text-text-light dark:text-darkmode-text-light text-sm mb-6 leading-relaxed">
+                {{ .description }}
+              </p>
+
+              <ul class="space-y-2.5 text-sm mb-6">
+                {{ range .bulletpoints }}
+                  <li class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                    <span>{{ . | markdownify }}</span>
+                  </li>
+                {{ end }}
+              </ul>
             </div>
-            <h3 class="h3 font-bold mb-3">1. Traduzione Specialistica</h3>
-            <p class="text-text-light dark:text-darkmode-text-light text-sm mb-6 leading-relaxed">
-              Traduzione accurata ed elegante dall'Inglese e dal Francese verso l'Italiano per documenti aziendali, articoli, brochure, contratti ed editoria.
-            </p>
 
-            <ul class="space-y-2.5 text-sm mb-6">
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Combinazioni: <strong>EN ➔ IT</strong> e <strong>FR ➔ IT</strong></span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Adattamento di registro e tono di voce</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Gestione memorie di traduzione (TM)</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="pt-4 border-t border-border dark:border-darkmode-border flex items-center justify-between">
-            <span class="text-xs font-semibold text-text-light dark:text-darkmode-text-light">Tempi: ~1.500-2.000 w/giorno</span>
-            <a href="/contact/?service=translation#contact-form" class="btn btn-primary btn-sm font-semibold">
-              Richiedi Preventivo
-            </a>
-          </div>
-        </div>
-
-        <!-- Service 2: Localizzazione Web & Software -->
-        <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 dark:bg-indigo-500/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-indigo-600/10 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <div class="pt-4 border-t border-border dark:border-darkmode-border flex items-center justify-between">
+              <span class="text-xs font-semibold text-text-light dark:text-darkmode-text-light">Tempi: {{ .turnaround }}</span>
+              <a href="/contact/?service={{ .id }}#contact-form" class="btn btn-primary btn-sm font-semibold">
+                Richiedi Preventivo
+              </a>
             </div>
-            <h3 class="h3 font-bold mb-3">2. Localizzazione Web & Software</h3>
-            <p class="text-text-light dark:text-darkmode-text-light text-sm mb-6 leading-relaxed">
-              Adattamento culturale e linguistico di siti web, e-commerce, piattaforme SaaS e app per coinvolgere gli utenti italiani.
-            </p>
-
-            <ul class="space-y-2.5 text-sm mb-6">
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Traduzione SEO-friendly e meta-tag</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Gestione diretta file .json, .po, .xliff</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Adattamento micro-copy e pulsanti UI</span>
-              </li>
-            </ul>
           </div>
-
-          <div class="pt-4 border-t border-border dark:border-darkmode-border flex items-center justify-between">
-            <span class="text-xs font-semibold text-text-light dark:text-darkmode-text-light">Tempi: Su misura per sprint</span>
-            <a href="/contact/?service=localization#contact-form" class="btn btn-primary btn-sm font-semibold">
-              Richiedi Preventivo
-            </a>
-          </div>
-        </div>
-
-        <!-- Service 3: Revisione & Proofreading -->
-        <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 dark:bg-emerald-500/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-emerald-600/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <h3 class="h3 font-bold mb-3">3. Revisione & Proofreading</h3>
-            <p class="text-text-light dark:text-darkmode-text-light text-sm mb-6 leading-relaxed">
-              Controllo qualità e correzione di bozze per testi già tradotti o prodotti in italiano, eliminando ogni imprecisione.
-            </p>
-
-            <ul class="space-y-2.5 text-sm mb-6">
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Verifica ortografica, sintattica e stilistica</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Controllo coerenza con glossario aziendale</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Verifica cifre, link e formattazione</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="pt-4 border-t border-border dark:border-darkmode-border flex items-center justify-between">
-            <span class="text-xs font-semibold text-text-light dark:text-darkmode-text-light">Tempi: ~3.000-4.000 w/giorno</span>
-            <a href="/contact/?service=revision#contact-form" class="btn btn-primary btn-sm font-semibold">
-              Richiedi Preventivo
-            </a>
-          </div>
-        </div>
-
-        <!-- Service 4: Post-Editing Machine Translation -->
-        <div class="feature-card flex flex-col justify-between p-8 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-amber-600/5 dark:bg-amber-500/10 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-amber-600/10 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center mb-6">
-              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
-            </div>
-            <h3 class="h3 font-bold mb-3">4. Post-Editing MT (PEMT)</h3>
-            <p class="text-text-light dark:text-darkmode-text-light text-sm mb-6 leading-relaxed">
-              Rifinitura e correzione umana di bozze generate da software di traduzione automatica (DeepL, MT engines).
-            </p>
-
-            <ul class="space-y-2.5 text-sm mb-6">
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span><strong>Light PEMT</strong>: eliminazione errori bloccanti</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span><strong>Full PEMT</strong>: resa fluida pari a traduzione umana</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-primary dark:text-darkmode-primary fill-current flex-shrink-0" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                <span>Ottimizzazione di budget per grandi volumi</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="pt-4 border-t border-border dark:border-darkmode-border flex items-center justify-between">
-            <span class="text-xs font-semibold text-text-light dark:text-darkmode-text-light">Tempi: Veloci su volumi elevati</span>
-            <a href="/contact/?service=postediting#contact-form" class="btn btn-primary btn-sm font-semibold">
-              Richiedi Preventivo
-            </a>
-          </div>
-        </div>
+        {{ end }}
       </div>
 
       <!-- Pricing Transparency Info Box -->
-      <div class="p-8 rounded-2xl bg-primary/5 dark:bg-darkmode-light border border-primary/20 dark:border-darkmode-border">
-        <h3 class="h4 font-bold mb-3 flex items-center gap-2">
-          <span>💡</span> Trasparenza sulle Tariffe & Modelli di Calcolo
-        </h3>
-        <p class="text-sm text-text-light dark:text-darkmode-text-light leading-relaxed mb-4">
-          Le tariffe vengono definite in modo chiaro prima dell'avvio di qualsiasi progetto, senza spese nascoste. Per la maggior parte dei testi si applica la **tariffa a parola sorgente**, mentre per la localizzazione software e la consulenza è possibile concordare una **tariffa oraria** o un **forfait a progetto**.
-        </p>
-        <div class="flex flex-wrap gap-4 text-xs font-semibold">
-          <span class="px-3 py-1.5 rounded-lg bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border">
-            ✔ Sconti su frasi ripetute (Memorie di Traduzione)
-          </span>
-          <span class="px-3 py-1.5 rounded-lg bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border">
-            ✔ Progetto minimo a partire da 25 €
-          </span>
-          <span class="px-3 py-1.5 rounded-lg bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border">
-            ✔ Preventivo e analisi del file sempre gratuiti
-          </span>
-        </div>
-      </div>
-
-      <!-- Render markdown content if any -->
-      {{ if .Content }}
-        <div class="mt-12 content prose dark:prose-invert max-w-none">
-          {{ .Content }}
+      {{ with $srv.pricing_notes }}
+        <div class="p-8 rounded-2xl bg-primary/5 dark:bg-darkmode-light border border-primary/20 dark:border-darkmode-border">
+          <h3 class="h4 font-bold mb-3 flex items-center gap-2">
+            <span>💡</span> Trasparenza sulle Tariffe & Modelli di Calcolo
+          </h3>
+          <p class="text-sm text-text-light dark:text-darkmode-text-light leading-relaxed mb-4">
+            Le tariffe vengono definite in modo chiaro prima dell'avvio di qualsiasi progetto, senza spese nascoste. Per la maggior parte dei testi si applica la tariffa a parola sorgente, mentre per la localizzazione software e la consulenza è possibile concordare una tariffa oraria o un forfait a progetto.
+          </p>
+          <div class="flex flex-wrap gap-4 text-xs font-semibold">
+            {{ range . }}
+              <span class="px-3 py-1.5 rounded-lg bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border">
+                ✔ {{ . }}
+              </span>
+            {{ end }}
+          </div>
         </div>
       {{ end }}
     </div>
