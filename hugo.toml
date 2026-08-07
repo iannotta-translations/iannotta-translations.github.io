@@ -1,5 +1,25 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://iannotta-translations.github.io/'
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = 'Alessia Iannotta - Traduttrice Freelance EN <> IT <> FR'
 theme = 'PaperMod'
 
+[params.profileMode]
+  enabled = true
+  title = "Alessia Iannotta" # Inserisci il suo vero nome
+  subtitle = "Traduttrice Freelance | EN ↔ IT | FR ↔ IT"
+  
+  # OPZIONALE: Se vuole mettere una foto profilo
+  imageUrl = "/img/iannotta-photo.jpg"
+  imageWidth = 150
+  imageHeight = 150
+  # imageTitle = "Giulia Bianchi"
+
+  # Primo pulsante (Call to Action)
+  [[params.profileMode.buttons]]
+    name = "Guarda il Portfolio"
+    url = "/posts/"
+
+  # Secondo pulsante
+  [[params.profileMode.buttons]]
+    name = "Contattami via Email"
+    url = "mailto:[EMAIL_ADDRESS]"
