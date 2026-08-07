@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Editor Grafico Visuale Full-Live — Alessia Iannotta Portfolio</title>
+  <title>Editor Visuale Fedele 100% — Portfolio Alessia Iannotta</title>
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -12,7 +12,8 @@
       theme: {
         extend: {
           colors: {
-            primary: 'var(--color-primary, #1e3a8a)',
+            primary: '#1e3a8a',
+            primaryHover: '#1d4ed8',
             darkmodeBg: '#0f172a',
             darkmodeCard: '#1e293b'
           }
@@ -21,38 +22,68 @@
     }
   </script>
   <style>
-    :root {
-      --color-primary: #1e3a8a;
-      --color-body: #ffffff;
-      --color-border: #e2e8f0;
-      --color-light: #f8fafc;
+    /* Exact Custom Site Styles */
+    html { scroll-behavior: smooth; }
+
+    .btn-primary {
+      background-color: #1e3a8a !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8 !important;
+      transform: translateY(-2px);
+    }
+    .btn-outline-primary {
+      border: 1.5px solid #1e3a8a !important;
+      color: #1e3a8a !important;
+      background: transparent !important;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-primary:hover {
+      background-color: #1e3a8a !important;
+      color: white !important;
     }
 
-    .editable-section {
-      position: relative;
-      border: 2px dashed transparent;
-      transition: all 0.2s ease;
+    .feature-card {
+      border-radius: 1rem;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      background: #ffffff;
+      padding: 1.75rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dark .feature-card {
+      border-color: rgba(51, 65, 85, 0.8);
+      background: #1e293b;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    .calculator-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
       border-radius: 1.25rem;
     }
-    .edit-mode .editable-section:hover {
-      border-color: var(--color-primary, #1e3a8a);
-      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+    .dark .calculator-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(51, 65, 85, 0.8);
     }
-    .edit-overlay {
-      position: absolute;
-      top: 0.75rem;
-      right: 0.75rem;
-      z-index: 30;
-      display: none;
-    }
-    .edit-mode .editable-section:hover .edit-overlay {
-      display: flex;
-    }
-
-    /* Dynamic Applied Primary Theme Color */
-    .theme-primary-bg { background-color: var(--color-primary, #1e3a8a) !important; color: white !important; }
-    .theme-primary-text { color: var(--color-primary, #1e3a8a) !important; }
-    .theme-primary-border { border-color: var(--color-primary, #1e3a8a) !important; }
 
     .floating-pill {
       position: absolute;
@@ -68,50 +99,77 @@
       gap: 0.5rem;
       border: 1px solid rgba(226, 232, 240, 0.8);
     }
+    .dark .floating-pill {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: rgba(51, 65, 85, 0.8);
+      color: white;
+    }
+
+    .timeline-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+    }
+
+    /* Editable Section Controls */
+    .editable-section {
+      position: relative;
+      border: 2px dashed transparent;
+      transition: all 0.2s ease;
+      border-radius: 1.25rem;
+    }
+    .editable-section:hover {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.08);
+    }
+    .edit-overlay {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 40;
+      display: none;
+    }
+    .editable-section:hover .edit-overlay {
+      display: flex;
+    }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans edit-mode">
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen font-sans">
 
-  <!-- Sticky Top Control & Color Palette Toolbar -->
+  <!-- Sticky Top Editor Toolbar -->
   <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
-      <!-- Brand & Mode -->
+      <!-- Logo & Indicator -->
       <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-lg theme-primary-bg flex items-center justify-center font-bold text-lg text-white shadow-md">
-          🎨
+        <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center font-bold text-lg text-white shadow-md">
+          ✏️
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-sm font-bold tracking-tight">Editor Grafico Live Completo</h1>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Anteprima In-Live</span>
+            <h1 class="text-sm font-bold tracking-tight">Editor Visuale Fedele 100%</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Live Replica</span>
           </div>
-          <p class="text-xs text-slate-400">Modifica colori, testi, immagini e carte direttamente sullo schermo</p>
+          <p class="text-xs text-slate-400">Clicca su qualsiasi sezione per modificarla in tempo reale</p>
         </div>
-      </div>
-
-      <!-- Live Color Pickers Toolbar -->
-      <div class="hidden lg:flex items-center space-x-4 bg-slate-800/80 px-4 py-1.5 rounded-xl border border-slate-700 text-xs">
-        <div class="flex items-center space-x-2">
-          <span class="font-bold text-slate-300">🎨 Colore Principale:</span>
-          <input type="color" id="theme-color-primary" value="#1e3a8a" onchange="updateLiveThemeColor(this.value)" class="w-7 h-7 rounded cursor-pointer border-0 bg-transparent">
-        </div>
-        <div class="w-px h-5 bg-slate-700"></div>
-        <button onclick="toggleDarkModePreview()" id="btn-darkmode-toggle" class="font-semibold text-slate-300 hover:text-white flex items-center gap-1">
-          🌙 <span id="label-darkmode">Anteprima Scura (Dark)</span>
-        </button>
       </div>
 
       <!-- Page Switcher -->
-      <div class="hidden md:flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
-        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3 py-1.5 rounded-lg theme-primary-bg text-white shadow">🏠 Home</button>
-        <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
-        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
+      <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
+        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">🏠 Homepage</button>
+        <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">👩‍💼 Chi Sono</button>
+        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">🛠️ Servizi</button>
       </div>
 
       <!-- Actions & Save -->
       <div class="flex items-center space-x-3">
-        <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl theme-primary-bg font-bold text-xs shadow-lg flex items-center gap-2 transition-all hover:opacity-90">
+        <button onclick="saveAllChangesToGitHub()" class="px-5 py-2 rounded-xl bg-blue-700 hover:bg-blue-600 font-bold text-xs text-white shadow-lg shadow-blue-900/50 flex items-center gap-2 transition-all">
           <span>💾</span> Salva & Pubblica sul Sito Live
         </button>
 
@@ -131,56 +189,56 @@
 
   <!-- Loading Overlay -->
   <div id="loading-spinner" class="py-24 text-center">
-    <div class="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento replica grafica del sito da GitHub...</p>
+    <div class="inline-block w-10 h-10 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-sm font-medium text-slate-500">Caricamento anteprima fedele del sito da GitHub...</p>
   </div>
 
-  <!-- MAIN CANVAS (LIVE GRAPHIC SITE REPLICA) -->
+  <!-- MAIN CANVAS (100% FAITHFUL REPLICA) -->
   <main id="main-canvas" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- PAGE 1: HOMEPAGE REPLICA -->
-    <div id="page-view-home" class="space-y-8">
+    <div id="page-view-home" class="space-y-12">
       
       <!-- HERO SECTION -->
-      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditHeroModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Testi & Immagine Copertina
+          <button onclick="openEditHeroModal()" class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Testi & Foto Copertina
           </button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-7">
-            <div class="inline-flex flex-wrap gap-2 mb-4">
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">Madrelingua Italiana</span>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">Riservatezza & NDA</span>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">Rispetto Scadenze 100%</span>
+            <div class="inline-flex flex-wrap gap-2 mb-6">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-900/10 text-blue-900 border border-blue-900/20">Madrelingua Italiana</span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 border border-emerald-500/20">Riservatezza & NDA</span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-700 border border-amber-500/20">Rispetto Scadenze 100%</span>
             </div>
 
-            <h1 id="view-hero-title" class="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight">Traduzione & Localizzazione Professionale</h1>
-            <p id="view-hero-content" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6">Rendo la tua comunicazione impeccabile ed efficace in Italiano.</p>
+            <h1 id="view-hero-title" class="text-3xl lg:text-4xl font-extrabold mb-5 leading-tight">Traduzione & Localizzazione Professionale</h1>
+            <p id="view-hero-content" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8">Rendo la tua comunicazione impeccabile ed efficace in Italiano.</p>
             
-            <div class="flex gap-3">
-              <span class="px-5 py-2.5 theme-primary-bg font-semibold text-sm rounded-lg shadow">Richiedi un Preventivo Gratuito ✉️</span>
-              <span class="px-5 py-2.5 border theme-primary-border theme-primary-text font-semibold text-sm rounded-lg">🧮 Calcola Stima</span>
+            <div class="flex flex-wrap gap-4">
+              <span class="btn-primary">Richiedi un Preventivo Gratuito ➔</span>
+              <span class="btn-outline-primary">🧮 Calcola Stima Preventivo</span>
             </div>
           </div>
 
           <div class="lg:col-span-5">
-            <img id="view-hero-img" src="/images/banner.png" alt="Banner Preview" class="rounded-2xl shadow-md border border-slate-200 w-full object-cover">
+            <img id="view-hero-img" src="/images/banner.png" alt="Banner Preview" class="rounded-2xl shadow-xl border border-slate-200 w-full object-cover">
           </div>
         </div>
       </div>
 
       <!-- STATS BANNER -->
-      <div class="editable-section bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+      <div class="editable-section py-8 bg-blue-900/5 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditStatsModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Statistiche (Valori & Etichette)
+          <button onclick="openEditStatsModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Statistiche
           </button>
         </div>
 
-        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div id="view-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
           <!-- Rendered dynamically -->
         </div>
       </div>
@@ -188,27 +246,30 @@
       <!-- CALCULATOR SECTION -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay">
-          <button onclick="openEditCalcModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Tariffe & Parametri Calcolatore
+          <button onclick="openEditCalcModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Tariffe Calcolatore
           </button>
         </div>
 
-        <div class="max-w-3xl mx-auto">
-          <div class="text-center mb-6">
-            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">Strumento Interattivo</span>
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-8">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Strumento Interattivo</span>
             <h2 class="text-2xl font-bold mt-2">Calcolatore Preventivo Immediato</h2>
           </div>
 
-          <div class="p-6 rounded-2xl border bg-slate-50 dark:bg-slate-900/50 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-4 text-xs">
+          <div class="calculator-card p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-5 text-sm">
               <div>
-                <label class="font-bold">Conteggio Parole: <span id="view-calc-words-val" class="theme-primary-text font-extrabold text-sm">1.500</span></label>
-                <input type="range" min="100" max="10000" step="100" value="1500" class="w-full mt-2" oninput="updateLiveCalcPreview(this.value)">
+                <div class="flex justify-between items-center mb-2 font-semibold">
+                  <span>Conteggio Parole:</span>
+                  <span id="view-calc-words-val" class="text-blue-900 font-extrabold text-base">1.500</span>
+                </div>
+                <input type="range" min="100" max="10000" step="100" value="1500" class="w-full" oninput="updateLiveCalcPreview(this.value)">
               </div>
 
               <div>
-                <label class="font-bold">Tipo Servizio:</label>
-                <select id="view-calc-service-select" class="w-full mt-1 p-2 rounded border bg-white dark:bg-slate-800 text-xs" onchange="updateLiveCalcPreview()">
+                <label class="block font-semibold mb-2">Tipo di Servizio:</label>
+                <select id="view-calc-service-select" class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-semibold" onchange="updateLiveCalcPreview()">
                   <option value="translation">Traduzione Specialistica</option>
                   <option value="localization">Localizzazione Web & Software</option>
                   <option value="revision">Revisione & Proofreading</option>
@@ -217,13 +278,13 @@
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-200 flex flex-col justify-between border border-blue-200 dark:border-blue-800">
+            <div class="p-6 rounded-xl bg-blue-900/5 dark:bg-slate-900 text-blue-950 dark:text-slate-100 flex flex-col justify-between border border-blue-900/10">
               <div>
-                <span class="text-[10px] uppercase font-bold text-slate-500">Stima Progetto Live:</span>
-                <div id="view-calc-price" class="text-2xl font-extrabold theme-primary-text mt-1">€ 120 - € 135</div>
-                <div id="view-calc-rate" class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">~ € 0.080 / parola</div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Stima del Progetto:</span>
+                <div id="view-calc-price" class="text-3xl font-extrabold text-blue-900 dark:text-blue-400 mt-1">€ 120 - € 135</div>
+                <div id="view-calc-rate" class="text-xs text-slate-600 dark:text-slate-400 mt-1">~ € 0.080 / parola</div>
               </div>
-              <span class="px-4 py-2 theme-primary-bg font-bold text-xs text-center rounded-lg">📩 Richiedi Preventivo</span>
+              <span class="btn-primary text-center mt-4 py-2.5 text-xs">📩 Richiedi questo Preventivo</span>
             </div>
           </div>
         </div>
@@ -232,115 +293,159 @@
       <!-- WORKFLOW TIMELINE -->
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
-          <button onclick="addWorkflowStep()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="addWorkflowStep()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ➕ Aggiungi Step
           </button>
-          <button onclick="openEditWorkflowModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="openEditWorkflowModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Passaggi
           </button>
         </div>
 
         <div class="text-center mb-8">
-          <h2 class="text-2xl font-bold">Come Lavoro: Il Processo di Lavoro</h2>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Trasparenza & Metodo</span>
+          <h2 class="text-2xl font-bold mt-2">Come Lavoro: Il Processo in 5 Fasi</h2>
         </div>
 
         <div id="view-workflow-grid" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <!-- Dynamically rendered -->
+          <!-- Rendered dynamically -->
         </div>
       </div>
 
       <!-- CAT TOOLS GRID -->
       <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
-          <button onclick="addCatTool()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="addCatTool()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ➕ Aggiungi Software
           </button>
-          <button onclick="openEditCatToolsModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica CAT Tools
+          <button onclick="openEditCatToolsModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Software
           </button>
         </div>
 
         <div class="text-center mb-8">
-          <h2 class="text-2xl font-bold">CAT Tools & Strumenti Professionali</h2>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Tecnologia</span>
+          <h2 class="text-2xl font-bold mt-2">CAT Tools & Strumenti Professionali</h2>
         </div>
 
         <div id="view-cat-tools-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <!-- Dynamically rendered -->
+          <!-- Rendered dynamically -->
         </div>
       </div>
 
       <!-- FAQ ACCORDION -->
       <div class="editable-section bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
-          <button onclick="addFaqItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="addFaqItem()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ➕ Nuova FAQ
           </button>
-          <button onclick="openEditFaqModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="openEditFaqModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Domande FAQ
           </button>
         </div>
 
         <div class="max-w-3xl mx-auto space-y-4">
-          <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold">FAQ & Informazioni Utili</h2>
+          <div class="text-center mb-8">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Domande Frequenti</span>
+            <h2 class="text-2xl font-bold mt-2">FAQ & Informazioni Utili</h2>
           </div>
 
           <div id="view-faq-list" class="space-y-3">
-            <!-- Dynamically rendered FAQs -->
+            <!-- Rendered dynamically -->
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- PAGE 2: ABOUT REPLICA -->
+    <!-- PAGE 2: ABOUT REPLICA (DETAILED EDITING) -->
     <div id="page-view-about" class="hidden space-y-8">
-      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <div class="edit-overlay">
-          <button onclick="openEditAboutModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
-            ✏️ Modifica Profilo Chi Sono
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay space-x-2">
+          <button onclick="openEditAboutModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            ✏️ Modifica Biografia & Info Card
           </button>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-5 text-center">
-            <div class="relative max-w-xs mx-auto mb-6">
-              <img id="view-about-img" src="/images/alessia-profile.png" alt="Profile" class="rounded-2xl shadow-lg border w-full">
-              <div class="floating-pill -top-3 -left-3">🇬🇧 ➔ 🇮🇹 EN ➔ IT</div>
-              <div class="floating-pill -bottom-3 -right-3">🇫🇷 ➔ 🇮🇹 FR ➔ IT</div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          <!-- Left Column: Profile Card & Floating Pills -->
+          <div class="lg:col-span-5">
+            <div class="relative max-w-md mx-auto mb-8">
+              <img id="view-about-img" src="/images/alessia-profile.png" alt="Profile" class="w-full rounded-2xl shadow-xl border border-slate-200">
+              
+              <!-- Floating Pills Container -->
+              <div id="view-about-pills-container">
+                <!-- Dynamically rendered floating language pills -->
+              </div>
             </div>
 
-            <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border text-left text-xs space-y-2">
-              <div class="font-bold text-base" id="view-about-card-name">Alessia Iannotta</div>
-              <div class="text-slate-500" id="view-about-card-role">Traduttrice & Localizzatrice</div>
-              <div class="pt-2 border-t space-y-1">
-                <div>📍 Base: <span id="view-about-card-location" class="font-semibold">Italia</span></div>
-                <div>🎓 Titolo: <span id="view-about-card-degree" class="font-semibold">Laurea Traduzione</span></div>
+            <!-- Profile Info Card -->
+            <div class="feature-card p-6 text-center space-y-4">
+              <h3 class="h4 font-bold text-xl" id="view-about-card-name">Alessia Iannotta</h3>
+              <p class="text-sm text-slate-500" id="view-about-card-role">Traduttrice & Localizzatrice Freelance</p>
+
+              <div class="pt-3 border-t border-slate-200 text-sm text-left space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-blue-900 font-bold">📍 Base:</span>
+                  <span id="view-about-card-location">Italia</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-blue-900 font-bold">🎓 Titolo:</span>
+                  <span id="view-about-card-degree">Laurea in Traduzione</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-blue-900 font-bold">⚡ Risposta:</span>
+                  <span id="view-about-card-response">Entro 24 ore lavorative</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="lg:col-span-7 space-y-6">
-            <h2 class="text-2xl font-bold">Profilo Professionale</h2>
-            <div id="view-about-bio" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3"></div>
-
-            <div class="pt-4 border-t">
-              <h3 class="font-bold text-lg mb-3">🎓 Formazione & Certificazioni</h3>
-              <div id="view-about-education" class="space-y-3"></div>
+          <!-- Right Column: Bio, Education Timeline, Core Values -->
+          <div class="lg:col-span-7 space-y-8">
+            <div>
+              <h2 class="text-2xl font-bold mb-4">Profilo Professionale</h2>
+              <div id="view-about-bio" class="prose text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-3">
+                <!-- Bio content -->
+              </div>
             </div>
+
+            <!-- Education Timeline -->
+            <div class="pt-6 border-t border-slate-200">
+              <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold flex items-center gap-2"><span>🎓</span> Formazione & Certificazioni</h3>
+                <button onclick="addEducationItem()" class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Titolo</button>
+              </div>
+              <div id="view-about-education" class="space-y-4">
+                <!-- Education items -->
+              </div>
+            </div>
+
+            <!-- Core Values Grid -->
+            <div class="pt-6 border-t border-slate-200">
+              <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold flex items-center gap-2"><span>🌟</span> I Miei Valori Guida</h3>
+                <button onclick="addCoreValueItem()" class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Valore</button>
+              </div>
+              <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Core values items -->
+              </div>
+            </div>
+
           </div>
+
         </div>
       </div>
     </div>
 
     <!-- PAGE 3: SERVICES REPLICA -->
     <div id="page-view-services" class="hidden space-y-8">
-      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
-          <button onclick="addServiceCard()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="addServiceCard()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ➕ Aggiungi Servizio
           </button>
-          <button onclick="openEditServicesModal()" class="px-3 py-1.5 theme-primary-bg text-xs font-bold rounded-lg shadow flex items-center gap-1">
+          <button onclick="openEditServicesModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
             ✏️ Modifica Carte Servizi
           </button>
         </div>
@@ -350,13 +455,15 @@
           <p id="view-services-intro" class="text-slate-500 text-sm mt-1">Soluzioni su misura per l'internazionalizzazione.</p>
         </div>
 
-        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="view-services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Dynamically rendered service cards -->
+        </div>
       </div>
     </div>
 
   </main>
 
-  <!-- UNIVERSAL EDIT MODAL -->
+  <!-- UNIVERSAL MODAL -->
   <div id="edit-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-2xl w-full p-6 space-y-6 border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center pb-4 border-b">
@@ -367,24 +474,20 @@
       <div id="modal-body" class="space-y-4"></div>
 
       <div class="flex justify-end space-x-3 pt-4 border-t">
-        <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-xl">
-          Annulla
-        </button>
-        <button id="modal-save-btn" onclick="saveModalChanges()" class="px-6 py-2 theme-primary-bg font-bold text-xs rounded-xl shadow-md">
-          Applica Modifiche alla Preview
-        </button>
+        <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-xl">Annulla</button>
+        <button id="modal-save-btn" onclick="saveModalChanges()" class="px-6 py-2 bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md">Applica Modifiche alla Preview</button>
       </div>
     </div>
   </div>
 
   <!-- TOKEN MODAL -->
   <div id="token-modal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200 dark:border-slate-700">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
       <h3 class="text-lg font-bold">🔑 Token di Accesso GitHub</h3>
       <p class="text-xs text-slate-500">Inserisci la tua chiave Token di GitHub per pubblicare direttamente le modifiche sul sito live.</p>
       <input type="password" id="input-token" class="w-full px-3 py-2 rounded-lg border text-sm" placeholder="ghp_xxxxxxxxxxxx">
       <div class="flex space-x-2 pt-2">
-        <button onclick="saveToken()" class="flex-1 py-2 theme-primary-bg font-bold text-xs rounded-xl">Salva Chiave</button>
+        <button onclick="saveToken()" class="flex-1 py-2 bg-blue-700 text-white font-bold text-xs rounded-xl">Salva Chiave</button>
         <button onclick="closeTokenModal()" class="px-3 py-2 bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl">Chiudi</button>
       </div>
     </div>
@@ -395,38 +498,21 @@
     const REPO_OWNER = 'iannotta-translations';
     const REPO_NAME = 'iannotta-translations.github.io';
 
-    let themeData = null, themeSha = null;
     let homepageData = null, homepageSha = null;
     let aboutData = null, aboutSha = null;
     let servicesData = null, servicesSha = null;
     let indexMdRaw = '', indexMdSha = null;
     let activeModalCallback = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      loadAllData();
-    });
-
-    function updateLiveThemeColor(hexColor) {
-      document.documentElement.style.setProperty('--color-primary', hexColor);
-      if (themeData && themeData.colors && themeData.colors.default) {
-        themeData.colors.default.theme_color.primary = hexColor;
-      }
-      showToast('🎨 Colore primario aggiornato in anteprima!', 'success');
-    }
-
-    function toggleDarkModePreview() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      document.getElementById('label-darkmode').textContent = isDark ? 'Anteprima Chiara (Light)' : 'Anteprima Scura (Dark)';
-    }
+    document.addEventListener('DOMContentLoaded', () => { loadAllData(); });
 
     function switchViewPage(page) {
       ['home', 'about', 'services'].forEach(p => {
         document.getElementById('page-view-' + p).classList.add('hidden');
-        document.getElementById('page-nav-' + p).className = 'px-3 py-1.5 rounded-lg text-slate-300 hover:text-white';
+        document.getElementById('page-nav-' + p).className = 'px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white';
       });
       document.getElementById('page-view-' + page).classList.remove('hidden');
-      document.getElementById('page-nav-' + page).className = 'px-3 py-1.5 rounded-lg theme-primary-bg text-white shadow';
+      document.getElementById('page-nav-' + page).className = 'px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow';
     }
 
     async function loadAllData() {
@@ -436,19 +522,6 @@
       try {
         const token = localStorage.getItem('gh_token');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
-
-        // Fetch theme.json
-        const resT = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/theme.json`, { headers });
-        if (resT.ok) {
-          const f = await resT.json();
-          themeSha = f.sha;
-          themeData = JSON.parse(decodeURIComponent(escape(atob(f.content))));
-          if (themeData.colors && themeData.colors.default && themeData.colors.default.theme_color.primary) {
-            const pColor = themeData.colors.default.theme_color.primary;
-            document.getElementById('theme-color-primary').value = pColor;
-            document.documentElement.style.setProperty('--color-primary', pColor);
-          }
-        }
 
         // Fetch homepage.json
         const resH = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/homepage.json`, { headers });
@@ -487,7 +560,7 @@
         document.getElementById('main-canvas').classList.remove('hidden');
       } catch (err) {
         console.error('Error loading data:', err);
-        showToast('⚠️ Errore durante il caricamento dati.', 'error');
+        showToast('⚠️ Errore caricamento dati.', 'error');
       }
     }
 
@@ -507,8 +580,8 @@
         homepageData.stats.forEach(st => {
           statsGrid.innerHTML += `
             <div class="p-2">
-              <div class="text-2xl lg:text-3xl font-extrabold theme-primary-text">${st.value}</div>
-              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">${st.label}</div>
+              <div class="text-3xl font-extrabold text-blue-900 dark:text-blue-400 mb-1">${st.value}</div>
+              <div class="text-sm font-medium text-slate-500">${st.label}</div>
             </div>
           `;
         });
@@ -523,10 +596,10 @@
         wfGrid.innerHTML = '';
         homepageData.workflow.forEach(wf => {
           wfGrid.innerHTML += `
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border text-center space-y-2 relative group">
-              <div class="w-8 h-8 rounded-full theme-primary-bg font-bold text-xs flex items-center justify-center mx-auto">${wf.step}</div>
-              <h4 class="font-bold text-xs">${wf.title}</h4>
-              <p class="text-[11px] text-slate-500">${wf.description}</p>
+            <div class="feature-card text-center space-y-2">
+              <div class="timeline-number bg-blue-900 text-white mx-auto mb-2">${wf.step}</div>
+              <h4 class="font-bold text-sm">${wf.title}</h4>
+              <p class="text-xs text-slate-500">${wf.description}</p>
             </div>
           `;
         });
@@ -538,9 +611,9 @@
         catGrid.innerHTML = '';
         homepageData.cat_tools.forEach(ct => {
           catGrid.innerHTML += `
-            <div class="p-4 rounded-xl border bg-slate-50 dark:bg-slate-900/50 space-y-2">
-              <div class="font-bold text-xs theme-primary-text">🛠️ ${ct.name}</div>
-              <p class="text-[11px] text-slate-500">${ct.description}</p>
+            <div class="feature-card space-y-2">
+              <div class="font-bold text-sm text-blue-900 dark:text-blue-400">🛠️ ${ct.name}</div>
+              <p class="text-xs text-slate-500">${ct.description}</p>
             </div>
           `;
         });
@@ -552,51 +625,102 @@
         faqList.innerHTML = '';
         homepageData.faqs.forEach(faq => {
           faqList.innerHTML += `
-            <div class="p-4 rounded-xl border bg-white dark:bg-slate-800 space-y-1">
-              <div class="font-bold text-xs">❓ ${faq.question}</div>
-              <div class="text-[11px] text-slate-500">${faq.answer}</div>
+            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1">
+              <div class="font-bold text-sm">❓ ${faq.question}</div>
+              <div class="text-xs text-slate-500 leading-relaxed">${faq.answer}</div>
             </div>
           `;
         });
       }
 
-      // 7. About
+      // 7. About Page Detailed Canvas
       if (aboutData) {
         if (aboutData.image) document.getElementById('view-about-img').src = aboutData.image;
+
+        // Floating Pills
+        if (aboutData.floating_pills) {
+          const pillsCont = document.getElementById('view-about-pills-container');
+          pillsCont.innerHTML = '';
+          aboutData.floating_pills.forEach((p, i) => {
+            pillsCont.innerHTML += `
+              <div class="floating-pill ${i === 0 ? '-top-4 -left-4' : '-bottom-4 -right-4'}">
+                <span>${p.flag}</span>
+                <span class="text-xs font-semibold text-blue-900">${p.label}</span>
+              </div>
+            `;
+          });
+        }
+
+        // Profile Card
         if (aboutData.profile_card) {
           document.getElementById('view-about-card-name').textContent = aboutData.profile_card.name || 'Alessia Iannotta';
           document.getElementById('view-about-card-role').textContent = aboutData.profile_card.role || '';
           document.getElementById('view-about-card-location').textContent = aboutData.profile_card.location || '';
           document.getElementById('view-about-card-degree').textContent = aboutData.profile_card.degree || '';
+          document.getElementById('view-about-card-response').textContent = aboutData.profile_card.response_time || '';
         }
+
         document.getElementById('view-about-bio').innerHTML = (aboutData.bio || '').replace(/\n/g, '<br>');
 
+        // Education Timeline Canvas
         if (aboutData.education) {
           const eduGrid = document.getElementById('view-about-education');
           eduGrid.innerHTML = '';
           aboutData.education.forEach(ed => {
             eduGrid.innerHTML += `
-              <div class="p-3 rounded-lg border border-l-4 theme-primary-border bg-slate-50 dark:bg-slate-900 text-xs">
-                <div class="font-bold text-sm">${ed.title}</div>
-                <div class="text-slate-500 mt-1">${ed.description}</div>
+              <div class="feature-card border-l-4 border-l-blue-900 space-y-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-sm">${ed.title}</h4>
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-900">${ed.category}</span>
+                </div>
+                <p class="text-xs text-slate-500">${ed.description}</p>
+              </div>
+            `;
+          });
+        }
+
+        // Core Values Canvas
+        if (aboutData.core_values) {
+          const valGrid = document.getElementById('view-about-values');
+          valGrid.innerHTML = '';
+          aboutData.core_values.forEach(v => {
+            valGrid.innerHTML += `
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1">
+                <div class="text-xl mb-1">${v.icon}</div>
+                <h4 class="font-bold text-sm">${v.title}</h4>
+                <p class="text-xs text-slate-500">${v.description}</p>
               </div>
             `;
           });
         }
       }
 
-      // 8. Services
+      // 8. Services Page Canvas
       if (servicesData) {
         document.getElementById('view-services-intro').textContent = servicesData.intro_text || '';
         if (servicesData.service_cards) {
           const srvGrid = document.getElementById('view-services-grid');
           srvGrid.innerHTML = '';
           servicesData.service_cards.forEach(sc => {
+            let bulletsHtml = '';
+            if (sc.bulletpoints) {
+              sc.bulletpoints.forEach(b => {
+                bulletsHtml += `<li class="flex items-center gap-1.5 text-xs text-slate-600">✓ <span>${b}</span></li>`;
+              });
+            }
+
             srvGrid.innerHTML += `
-              <div class="p-5 rounded-2xl border bg-white dark:bg-slate-800 space-y-2">
-                <div class="font-extrabold theme-primary-text">#${sc.number} ${sc.title}</div>
-                <p class="text-xs text-slate-500">${sc.description}</p>
-                <div class="text-[10px] font-bold text-slate-400 pt-2 border-t">Tempi: ${sc.turnaround}</div>
+              <div class="feature-card flex flex-col justify-between p-6 space-y-4">
+                <div>
+                  <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-sm mb-4">#${sc.number}</div>
+                  <h3 class="font-bold text-lg mb-2">${sc.title}</h3>
+                  <p class="text-xs text-slate-500 mb-4 leading-relaxed">${sc.description}</p>
+                  <ul class="space-y-1.5 mb-4">${bulletsHtml}</ul>
+                </div>
+                <div class="pt-3 border-t flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Tempi: ${sc.turnaround}</span>
+                  <span class="btn-primary py-1.5 px-3 text-xs">Richiedi Preventivo</span>
+                </div>
               </div>
             `;
           });
@@ -646,6 +770,73 @@
         indexMdRaw = indexMdRaw.replace(/image:\s*".*?"/, `image: "${img}"`);
         renderLiveCanvas();
       });
+    }
+
+    function openEditAboutModal() {
+      const pc = aboutData.profile_card || {};
+      openModal('✏️ Modifica Dettagliata Profilo Chi Sono', `
+        <div class="space-y-4 text-xs">
+          <div>
+            <label class="font-bold">URL Foto Profilo:</label>
+            <input type="text" id="edit-about-img" value="${escapeHtml(aboutData.image)}" class="w-full p-1.5 border rounded font-semibold">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="font-bold">Nome:</label>
+              <input type="text" id="edit-about-name" value="${escapeHtml(pc.name)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-bold">Ruolo / Titolo:</label>
+              <input type="text" id="edit-about-role" value="${escapeHtml(pc.role)}" class="w-full p-1.5 border rounded">
+            </div>
+            <div>
+              <label class="font-bold">Base / Location:</label>
+              <input type="text" id="edit-about-loc" value="${escapeHtml(pc.location)}" class="w-full p-1.5 border rounded">
+            </div>
+            <div>
+              <label class="font-bold">Titolo di Studio:</label>
+              <input type="text" id="edit-about-deg" value="${escapeHtml(pc.degree)}" class="w-full p-1.5 border rounded">
+            </div>
+          </div>
+
+          <div>
+            <label class="font-bold">Testo Biografico Principale (Markdown):</label>
+            <textarea id="edit-about-bio" rows="6" class="w-full p-2 border rounded leading-relaxed">${escapeHtml(aboutData.bio)}</textarea>
+          </div>
+        </div>
+      `, () => {
+        aboutData.image = document.getElementById('edit-about-img').value;
+        if (!aboutData.profile_card) aboutData.profile_card = {};
+        aboutData.profile_card.name = document.getElementById('edit-about-name').value;
+        aboutData.profile_card.role = document.getElementById('edit-about-role').value;
+        aboutData.profile_card.location = document.getElementById('edit-about-loc').value;
+        aboutData.profile_card.degree = document.getElementById('edit-about-deg').value;
+        aboutData.bio = document.getElementById('edit-about-bio').value;
+        renderLiveCanvas();
+      });
+    }
+
+    function addEducationItem() {
+      if (!aboutData.education) aboutData.education = [];
+      aboutData.education.push({
+        title: "Nuova Certificazione",
+        category: "Professionale",
+        description: "Descrizione del percorso o titolo..."
+      });
+      renderLiveCanvas();
+      showToast('➕ Titolo aggiunto alla formazione!', 'success');
+    }
+
+    function addCoreValueItem() {
+      if (!aboutData.core_values) aboutData.core_values = [];
+      aboutData.core_values.push({
+        icon: "🌟",
+        title: "Nuovo Valore",
+        description: "Descrizione del principio guida..."
+      });
+      renderLiveCanvas();
+      showToast('➕ Valore aggiunto!', 'success');
     }
 
     function openEditStatsModal() {
@@ -718,7 +909,7 @@
         description: "Descrizione del processo..."
       });
       renderLiveCanvas();
-      showToast('➕ Step aggiunto al workflow!', 'success');
+      showToast('➕ Step aggiunto!', 'success');
     }
 
     function openEditWorkflowModal() {
@@ -760,10 +951,7 @@
 
     function addCatTool() {
       if (!homepageData.cat_tools) homepageData.cat_tools = [];
-      homepageData.cat_tools.push({
-        name: "Nuovo Software",
-        description: "Descrizione dello strumento..."
-      });
+      homepageData.cat_tools.push({ name: "Nuovo Software", description: "Descrizione strumento..." });
       renderLiveCanvas();
       showToast('➕ Software aggiunto!', 'success');
     }
@@ -790,7 +978,7 @@
       });
       html += '</div>';
 
-      openModal('✏️ Modifica Software & CAT Tools', html, () => {
+      openModal('✏️ Modifica Software', html, () => {
         homepageData.cat_tools.forEach((ct, idx) => {
           ct.name = document.getElementById(`edit-ct-n-${idx}`).value;
           ct.description = document.getElementById(`edit-ct-d-${idx}`).value;
@@ -816,7 +1004,7 @@
       homepageData.faqs.forEach((faq, idx) => {
         html += `
           <div class="p-3 border rounded-xl space-y-2 text-xs">
-            <div class="flex justify-between font-bold text-blue-600">
+            <div class="flex justify-between font-bold text-blue-900">
               <span>FAQ #${idx+1}</span>
               <button onclick="removeFaqItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
             </div>
@@ -847,35 +1035,6 @@
       openEditFaqModal();
     }
 
-    function openEditAboutModal() {
-      openModal('✏️ Modifica Profilo Chi Sono', `
-        <div class="space-y-3 text-xs">
-          <div>
-            <label class="font-bold">URL Foto Profilo:</label>
-            <input type="text" id="edit-about-img-url" value="${escapeHtml(aboutData.image || '/images/alessia-profile.png')}" class="w-full p-1.5 border rounded font-bold">
-          </div>
-          <div>
-            <label class="font-bold">Nome Profilo:</label>
-            <input type="text" id="edit-about-name" value="${escapeHtml(aboutData.profile_card.name)}" class="w-full p-1.5 border rounded font-bold">
-          </div>
-          <div>
-            <label class="font-bold">Ruolo / Titolo:</label>
-            <input type="text" id="edit-about-role" value="${escapeHtml(aboutData.profile_card.role)}" class="w-full p-1.5 border rounded">
-          </div>
-          <div>
-            <label class="font-bold">Testo Biografico (Markdown):</label>
-            <textarea id="edit-about-bio" rows="5" class="w-full p-1.5 border rounded">${escapeHtml(aboutData.bio)}</textarea>
-          </div>
-        </div>
-      `, () => {
-        aboutData.image = document.getElementById('edit-about-img-url').value;
-        aboutData.profile_card.name = document.getElementById('edit-about-name').value;
-        aboutData.profile_card.role = document.getElementById('edit-about-role').value;
-        aboutData.bio = document.getElementById('edit-about-bio').value;
-        renderLiveCanvas();
-      });
-    }
-
     function addServiceCard() {
       if (!servicesData.service_cards) servicesData.service_cards = [];
       servicesData.service_cards.push({
@@ -895,7 +1054,7 @@
       servicesData.service_cards.forEach((sc, idx) => {
         html += `
           <div class="p-3 border rounded-xl space-y-2 text-xs">
-            <div class="flex justify-between font-bold text-blue-600">
+            <div class="flex justify-between font-bold text-blue-900">
               <span>Servizio #${sc.number}</span>
               <button onclick="removeServiceCard(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
             </div>
@@ -941,7 +1100,7 @@
     function saveModalChanges() {
       if (activeModalCallback) activeModalCallback();
       closeEditModal();
-      showToast('✨ Modifiche applicate all\'anteprima live!', 'success');
+      showToast('✨ Modifiche applicate all\'anteprima!', 'success');
     }
 
     async function saveAllChangesToGitHub() {
@@ -955,13 +1114,6 @@
       showToast('⏳ Salvataggio in corso su GitHub...', 'info');
 
       try {
-        // Save theme.json
-        if (themeData) {
-          const strT = JSON.stringify(themeData, null, 2);
-          const resT = await putGitHubFile('data/theme.json', strT, themeSha);
-          if (resT.content) themeSha = resT.content.sha;
-        }
-
         // Save homepage.json
         if (homepageData) {
           const strH = JSON.stringify(homepageData, null, 2);
@@ -989,7 +1141,7 @@
           if (resI.content) indexMdSha = resI.content.sha;
         }
 
-        showToast('🚀 TUTTE LE MODIFICHE & COLORI PUBBLICATI SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
+        showToast('🚀 MODIFICHE PUBBLICATE SUL SITO LIVE! (Aggiornamento in 60s)', 'success');
       } catch (err) {
         console.error('Save all error:', err);
         showToast('❌ Errore durante il salvataggio su GitHub.', 'error');
