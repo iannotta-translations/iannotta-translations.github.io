@@ -1,4 +1,6 @@
 {{ define "main" }}
+  {{ $data := hugo.Data.homepage }}
+
   <!-- Hero Section -->
   {{ with .Params.banner }}
     <section class="section pt-10 pb-16 relative overflow-hidden">
@@ -56,29 +58,21 @@
   {{ end }}
   <!-- /Hero Section -->
 
-  <!-- Stats Banner Counter -->
-  <section class="py-10 bg-primary/5 dark:bg-darkmode-light border-y border-border dark:border-darkmode-border">
-    <div class="container">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="p-4">
-          <div class="text-3xl lg:text-4xl font-extrabold text-primary dark:text-darkmode-primary mb-1">500k+</div>
-          <div class="text-sm font-medium text-text-light dark:text-darkmode-text-light">Parole Tradotte</div>
-        </div>
-        <div class="p-4">
-          <div class="text-3xl lg:text-4xl font-extrabold text-primary dark:text-darkmode-primary mb-1">100%</div>
-          <div class="text-sm font-medium text-text-light dark:text-darkmode-text-light">Consegne in Tempo</div>
-        </div>
-        <div class="p-4">
-          <div class="text-3xl lg:text-4xl font-extrabold text-primary dark:text-darkmode-primary mb-1">3+</div>
-          <div class="text-sm font-medium text-text-light dark:text-darkmode-text-light">Anni di Esperienza</div>
-        </div>
-        <div class="p-4">
-          <div class="text-3xl lg:text-4xl font-extrabold text-primary dark:text-darkmode-primary mb-1">EN / FR</div>
-          <div class="text-sm font-medium text-text-light dark:text-darkmode-text-light">Verso l'Italiano (IT)</div>
+  <!-- Stats Banner Counter (Loaded from data/homepage.json) -->
+  {{ with $data.stats }}
+    <section class="py-10 bg-primary/5 dark:bg-darkmode-light border-y border-border dark:border-darkmode-border">
+      <div class="container">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {{ range . }}
+            <div class="p-4">
+              <div class="text-3xl lg:text-4xl font-extrabold text-primary dark:text-darkmode-primary mb-1">{{ .value }}</div>
+              <div class="text-sm font-medium text-text-light dark:text-darkmode-text-light">{{ .label }}</div>
+            </div>
+          {{ end }}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {{ end }}
   <!-- /Stats Banner Counter -->
 
   <!-- Interactive Instant Quote Estimator -->
@@ -95,7 +89,7 @@
           </p>
         </div>
 
-        <div class="calculator-card p-6 md:p-10">
+        <div class="calculator-card p-6 md:p-10" data-calc-config='{{ $data.calculator | jsonify }}'>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Left Controls -->
             <div class="space-y-6">
@@ -104,8 +98,8 @@
                   <label class="font-semibold text-sm">Conteggio Parole Stimato:</label>
                   <span id="calc-words-display" class="font-bold text-primary dark:text-darkmode-primary text-lg">1.500</span>
                 </div>
-                <input type="range" id="calc-words-slider" min="100" max="10000" step="100" value="1500" class="calc-slider mb-3">
-                <input type="number" id="calc-words" min="50" max="50000" value="1500" class="form-input text-sm py-1.5" placeholder="Inserisci numero esatto parole">
+                <input type="range" id="calc-words-slider" min="100" max="10000" step="100" value="{{ $data.calculator.default_words | default 1500 }}" class="calc-slider mb-3">
+                <input type="number" id="calc-words" min="50" max="50000" value="{{ $data.calculator.default_words | default 1500 }}" class="form-input text-sm py-1.5" placeholder="Inserisci numero esatto parole">
               </div>
 
               <div>
@@ -216,193 +210,96 @@
   {{ end }}
   <!-- /Features -->
 
-  <!-- Step-by-Step Workflow Timeline -->
-  <section class="section py-16 bg-light dark:bg-darkmode-light">
-    <div class="container">
-      <div class="text-center mb-12">
-        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">
-          Trasparenza & Metodo
-        </span>
-        <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">Come Lavoro: Il Processo in 5 Fasi</h2>
-        <p class="text-text-light dark:text-darkmode-text-light max-w-2xl mx-auto">
-          Ogni progetto di traduzione segue un workflow rigoroso per garantire massima coerenza terminologica e qualità ineccepibile.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        <!-- Step 1 -->
-        <div class="feature-card timeline-step text-center">
-          <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">1</div>
-          <h3 class="h5 font-bold mb-2">Analisi & NDA</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Esame del testo, conteggio parole, analisi del target e sottoscrizione NDA se richiesta.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="feature-card timeline-step text-center">
-          <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">2</div>
-          <h3 class="h5 font-bold mb-2">Glossari & TM</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Creazione o consultazione di memorie di traduzione e glossari terminologici specifici.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="feature-card timeline-step text-center">
-          <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">3</div>
-          <h3 class="h5 font-bold mb-2">Traduzione</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Stesura accurata con rispetto del tono di voce, registro e convenzioni culturali italiane.</p>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="feature-card timeline-step text-center">
-          <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">4</div>
-          <h3 class="h5 font-bold mb-2">Proofreading</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Controllo ortografico, sintattico, impaginazione e verifica di coerenza numerica.</p>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="feature-card timeline-step text-center">
-          <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">5</div>
-          <h3 class="h5 font-bold mb-2">Consegna & Supporto</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Invio nei tempi concordati con disponibilità per revisioni finali o integrazioni.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /Step-by-Step Workflow Timeline -->
-
-  <!-- CAT Tools & Tech Stack Grid -->
-  <section class="section py-16">
-    <div class="container">
-      <div class="text-center mb-12">
-        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">
-          Tecnologia all'Avanguardia
-        </span>
-        <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">CAT Tools & Strumenti Professionali</h2>
-        <p class="text-text-light dark:text-darkmode-text-light max-w-2xl mx-auto">
-          L'impiego dei software leader del settore assicura traduzioni veloci, omogenee e la gestione professionale dei file di progetto.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="feature-card">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3 class="h5 font-bold mb-2">SDL Trados Studio</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Gestione avanzata di Memorie di Traduzione (TM), pacchetti di progetto e pacchetti di ritorno per grandi agenzie.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="w-12 h-12 rounded-xl bg-indigo-600/10 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM2 4v16h20V4H2zm4 4h4v2H6V8zm0 4h8v2H6v-2z"/></svg>
-          </div>
-          <h3 class="h5 font-bold mb-2">MemoQ</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Perfetto per il controllo qualità in tempo reale, gestione di terminologia complessa e moduli di verifica QA.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="w-12 h-12 rounded-xl bg-teal-600/10 text-teal-600 dark:bg-teal-500/20 dark:text-teal-400 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
-          </div>
-          <h3 class="h5 font-bold mb-2">Phrase (Memsource)</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Piattaforma cloud per progetti collaborativi in tempo reale e gestione coordinata di traduzioni aziendali.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="w-12 h-12 rounded-xl bg-amber-600/10 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-          </div>
-          <h3 class="h5 font-bold mb-2">Localizzazione Code & UI</h3>
-          <p class="text-sm text-text-light dark:text-darkmode-text-light">Gestione diretta di file di codice (.json, .po, .xml, .xliff, .markdown) senza alterare il codice dell'app.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /CAT Tools & Tech Stack Grid -->
-
-  <!-- Interactive FAQ Accordion -->
-  <section class="section py-16 bg-light dark:bg-darkmode-light">
-    <div class="container">
-      <div class="max-w-3xl mx-auto">
+  <!-- Step-by-Step Workflow Timeline (Loaded from data/homepage.json) -->
+  {{ with $data.workflow }}
+    <section class="section py-16 bg-light dark:bg-darkmode-light">
+      <div class="container">
         <div class="text-center mb-12">
           <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">
-            Domande Frequenti
+            Trasparenza & Metodo
           </span>
-          <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">FAQ & Informazioni Utili</h2>
-          <p class="text-text-light dark:text-darkmode-text-light">
-            Ecco le risposte alle domande più comuni poste da aziende, agenzie e clienti privati.
+          <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">Come Lavoro: Il Processo in {{ len . }} Fasi</h2>
+          <p class="text-text-light dark:text-darkmode-text-light max-w-2xl mx-auto">
+            Ogni progetto di traduzione segue un workflow rigoroso per garantire massima coerenza terminologica e qualità ineccepibile.
           </p>
         </div>
 
-        <div class="space-y-4">
-          <!-- FAQ 1 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Come viene calcolato il prezzo di una traduzione?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              La tariffa base si calcola generalmente **a parola del testo sorgente** (testo di partenza). Il costo finale può variare in base alla complessità del linguaggio (tecnico, legale, medico), alla combinazione linguistica e all'eventuale urgenza della consegna.
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {{ range . }}
+            <div class="feature-card timeline-step text-center">
+              <div class="timeline-number bg-primary text-white dark:bg-darkmode-primary dark:text-dark mx-auto mb-4">{{ .step }}</div>
+              <h3 class="h5 font-bold mb-2">{{ .title }}</h3>
+              <p class="text-sm text-text-light dark:text-darkmode-text-light">{{ .description }}</p>
             </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /Step-by-Step Workflow Timeline -->
+
+  <!-- CAT Tools & Tech Stack Grid (Loaded from data/homepage.json) -->
+  {{ with $data.cat_tools }}
+    <section class="section py-16">
+      <div class="container">
+        <div class="text-center mb-12">
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">
+            Tecnologia all'Avanguardia
+          </span>
+          <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">CAT Tools & Strumenti Professionali</h2>
+          <p class="text-text-light dark:text-darkmode-text-light max-w-2xl mx-auto">
+            L'impiego dei software leader del settore assicura traduzioni veloci, omogenee e la gestione professionale dei file di progetto.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {{ range . }}
+            <div class="feature-card">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary flex items-center justify-center mb-4">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <h3 class="h5 font-bold mb-2">{{ .name }}</h3>
+              <p class="text-sm text-text-light dark:text-darkmode-text-light">{{ .description }}</p>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /CAT Tools & Tech Stack Grid -->
+
+  <!-- Interactive FAQ Accordion (Loaded from data/homepage.json) -->
+  {{ with $data.faqs }}
+    <section class="section py-16 bg-light dark:bg-darkmode-light">
+      <div class="container">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-darkmode-primary/20 dark:text-darkmode-primary">
+              Domande Frequenti
+            </span>
+            <h2 class="text-h3 lg:text-h2 font-bold mt-3 mb-4">FAQ & Informazioni Utili</h2>
+            <p class="text-text-light dark:text-darkmode-text-light">
+              Ecco le risposte alle domande più comuni poste da aziende, agenzie e clienti privati.
+            </p>
           </div>
 
-          <!-- FAQ 2 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Quali formati di file puoi gestire?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              Posso lavorare su quasi qualsiasi formato standard: **Microsoft Word (.docx)**, **PDF**, **Excel**, **PowerPoint**, file di traduzione **XLIFF**, file di codice per siti/software (**JSON, PO, XML, HTML, Markdown**).
-            </div>
-          </div>
-
-          <!-- FAQ 3 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Garantisci la riservatezza dei miei documenti (NDA)?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              Assolutamente sì. Tutti i testi, documenti e comunicazioni ricevuti sono trattati con la massima riservatezza secondo le normative privacy (GDPR). Su richiesta sottoscrivo volentieri un accordo di non divulgazione (NDA).
-            </div>
-          </div>
-
-          <!-- FAQ 4 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Quali sono i tempi medi di consegna?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              La capacità media quotidiana di traduzione professionale è di circa **1.500 - 2.000 parole al giorno**, esclusi la fase iniziale di analisi e il controllo qualità finale. Per progetti urgenti è possibile richiedere la modalità Express.
-            </div>
-          </div>
-
-          <!-- FAQ 5 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Che cos'è un CAT Tool e perché è un vantaggio per il cliente?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              Un CAT Tool (Computer-Assisted Translation tool) non è una traduzione automatica! È un software professionale che memorizza le frasi tradotte in una **Memoria di Traduzione**. Ciò assicura che i termini aziendali siano sempre tradotti in modo identico nel tempo e permette sconti sulle frasi ripetute.
-            </div>
-          </div>
-
-          <!-- FAQ 6 -->
-          <div class="faq-item">
-            <button class="faq-trigger">
-              <span>Fornisci anche servizi di Post-Editing (PEMT)?</span>
-              <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
-              Sì, offro servizi di Post-Editing sia *Light* che *Full* per revisionare bozze generate da sistemi di traduzione automatica (DeepL, Google Translate), rendendole fluide, corrette e adatte all'uso professionale.
-            </div>
+          <div class="space-y-4">
+            {{ range . }}
+              <div class="faq-item">
+                <button class="faq-trigger">
+                  <span>{{ .question }}</span>
+                  <svg class="faq-chevron w-5 h-5 text-primary dark:text-darkmode-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-content text-sm text-text-light dark:text-darkmode-text-light leading-relaxed">
+                  {{ .answer | markdownify }}
+                </div>
+              </div>
+            {{ end }}
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {{ end }}
   <!-- /Interactive FAQ Accordion -->
 
   <!-- Call to action -->

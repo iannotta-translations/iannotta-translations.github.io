@@ -1,0 +1,113 @@
+{
+  "stats": [
+    {
+      "value": "500k+",
+      "label": "Parole Tradotte"
+    },
+    {
+      "value": "100%",
+      "label": "Consegne in Tempo"
+    },
+    {
+      "value": "3+",
+      "label": "Anni di Esperienza"
+    },
+    {
+      "value": "EN / FR",
+      "label": "Verso l'Italiano (IT)"
+    }
+  ],
+  "calculator": {
+    "default_words": 1500,
+    "min_fee": 25,
+    "rates": {
+      "translation": 0.08,
+      "localization": 0.09,
+      "revision": 0.04,
+      "postediting": 0.05
+    },
+    "language_multipliers": {
+      "en-it": 1.0,
+      "fr-it": 1.0
+    },
+    "urgency_multipliers": {
+      "standard": 1.0,
+      "express": 1.3
+    }
+  },
+  "workflow": [
+    {
+      "step": 1,
+      "title": "Analisi & NDA",
+      "description": "Esame del testo, conteggio parole, analisi del target e sottoscrizione NDA se richiesta."
+    },
+    {
+      "step": 2,
+      "title": "Glossari & TM",
+      "description": "Creazione o consultazione di memorie di traduzione e glossari terminologici specifici."
+    },
+    {
+      "step": 3,
+      "title": "Traduzione",
+      "description": "Stesura accurata con rispetto del tono di voce, registro e convenzioni culturali italiane."
+    },
+    {
+      "step": 4,
+      "title": "Proofreading",
+      "description": "Controllo ortografico, sintattico, impaginazione e verifica di coerenza numerica."
+    },
+    {
+      "step": 5,
+      "title": "Consegna & Supporto",
+      "description": "Invio nei tempi concordati con disponibilità per revisioni finali o integrazioni."
+    }
+  ],
+  "cat_tools": [
+    {
+      "name": "SDL Trados Studio",
+      "description": "Gestione avanzata di Memorie di Traduzione (TM), pacchetti di progetto e pacchetti di ritorno per grandi agenzie.",
+      "color": "blue"
+    },
+    {
+      "name": "MemoQ",
+      "description": "Perfetto per il controllo qualità in tempo reale, gestione di terminologia complessa e moduli di verifica QA.",
+      "color": "indigo"
+    },
+    {
+      "name": "Phrase (Memsource)",
+      "description": "Piattaforma cloud per progetti collaborativi in tempo reale e gestione coordinata di traduzioni aziendali.",
+      "color": "teal"
+    },
+    {
+      "name": "Localizzazione Code & UI",
+      "description": "Gestione diretta di file di codice (.json, .po, .xml, .xliff, .markdown) senza alterare il codice dell'app.",
+      "color": "amber"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Come viene calcolato il prezzo di una traduzione?",
+      "answer": "La tariffa base si calcola generalmente **a parola del testo sorgente** (testo di partenza). Il costo finale può variare in base alla complessità del linguaggio (tecnico, legale, medico), alla combinazione linguistica e all'eventuale urgenza della consegna."
+    },
+    {
+      "question": "Quali formati di file puoi gestire?",
+      "answer": "Posso lavorare su quasi qualsiasi formato standard: **Microsoft Word (.docx)**, **PDF**, **Excel**, **PowerPoint**, file di traduzione **XLIFF**, file di codice per siti/software (**JSON, PO, XML, HTML, Markdown**)."
+    },
+    {
+      "question": "Garantisci la riservatezza dei miei documenti (NDA)?",
+      "answer": "Assolutamente sì. Tutti i testi, documenti e comunicazioni ricevuti sono trattati con la massima riservatezza secondo le normative privacy (GDPR). Su richiesta sottoscrivo volentieri un accordo di non divulgazione (NDA)."
+    },
+    {
+      "question": "Quali sono i tempi medi di consegna?",
+      "answer": "La capacità media quotidiana di traduzione professionale è di circa **1.500 - 2.000 parole al giorno**, esclusi la fase iniziale di analisi e il controllo qualità finale. Per progetti urgenti è possibile richiedere la modalità Express."
+    },
+    {
+      "question": "Che cos'è un CAT Tool e perché è un vantaggio per il cliente?",
+      "answer": "Un CAT Tool (Computer-Assisted Translation tool) non è una traduzione automatica! È un software professionale che memorizza le frasi tradotte in una **Memoria di Traduzione**. Ciò assicura che i termini aziendali siano sempre tradotti in modo identico nel tempo e permette sconti sulle frasi ripetute."
+    },
+    {
+      "question": "Fornisci anche servizi di Post-Editing (PEMT)?",
+      "answer": "Sì, offro servizi di Post-Editing sia *Light* che *Full* per revisionare bozze generate da sistemi di traduzione automatica (DeepL, Google Translate), rendendole fluide, corrette e adatte all'uso professionale."
+    }
+  ]
+}

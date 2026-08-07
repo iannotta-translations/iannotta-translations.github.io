@@ -33,8 +33,18 @@ function initQuoteCalculator() {
 
   if (!wordCountInput || !priceDisplay) return;
 
+  const calcCard = document.querySelector('.calculator-card');
+  let dynamicConfig = null;
+  if (calcCard && calcCard.dataset.calcConfig) {
+    try {
+      dynamicConfig = JSON.parse(calcCard.dataset.calcConfig);
+    } catch (e) {
+      console.warn('Failed to parse calcConfig:', e);
+    }
+  }
+
   // Base rates per word (€)
-  const serviceRates = {
+  const serviceRates = (dynamicConfig && dynamicConfig.rates) || {
     translation: 0.08,    // Traduzione Specialistica
     localization: 0.09,   // Localizzazione Web & Software
     revision: 0.04,       // Revisione & Proofreading
@@ -42,7 +52,7 @@ function initQuoteCalculator() {
   };
 
   // Language multipliers
-  const langMultipliers = {
+  const langMultipliers = (dynamicConfig && dynamicConfig.language_multipliers) || {
     'en-it': 1.0,
     'fr-it': 1.0,
     'it-en': 1.1,
@@ -50,10 +60,12 @@ function initQuoteCalculator() {
   };
 
   // Urgency multipliers
-  const urgencyMultipliers = {
+  const urgencyMultipliers = (dynamicConfig && dynamicConfig.urgency_multipliers) || {
     standard: 1.0,
     express: 1.3
   };
+
+  const minProjectFee = (dynamicConfig && dynamicConfig.min_fee) || 25;
 
   function updateCalculation() {
     let words = parseInt(wordCountInput.value) || 0;
@@ -71,8 +83,7 @@ function initQuoteCalculator() {
     let totalPrice = Math.round(words * effectiveRate);
     
     // Minimum project fee
-    const minFee = 25;
-    if (totalPrice < minFee) totalPrice = minFee;
+    if (totalPrice < minProjectFee) totalPrice = minProjectFee;
 
     // Estimate turnaround days (approx 1500-2000 words/day)
     let days = Math.ceil(words / (urgency === 'express' ? 3000 : 1800));

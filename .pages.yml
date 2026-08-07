@@ -1,0 +1,126 @@
+# Pages CMS Configuration (https://pagescms.org)
+# Configurazione per la modifica no-code del portfolio di Alessia Iannotta
+
+media:
+  input: static/images
+  output: /images
+
+content:
+  - name: homepage_content
+    label: "PAGINA HOME — Testi principali & Servizi"
+    type: file
+    file: content/_index.md
+    fields:
+      - name: banner
+        label: "Hero / Banner Principale"
+        type: object
+        fields:
+          - name: title
+            label: "Titolo di Copertina"
+            type: string
+          - name: content
+            label: "Sottotitolo / Descrizione"
+            type: text
+          - name: image
+            label: "Immagine Copertina"
+            type: image
+      - name: features
+        label: "Sezioni Servizi in Homepage"
+        type: list
+        fields:
+          - name: title
+            label: "Titolo Sezione"
+            type: string
+          - name: content
+            label: "Descrizione"
+            type: text
+          - name: image
+            label: "Immagine"
+            type: image
+          - name: bulletpoints
+            label: "Punti Elenco (Bulletpoints)"
+            type: list
+            field:
+              type: string
+
+  - name: homepage_data
+    label: "PAGINA HOME — FAQ, Tariffe, Statistiche, CAT Tools"
+    type: file
+    file: data/homepage.json
+    fields:
+      - name: stats
+        label: "Numeri & Statistiche (Banner)"
+        type: list
+        fields:
+          - name: value
+            label: "Valore (es. 500k+)"
+            type: string
+          - name: label
+            label: "Etichetta (es. Parole Tradotte)"
+            type: string
+
+      - name: calculator
+        label: "Calcolatore Preventivo"
+        type: object
+        fields:
+          - name: default_words
+            label: "Parole Predefinite (es. 1500)"
+            type: number
+          - name: min_fee
+            label: "Prezzo Minimo Progetto (€)"
+            type: number
+
+      - name: faqs
+        label: "Domande Frequenti (FAQ Accordion)"
+        type: list
+        fields:
+          - name: question
+            label: "Domanda"
+            type: string
+          - name: answer
+            label: "Risposta (supporta Markdown)"
+            type: text
+
+      - name: cat_tools
+        label: "Strumenti & CAT Tools"
+        type: list
+        fields:
+          - name: name
+            label: "Nome Strumento"
+            type: string
+          - name: description
+            label: "Descrizione"
+            type: text
+
+  - name: about_page
+    label: "PAGINA CHI SONO — Biografia"
+    type: file
+    file: content/about/_index.md
+    fields:
+      - name: title
+        label: "Titolo Pagina"
+        type: string
+      - name: description
+        label: "Meta Descrizione SEO"
+        type: text
+      - name: image
+        label: "Foto Profilo"
+        type: image
+      - name: body
+        label: "Testo Biografico (Markdown)"
+        type: rich-text
+
+  - name: contact_page
+    label: "PAGINA CONTATTI — Testi"
+    type: file
+    file: content/contact/_index.md
+    fields:
+      - name: title
+        label: "Titolo Pagina"
+        type: string
+      - name: description
+        label: "Meta Descrizione SEO"
+        type: text
+      - name: body
+        label: "Testo Introduttivo"
+        type: rich-text
