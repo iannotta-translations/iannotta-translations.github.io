@@ -22,7 +22,6 @@
     }
   </script>
   <style>
-    /* Exact Custom Site Styles */
     html { scroll-behavior: smooth; }
 
     .btn-primary {
@@ -117,7 +116,6 @@
       box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
     }
 
-    /* Editable Section Controls */
     .editable-section {
       position: relative;
       border: 2px dashed transparent;
@@ -156,7 +154,7 @@
             <h1 class="text-sm font-bold tracking-tight">Editor Visuale Fedele 100%</h1>
             <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Live Replica</span>
           </div>
-          <p class="text-xs text-slate-400">Clicca su qualsiasi sezione per modificarla in tempo reale</p>
+          <p class="text-xs text-slate-400">Clicca su qualsiasi sezione per modificarla o gestirne i dati</p>
         </div>
       </div>
 
@@ -193,7 +191,7 @@
     <p class="mt-4 text-sm font-medium text-slate-500">Caricamento anteprima fedele del sito da GitHub...</p>
   </div>
 
-  <!-- MAIN CANVAS (100% FAITHFUL REPLICA) -->
+  <!-- MAIN CANVAS -->
   <main id="main-canvas" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- PAGE 1: HOMEPAGE REPLICA -->
@@ -357,7 +355,7 @@
 
     </div>
 
-    <!-- PAGE 2: ABOUT REPLICA (DETAILED EDITING) -->
+    <!-- PAGE 2: ABOUT REPLICA (DETAILED EDITING FOR FORMAZIONE & VALORI GUIDA) -->
     <div id="page-view-about" class="hidden space-y-8">
       <div class="editable-section bg-white dark:bg-slate-800 p-8 md:p-10 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
         <div class="edit-overlay space-x-2">
@@ -414,7 +412,14 @@
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold flex items-center gap-2"><span>🎓</span> Formazione & Certificazioni</h3>
-                <button onclick="addEducationItem()" class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Titolo</button>
+                <div class="flex space-x-2">
+                  <button onclick="openEditEducationModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+                    ✏️ Modifica Formazione
+                  </button>
+                  <button onclick="addEducationItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">
+                    ➕ Aggiungi Titolo
+                  </button>
+                </div>
               </div>
               <div id="view-about-education" class="space-y-4">
                 <!-- Education items -->
@@ -425,7 +430,14 @@
             <div class="pt-6 border-t border-slate-200">
               <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold flex items-center gap-2"><span>🌟</span> I Miei Valori Guida</h3>
-                <button onclick="addCoreValueItem()" class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">➕ Aggiungi Valore</button>
+                <div class="flex space-x-2">
+                  <button onclick="openEditCoreValuesModal()" class="px-3 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+                    ✏️ Modifica Valori
+                  </button>
+                  <button onclick="addCoreValueItem()" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow">
+                    ➕ Aggiungi Valore
+                  </button>
+                </div>
               </div>
               <div id="view-about-values" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Core values items -->
@@ -666,9 +678,9 @@
         if (aboutData.education) {
           const eduGrid = document.getElementById('view-about-education');
           eduGrid.innerHTML = '';
-          aboutData.education.forEach(ed => {
+          aboutData.education.forEach((ed, idx) => {
             eduGrid.innerHTML += `
-              <div class="feature-card border-l-4 border-l-blue-900 space-y-1">
+              <div class="feature-card border-l-4 border-l-blue-900 space-y-1 relative group">
                 <div class="flex justify-between items-start">
                   <h4 class="font-bold text-sm">${ed.title}</h4>
                   <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-900">${ed.category}</span>
@@ -683,9 +695,9 @@
         if (aboutData.core_values) {
           const valGrid = document.getElementById('view-about-values');
           valGrid.innerHTML = '';
-          aboutData.core_values.forEach(v => {
+          aboutData.core_values.forEach((v, idx) => {
             valGrid.innerHTML += `
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1">
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border space-y-1 relative group">
                 <div class="text-xl mb-1">${v.icon}</div>
                 <h4 class="font-bold text-sm">${v.title}</h4>
                 <p class="text-xs text-slate-500">${v.description}</p>
@@ -817,6 +829,48 @@
       });
     }
 
+    function openEditEducationModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      if (!aboutData.education) aboutData.education = [];
+      aboutData.education.forEach((ed, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold text-blue-900">
+              <span>Titolo #${idx+1}</span>
+              <button onclick="removeEducationItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
+            <div>
+              <label class="font-semibold">Titolo Formazione:</label>
+              <input type="text" id="edit-edu-t-${idx}" value="${escapeHtml(ed.title)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Categoria / Badge:</label>
+              <input type="text" id="edit-edu-c-${idx}" value="${escapeHtml(ed.category)}" class="w-full p-1.5 border rounded">
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-edu-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(ed.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Formazione & Certificazioni', html, () => {
+        aboutData.education.forEach((ed, idx) => {
+          ed.title = document.getElementById(`edit-edu-t-${idx}`).value;
+          ed.category = document.getElementById(`edit-edu-c-${idx}`).value;
+          ed.description = document.getElementById(`edit-edu-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
+    function removeEducationItem(idx) {
+      aboutData.education.splice(idx, 1);
+      openEditEducationModal();
+    }
+
     function addEducationItem() {
       if (!aboutData.education) aboutData.education = [];
       aboutData.education.push({
@@ -825,7 +879,51 @@
         description: "Descrizione del percorso o titolo..."
       });
       renderLiveCanvas();
-      showToast('➕ Titolo aggiunto alla formazione!', 'success');
+      openEditEducationModal();
+    }
+
+    function openEditCoreValuesModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      if (!aboutData.core_values) aboutData.core_values = [];
+      aboutData.core_values.forEach((v, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold text-blue-900">
+              <span>Valore #${idx+1}</span>
+              <button onclick="removeCoreValueItem(${idx})" class="text-red-500 text-[11px]">🗑️ Elimina</button>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <label class="font-semibold">Icona Emoji:</label>
+                <input type="text" id="edit-val-i-${idx}" value="${escapeHtml(v.icon)}" class="w-full p-1.5 border rounded text-center text-base">
+              </div>
+              <div class="col-span-3">
+                <label class="font-semibold">Titolo Valore:</label>
+                <input type="text" id="edit-val-t-${idx}" value="${escapeHtml(v.title)}" class="w-full p-1.5 border rounded font-bold">
+              </div>
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-val-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(v.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('✏️ Modifica Valori Guida', html, () => {
+        aboutData.core_values.forEach((v, idx) => {
+          v.icon = document.getElementById(`edit-val-i-${idx}`).value;
+          v.title = document.getElementById(`edit-val-t-${idx}`).value;
+          v.description = document.getElementById(`edit-val-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
+    function removeCoreValueItem(idx) {
+      aboutData.core_values.splice(idx, 1);
+      openEditCoreValuesModal();
     }
 
     function addCoreValueItem() {
@@ -836,7 +934,7 @@
         description: "Descrizione del principio guida..."
       });
       renderLiveCanvas();
-      showToast('➕ Valore aggiunto!', 'success');
+      openEditCoreValuesModal();
     }
 
     function openEditStatsModal() {
@@ -909,7 +1007,7 @@
         description: "Descrizione del processo..."
       });
       renderLiveCanvas();
-      showToast('➕ Step aggiunto!', 'success');
+      openEditWorkflowModal();
     }
 
     function openEditWorkflowModal() {
@@ -953,7 +1051,7 @@
       if (!homepageData.cat_tools) homepageData.cat_tools = [];
       homepageData.cat_tools.push({ name: "Nuovo Software", description: "Descrizione strumento..." });
       renderLiveCanvas();
-      showToast('➕ Software aggiunto!', 'success');
+      openEditCatToolsModal();
     }
 
     function openEditCatToolsModal() {
@@ -996,7 +1094,7 @@
       if (!homepageData.faqs) homepageData.faqs = [];
       homepageData.faqs.push({ question: "Nuova Domanda FAQ", answer: "Risposta..." });
       renderLiveCanvas();
-      showToast('➕ Domanda FAQ aggiunta!', 'success');
+      openEditFaqModal();
     }
 
     function openEditFaqModal() {
@@ -1046,7 +1144,7 @@
         bulletpoints: ["Caratteristica 1", "Caratteristica 2"]
       });
       renderLiveCanvas();
-      showToast('➕ Servizio aggiunto!', 'success');
+      openEditServicesModal();
     }
 
     function openEditServicesModal() {
