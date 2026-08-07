@@ -9,7 +9,7 @@
       "label": "Consegne in Tempo"
     },
     {
-      "value": "3+",
+      "value": "2+",
       "label": "Anni di Esperienza"
     },
     {
@@ -21,10 +21,10 @@
     "default_words": 1500,
     "min_fee": 25,
     "rates": {
-      "translation": 0.08,
-      "localization": 0.09,
-      "revision": 0.04,
-      "postediting": 0.05
+      "translation": 0.05,
+      "localization": 0.07,
+      "revision": 0.03,
+      "postediting": 0.04
     },
     "language_multipliers": {
       "en-it": 1,
@@ -38,12 +38,12 @@
   "workflow": [
     {
       "step": 1,
-      "title": "Analisi & NDA",
+      "title": "Analisi e NDA",
       "description": "Esame del testo, conteggio parole, analisi del target e sottoscrizione NDA se richiesta."
     },
     {
       "step": 2,
-      "title": "Glossari & TM",
+      "title": "Glossari e TM",
       "description": "Creazione o consultazione di memorie di traduzione e glossari terminologici specifici."
     },
     {
@@ -72,11 +72,6 @@
       "name": "MemoQ",
       "description": "Perfetto per il controllo qualità in tempo reale, gestione di terminologia complessa e moduli di verifica QA.",
       "color": "indigo"
-    },
-    {
-      "name": "Phrase (Memsource)",
-      "description": "Piattaforma cloud per progetti collaborativi in tempo reale e gestione coordinata di traduzioni aziendali.",
-      "color": "teal"
     },
     {
       "name": "Localizzazione Code & UI",

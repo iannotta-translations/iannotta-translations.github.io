@@ -1,7 +1,7 @@
 ---
 # Banner
 banner:
-  title: "Traduzione & Localizzazione Professionale"
+  title: "Traduzione e Localizzazione Professionale"
   content: "Rendo la tua comunicazione impeccabile ed efficace in Italiano. Specializzata in traduzioni dall'Inglese e dal Francese verso l'Italiano per aziende, agenzie e clienti privati."
   image: "/images/banner.png"
   button:
