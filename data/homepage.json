@@ -27,11 +27,11 @@
       "postediting": 0.05
     },
     "language_multipliers": {
-      "en-it": 1.0,
-      "fr-it": 1.0
+      "en-it": 1,
+      "fr-it": 1
     },
     "urgency_multipliers": {
-      "standard": 1.0,
+      "standard": 1,
       "express": 1.3
     }
   },
@@ -99,15 +99,15 @@
     },
     {
       "question": "Quali sono i tempi medi di consegna?",
-      "answer": "La capacità media quotidiana di traduzione professionale è di circa **1.500 - 2.000 parole al giorno**, esclusi la fase iniziale di analisi e il controllo qualità finale. Per progetti urgenti è possibile richiedere la modalità Express."
+      "answer": "La capacità media quotidiana di traduzione professionale è di circa **1.500 - 1.800 parole al giorno**, esclusi la fase iniziale di analisi e il controllo qualità finale. Per progetti urgenti è possibile richiedere la modalità **Express**."
     },
     {
-      "question": "Che cos'è un CAT Tool e perché è un vantaggio per il cliente?",
-      "answer": "Un CAT Tool (Computer-Assisted Translation tool) non è una traduzione automatica! È un software professionale che memorizza le frasi tradotte in una **Memoria di Traduzione**. Ciò assicura che i termini aziendali siano sempre tradotti in modo identico nel tempo e permette sconti sulle frasi ripetute."
+      "question": "Che cos'è un CAT tool e perché è un vantaggio per il cliente?",
+      "answer": "Un CAT tool (Computer-Assisted Translation tool) non è una traduzione automatica! È un software professionale che memorizza le frasi tradotte in una **memoria di traduzione**. Ciò assicura che i termini aziendali siano sempre tradotti in modo identico nel tempo e permette sconti sulle frasi ripetute."
     },
     {
-      "question": "Fornisci anche servizi di Post-Editing (PEMT)?",
-      "answer": "Sì, offro servizi di Post-Editing sia *Light* che *Full* per revisionare bozze generate da sistemi di traduzione automatica (DeepL, Google Translate), rendendole fluide, corrette e adatte all'uso professionale."
+      "question": "Fornisci anche servizi di machine translation post-editing (MTPE)?",
+      "answer": "Sì, offro servizi di post-editing sia *light* che *full* per revisionare bozze generate da sistemi di traduzione automatica (DeepL, Google Translate), rendendole fluide, corrette e adatte all'uso professionale."
     }
   ]
 }
