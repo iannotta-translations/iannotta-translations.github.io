@@ -2,7 +2,7 @@
 title: "Chi Sono - Alessia Iannotta"
 meta_title: "Chi Sono | Alessia Iannotta Traduttrice Freelance"
 description: "Profilo professionale di Alessia Iannotta, traduttrice freelance EN-IT e FR-IT."
-image: "/images/image-placeholder.png"
+image: "/images/alessia-profile.png"
 layout: "about"
 draft: false
 ---
