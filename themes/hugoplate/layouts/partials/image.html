@@ -1,0 +1,11 @@
+{{ $src := .Src }}
+{{ $alt := .Alt | default "" }}
+{{ $class := .Class | default "" }}
+
+{{ if $src }}
+  <img
+    src="{{ $src | relURL }}"
+    alt="{{ $alt }}"
+    class="{{ $class }}"
+    loading="lazy" />
+{{ end }}

@@ -1,0 +1,7 @@
+################ Italian language ##################
+[it]
+label = "IT"
+locale = "it-it"
+contentDir = "content"
+weight = 1
+
