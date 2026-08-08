@@ -178,9 +178,8 @@
 
       <!-- Page Switcher -->
       <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
-        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">Homepage</button>
+        <button onclick="switchViewPage('home')" id="page-nav-home" class="px-3.5 py-1.5 rounded-lg bg-blue-700 text-white shadow">Homepage & Portfolio</button>
         <button onclick="switchViewPage('about')" id="page-nav-about" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Chi Sono</button>
-        <button onclick="switchViewPage('services')" id="page-nav-services" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Servizi</button>
         <button onclick="switchViewPage('contact')" id="page-nav-contact" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white">Contatti & Social</button>
       </div>
 
@@ -255,6 +254,25 @@
         </div>
 
         <div id="view-stats-grid" class="flex flex-wrap justify-center gap-6 text-center px-6"></div>
+      </div>
+
+      <!-- PORTFOLIO SAMPLES SHOWCASE SECTION -->
+      <div class="editable-section bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="edit-overlay space-x-2">
+          <button onclick="addPortfolioSampleItem()" class="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            + Aggiungi Campione
+          </button>
+          <button onclick="openEditPortfolioSamplesModal()" class="px-3.5 py-1.5 bg-blue-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
+            Modifica Vetrina Portfolio
+          </button>
+        </div>
+
+        <div class="text-center mb-8">
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/10 text-blue-900">Vetrina & Competenze</span>
+          <h2 class="text-2xl font-bold mt-2">Campioni & Ambiti di Traduzione</h2>
+        </div>
+
+        <div id="view-portfolio-samples-grid" class="flex flex-wrap justify-center gap-6"></div>
       </div>
 
       <!-- CALCULATOR SECTION -->
@@ -602,6 +620,25 @@
             </div>
           `;
         });
+      }
+
+      // 2.5 Portfolio Samples
+      if (homepageData && homepageData.portfolio_samples) {
+        const psGrid = document.getElementById('view-portfolio-samples-grid');
+        if (psGrid) {
+          psGrid.innerHTML = '';
+          homepageData.portfolio_samples.forEach(ps => {
+            psGrid.innerHTML += `
+              <div class="feature-card p-5 space-y-2 flex-1 min-w-[260px] max-w-[340px] flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-100 text-blue-900">${ps.category}</span>
+                  <h4 class="font-bold text-sm mt-2">${ps.title}</h4>
+                  <p class="text-xs text-slate-500 mt-1 leading-relaxed">${ps.description}</p>
+                </div>
+              </div>
+            `;
+          });
+        }
       }
 
       // 3. Calculator
@@ -974,6 +1011,59 @@
       aboutData.core_values.push({ title: "Nuovo Valore", description: "Descrizione..." });
       renderLiveCanvas();
       openEditCoreValuesModal();
+    }
+
+    function addPortfolioSampleItem() {
+      if (!homepageData.portfolio_samples) homepageData.portfolio_samples = [];
+      homepageData.portfolio_samples.push({
+        title: "Nuovo Campione / Progetto",
+        category: "Specializzazione",
+        description: "Descrizione del campione..."
+      });
+      renderLiveCanvas();
+      openEditPortfolioSamplesModal();
+    }
+
+    function openEditPortfolioSamplesModal() {
+      let html = '<div class="space-y-4 max-h-96 overflow-y-auto">';
+      if (!homepageData.portfolio_samples) homepageData.portfolio_samples = [];
+      homepageData.portfolio_samples.forEach((ps, idx) => {
+        html += `
+          <div class="p-3 border rounded-xl space-y-2 text-xs">
+            <div class="flex justify-between font-bold text-blue-900">
+              <span>Campione #${idx+1}</span>
+              <button onclick="removePortfolioSampleItem(${idx})" class="text-red-500 text-[11px]">Elimina</button>
+            </div>
+            <div>
+              <label class="font-semibold">Titolo Progetto / Ambito:</label>
+              <input type="text" id="edit-ps-t-${idx}" value="${escapeHtml(ps.title)}" class="w-full p-1.5 border rounded font-bold">
+            </div>
+            <div>
+              <label class="font-semibold">Categoria / Etichetta:</label>
+              <input type="text" id="edit-ps-c-${idx}" value="${escapeHtml(ps.category)}" class="w-full p-1.5 border rounded font-semibold">
+            </div>
+            <div>
+              <label class="font-semibold">Descrizione:</label>
+              <textarea id="edit-ps-d-${idx}" rows="2" class="w-full p-1.5 border rounded">${escapeHtml(ps.description)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      openModal('Modifica Vetrina Portfolio & Campioni', html, () => {
+        homepageData.portfolio_samples.forEach((ps, idx) => {
+          ps.title = document.getElementById(`edit-ps-t-${idx}`).value;
+          ps.category = document.getElementById(`edit-ps-c-${idx}`).value;
+          ps.description = document.getElementById(`edit-ps-d-${idx}`).value;
+        });
+        renderLiveCanvas();
+      });
+    }
+
+    function removePortfolioSampleItem(idx) {
+      homepageData.portfolio_samples.splice(idx, 1);
+      openEditPortfolioSamplesModal();
     }
 
     function openEditStatsModal() {

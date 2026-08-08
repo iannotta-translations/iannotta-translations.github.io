@@ -11,29 +11,23 @@ url = "/about"
 weight = 2
 
 [[main]]
-name = "Servizi"
-url = "/services"
-weight = 3
-
-[[main]]
 name = "Contatti"
 url = "/contact"
-weight = 4
+weight = 3
 
 ############# Footer Navigation ##############
 
 [[footer]]
-name = "Chi Sono"
-url = "/about"
+name = "Home"
+url = "/"
 weight = 1
 
 [[footer]]
-name = "Servizi"
-url = "/services"
+name = "Chi Sono"
+url = "/about"
 weight = 2
 
 [[footer]]
 name = "Contatti"
 url = "/contact"
 weight = 3
-

@@ -1,30 +1,47 @@
 {
   "stats": [
     {
-      "value": "500k+",
-      "label": "Parole Tradotte"
-    },
-    {
-      "value": "100%",
-      "label": "Consegne in Tempo"
-    },
-    {
-      "value": "2+",
-      "label": "Anni di Esperienza"
+      "value": "Laurea M.",
+      "label": "in Traduzione"
     },
     {
       "value": "EN / FR",
       "label": "Verso l'Italiano (IT)"
+    },
+    {
+      "value": "100%",
+      "label": "Rispetto Scadenze"
+    },
+    {
+      "value": "CAT Tools",
+      "label": "Trados, MemoQ, Phrase"
+    }
+  ],
+  "portfolio_samples": [
+    {
+      "title": "Localizzazione Software & UI App",
+      "category": "Informatica & Web",
+      "description": "Traduzione e adattamento diretto di stringhe di interfaccia utente (.json, .po, .xliff) garantendo vincoli di lunghezza e chiarezza per l'utente finale."
+    },
+    {
+      "title": "Marketing & Adattamento E-Commerce",
+      "category": "Comunicazione",
+      "description": "Adattamento del registro e dello stile di brand internazionali per il pubblico italiano, mantenendo efficacia persuasiva e naturalezza sintattica."
+    },
+    {
+      "title": "Documentazione Specialistica",
+      "category": "Tecnica",
+      "description": "Traduzione accurata di manuali d'uso, schede tecniche e comunicati aziendali con creazione di glossari terminologici personalizzati."
     }
   ],
   "calculator": {
     "default_words": 1500,
     "min_fee": 25,
     "rates": {
-      "translation": 0.05,
-      "localization": 0.07,
-      "revision": 0.03,
-      "postediting": 0.04
+      "translation": 0.08,
+      "localization": 0.09,
+      "revision": 0.04,
+      "postediting": 0.05
     },
     "language_multipliers": {
       "en-it": 1,
@@ -38,71 +55,64 @@
   "workflow": [
     {
       "step": 1,
-      "title": "Analisi e NDA",
-      "description": "Esame del testo, conteggio parole, analisi del target e sottoscrizione NDA se richiesta."
+      "title": "Analisi del Testo",
+      "description": "Valutazione del dominio, registro, conteggio parole e sottoscrizione NDA se richiesta."
     },
     {
       "step": 2,
-      "title": "Glossari e TM",
-      "description": "Creazione o consultazione di memorie di traduzione e glossari terminologici specifici."
+      "title": "Glossari & TM",
+      "description": "Consultazione o creazione di memorie di traduzione e glossari di settore."
     },
     {
       "step": 3,
-      "title": "Traduzione",
-      "description": "Stesura accurata con rispetto del tono di voce, registro e convenzioni culturali italiane."
+      "title": "Traduzione & Adattamento",
+      "description": "Stesura accurata con naturalezza espressiva e massima precisione terminologica."
     },
     {
       "step": 4,
-      "title": "Proofreading",
-      "description": "Controllo ortografico, sintattico, impaginazione e verifica di coerenza numerica."
+      "title": "Revisione Quality Assurance",
+      "description": "Controllo ortografico, sintattico e verifica della coerenza con gli standard linguistici."
     },
     {
       "step": 5,
-      "title": "Consegna & Supporto",
-      "description": "Invio nei tempi concordati con disponibilità per revisioni finali o integrazioni."
+      "title": "Consegna Puntuale",
+      "description": "Invio del progetto nei tempi concordati con disponibilità per supporto ed integrazioni."
     }
   ],
   "cat_tools": [
     {
       "name": "SDL Trados Studio",
-      "description": "Gestione avanzata di Memorie di Traduzione (TM), pacchetti di progetto e pacchetti di ritorno per grandi agenzie.",
-      "color": "blue"
+      "description": "Gestione avanzata di Memorie di Traduzione (TM), pacchetti di progetto e pacchetti di ritorno."
     },
     {
       "name": "MemoQ",
-      "description": "Perfetto per il controllo qualità in tempo reale, gestione di terminologia complessa e moduli di verifica QA.",
-      "color": "indigo"
+      "description": "Controllo qualità in tempo reale, gestione di terminologia complessa e moduli QA."
+    },
+    {
+      "name": "Phrase (Memsource)",
+      "description": "Piattaforma cloud per progetti collaborativi in tempo reale e gestione coordinata."
     },
     {
       "name": "Localizzazione Code & UI",
-      "description": "Gestione diretta di file di codice (.json, .po, .xml, .xliff, .markdown) senza alterare il codice dell'app.",
-      "color": "amber"
+      "description": "Gestione diretta di file di codice (.json, .po, .xml, .xliff, .markdown) senza alterare il codice dell'app."
     }
   ],
   "faqs": [
     {
-      "question": "Come viene calcolato il prezzo di una traduzione?",
-      "answer": "La tariffa base si calcola generalmente **a parola del testo sorgente** (testo di partenza). Il costo finale può variare in base alla complessità del linguaggio (tecnico, legale, medico), alla combinazione linguistica e all'eventuale urgenza della consegna."
+      "question": "Qual è il tuo background di studi?",
+      "answer": "Ho conseguito la **Laurea Magistrale in Interpretariato e Traduzione**, sviluppando una solida preparazione accademica e pratica nell'adattamento linguistico dall'Inglese e dal Francese verso l'Italiano."
+    },
+    {
+      "question": "Sei disponibile per collaborazioni con agenzie di traduzione?",
+      "answer": "Sì, collaboro volentieri sia con agenzie di traduzione internazionali che con aziende per progetti continui o singoli incarichi freelance."
     },
     {
       "question": "Quali formati di file puoi gestire?",
-      "answer": "Posso lavorare su quasi qualsiasi formato standard: **Microsoft Word (.docx)**, **PDF**, **Excel**, **PowerPoint**, file di traduzione **XLIFF**, file di codice per siti/software (**JSON, PO, XML, HTML, Markdown**)."
+      "answer": "Posso lavorare direttamente su file **Microsoft Office (.docx, .xlsx, .pptx)**, file di traduzione **.xliff**, file per lo sviluppo software e web (**JSON, PO, XML, HTML, Markdown**)."
     },
     {
-      "question": "Garantisci la riservatezza dei miei documenti (NDA)?",
-      "answer": "Assolutamente sì. Tutti i testi, documenti e comunicazioni ricevuti sono trattati con la massima riservatezza secondo le normative privacy (GDPR). Su richiesta sottoscrivo volentieri un accordo di non divulgazione (NDA)."
-    },
-    {
-      "question": "Quali sono i tempi medi di consegna?",
-      "answer": "La capacità media quotidiana di traduzione professionale è di circa **1.500 - 1.800 parole al giorno**, esclusi la fase iniziale di analisi e il controllo qualità finale. Per progetti urgenti è possibile richiedere la modalità **Express**."
-    },
-    {
-      "question": "Che cos'è un CAT tool e perché è un vantaggio per il cliente?",
-      "answer": "Un CAT tool (Computer-Assisted Translation tool) non è una traduzione automatica! È un software professionale che memorizza le frasi tradotte in una **memoria di traduzione**. Ciò assicura che i termini aziendali siano sempre tradotti in modo identico nel tempo e permette sconti sulle frasi ripetute."
-    },
-    {
-      "question": "Fornisci anche servizi di machine translation post-editing (MTPE)?",
-      "answer": "Sì, offro servizi di post-editing sia *light* che *full* per revisionare bozze generate da sistemi di traduzione automatica (DeepL, Google Translate), rendendole fluide, corrette e adatte all'uso professionale."
+      "question": "Sottoscrivi accordi di riservatezza (NDA)?",
+      "answer": "Assolutamente sì. Garantisco la massima riservatezza su tutti i materiali e documenti ricevuti e sottoscrivo volentieri accordi NDA prima della visione dei file."
     }
   ]
 }

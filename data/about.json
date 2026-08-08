@@ -1,66 +1,52 @@
 {
-  "title": "Chi Sono",
-  "meta_title": "Chi Sono | Alessia Iannotta — Traduttrice Freelance EN/FR ➔ IT",
-  "description": "Profilo professionale di Alessia Iannotta: traduzione specialistica, localizzazione web e revisione testo dall'Inglese e Francese verso l'Italiano.",
+  "title": "Chi Sono — Alessia Iannotta",
   "image": "/images/alessia-profile.png",
-  "bio": "Mi chiamo **Alessia Iannotta** e sono una traduttrice e localizzatrice freelance **madrelingua italiana**, specializzata nelle combinazioni linguistiche dall'**inglese** e dal **francese** verso l'**italiano**.\n\nLa mia missione professionale è garantire che la comunicazione della tua azienda o agenzia risulti naturale, accurata ed efficace nel mercato italiano, rispettando il tone of voice originale e abbattendo qualsiasi barriera linguistica e culturale.",
+  "bio": "Mi chiamo **Alessia Iannotta** e sono una traduttrice e localizzatrice freelance specializzata nelle combinazioni **Inglese ➔ Italiano** e **Francese ➔ Italiano**.\n\nCon un solido percorso accademico culmine nella **Laurea Magistrale in Interpretariato e Traduzione**, affianco il rigore della ricerca linguistica e terminologica all'uso dei più moderni strumenti informatici di traduzione assistita (CAT Tools).\n\nIl mio obiettivo è offrire ad agenzie di traduzione, aziende ed enti una collaborazione affidabile, precisa e puntuale, garantendo sempre la massima naturalezza sintattica in lingua italiana ed il rispetto rigoroso dei tempi di consegna e degli accordi di riservatezza.",
   "profile_card": {
     "name": "Alessia Iannotta",
-    "role": "Traduttrice freelance EN <> IT | FR <> IT",
-    "location": "Italia - Remoto",
-    "degree": "Laurea magistrale in Interpretariato e Traduzione",
+    "role": "Traduttrice & Localizzatrice Freelance",
+    "location": "Italia (Disponibile in Remoto)",
+    "degree": "Laurea M. Interpretariato e Traduzione",
     "response_time": "Entro 24 ore lavorative"
   },
   "floating_pills": [
     {
-      "flag": "🇬🇧 ➔ 🇮🇹",
-      "label": "EN ➔ IT"
+      "flag": "🇮🇹",
+      "label": "Madrelingua Italiana"
     },
     {
-      "flag": "🇫🇷 ➔ 🇮🇹",
-      "label": "FR ➔ IT"
+      "flag": "🇬🇧 🇫🇷",
+      "label": "EN / FR verso IT"
     }
   ],
   "education": [
     {
-      "title": "Laurea magistrale in Interpretariato e Traduzione",
-      "category": "Universitario",
-      "category_color": "primary",
-      "description": "Formazione approfondita nella traduzione specialistica dall'Inglese e dal Francese verso l'Italiano, con focus su terminologia e linguistica applicata."
+      "title": "Laurea Magistrale in Interpretariato e Traduzione",
+      "category": "Titolo Accademico",
+      "description": "Specializzazione in traduzione specialistica, analisi terminologica, adattamento e localizzazione linguistica."
     },
     {
-      "title": "Licenze CAT tool",
-      "category": "Professionale",
-      "category_color": "emerald",
-      "description": "Piena padronanza di SDL Trados Studio, MemoQ, gestione di Memorie di Traduzione (TM) e database terminologici aziendali."
-    },
-    {
-      "title": "Terminologia e intelligenza artificiale ",
-      "category": "Specializzazione",
-      "category_color": "amber",
-      "description": "Corso di formazione \"Terminologia e intelligenza artificiale\" di STL Formazione. "
+      "title": "Certificazione Avanzata CAT Tools",
+      "category": "Competenza Tecnica",
+      "description": "Padronanza operativa di SDL Trados Studio, MemoQ e Phrase per la gestione di Memorie di Traduzione e Glossari."
     }
   ],
   "core_values": [
     {
-      "icon": "🎯",
-      "title": "Precisione Naturale",
-      "description": "Traduzioni che non sembrano traduzioni, ma testi nativi scritti direttamente in italiano da un professionista."
+      "title": "Accuratezza Terminologica",
+      "description": "Scrupolosa ricerca dei termini specifici per ogni settore e rispetto dello stile del cliente."
     },
     {
-      "icon": "⏱️",
       "title": "Puntualità Assoluta",
-      "description": "Ogni consegna viene effettuata rispettando rigorosamente la data concordata, senza ritardi né eccezioni."
+      "description": "Piena affidabilità nel rispetto delle scadenze e dei tempi di consegna concordati."
     },
     {
-      "icon": "🔒",
-      "title": "Riservatezza Certificata",
-      "description": "Trattamento sicuro dei dati aziendali e disponibilità alla firma immediata di accordi di non divulgazione (NDA)."
+      "title": "Riservatezza & NDA",
+      "description": "Massimo rispetto della privacy aziendale e disponibilità alla firma di accordi di riservatezza."
     },
     {
-      "icon": "🤝",
-      "title": "Comunicazione Diretta",
-      "description": "Relazione trasparente con il cliente, aggiornamenti sullo stato dei lavori e supporto post-consegna incluso."
+      "title": "Flessibilità Collaborativa",
+      "description": "Pronta integrazione nei workflow di lavoro di agenzie e team di localizzazione."
     }
   ]
 }

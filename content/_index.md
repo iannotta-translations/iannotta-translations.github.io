@@ -1,50 +1,38 @@
 ---
 # Banner
 banner:
-  title: "Traduzione e Localizzazione Professionale"
-  content: "Rendo la tua comunicazione impeccabile ed efficace in Italiano. Specializzata in traduzioni dall'Inglese e dal Francese verso l'Italiano per aziende, agenzie e clienti privati."
+  title: "Alessia Iannotta — Traduttrice & Localizzatrice"
+  content: "Laurea Magistrale in Traduzione. Specializzata nell'adattamento linguistico e localizzazione dall'Inglese e dal Francese verso l'Italiano per agenzie, aziende ed organizzazioni."
   image: "/images/banner.png"
   button:
     enable: true
-    label: "Richiedi un Preventivo Gratuito"
+    label: "Contattami per Opportunità"
     link: "/contact"
 
-# Features
+# Features / Portfolio Showcase
 features:
-  - title: "Servizi di Traduzione su Misura"
+  - title: "Ambiti di Specializzazione Linguistica"
     image: "/images/service-1.png"
-    content: "Dalla localizzazione di siti web alla traduzione di documenti tecnici e di marketing, garantisco massima cura del registro e precisione terminologica."
+    content: "Esperienza nell'adattamento di contenuti specialistici con rigoroso rispetto del registro aziendale e delle convenzioni culturali italiane."
     bulletpoints:
-      - "**Traduzione e Adattamento**: EN ↔ IT e FR ↔ IT"
-      - "**Localizzazione Web & Software**: Adattamento culturale e linguistico dell'interfaccia"
-      - "**Revisione & Proofreading**: Controllo qualità, sintassi e stile"
-      - "**Post-Editing MT**: Ottimizzazione di traduzioni automatiche con tocco umano"
+      - "**Localizzazione Web & Software**: Adattamento interfacce UI, app e file di codice (.json, .po, .xml)"
+      - "**Marketing & Comunicazione**: Adattamento creativo del tono di voce per brand ed e-commerce"
+      - "**Traduzione Tecnica & Specialistica**: Manualistica, schede prodotto e documentazione d'impresa"
+      - "**Post-Editing MT**: Revisione di bozze di traduzione automatica con elevato standard qualitativo"
     button:
       enable: true
-      label: "Scopri tutti i Servizi"
-      link: "/services"
-
-  - title: "Combinazioni Linguistiche & Specializzazioni"
-    image: "/images/service-2.png"
-    content: "Ogni settore richiede una profonda conoscenza del linguaggio specifico. Mi occupo di progetti specialistici garantendo coerenza e accuratezza."
-    bulletpoints:
-      - "**Inglese ↔ Italiano** (EN ↔ IT)"
-      - "**Francese ↔ Italiano** (FR ↔ IT)"
-      - "**Settori chiave**: Marketing & Comunicazione, Medico-Scientifico, Legale, Editoriale e IT"
-    button:
-      enable: true
-      label: "Chi Sono"
+      label: "Visualizza Profilo Completo"
       link: "/about"
 
-  - title: "Tecnologia & Garanzia di Qualità"
+  - title: "Formazione & Padronanza Tecnologica"
     image: "/images/service-3.png"
-    content: "Utilizzo i principali CAT Tools del settore per garantire coerenza terminologica, riduzione dei tempi di consegna e massimo rispetto del budget."
+    content: "Formazione universitaria avanzata unita all'impiego quotidiano dei principali CAT Tools del settore per la gestione efficiente dei progetti."
     bulletpoints:
-      - "Utilizzo esperto di **SDL Trados Studio**, **MemoQ** e **Phrase (Memsource)**"
-      - "Creazione e gestione di **Memorie di Traduzione** e **Glossari dedicati**"
+      - "Utilizzo avanzato di **SDL Trados Studio**, **MemoQ** e **Phrase (Memsource)**"
+      - "Creazione e gestione di **Memorie di Traduzione (TM)** e **Glossari terminologici**"
       - "Rispetto rigoroso delle scadenze concordate e massima riservatezza dei dati"
     button:
       enable: true
-      label: "Contattami Ora"
+      label: "Invia un Messaggio"
       link: "/contact"
 ---
