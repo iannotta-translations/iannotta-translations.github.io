@@ -1,6 +1,9 @@
+[exec]
+  allow = ["node", "tailwindcss"]
+
 [node]
   [node.permissions]
     allowAddons = ["tailwindcss"]
     allowChildProcess = ["tailwindcss"]
-    allowRead = [".", "..", "/"]
+    allowRead = [".", ".."]
     allowWorker = ["tailwindcss"]
